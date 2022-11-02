@@ -17,7 +17,7 @@
             android:id="@+id/introductiontext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="press the buttons to do stuff"/>
+            android:text="press the buttons to do the associated things"/>
 
         <Button
             android:id="@+id/setuserinfo"
