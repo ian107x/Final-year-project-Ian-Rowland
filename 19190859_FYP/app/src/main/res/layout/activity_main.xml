@@ -20,7 +20,7 @@
             android:text="press the buttons to do the associated things"/>
 
         <Button
-            android:id="@+id/setuserinfo"
+            android:id="@+id/startgamebutton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -32,7 +32,7 @@
             android:text="press this button to start the game" />
 
         <Button
-            android:id="@+id/getuserinfo"
+            android:id="@+id/viewdatabutton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
