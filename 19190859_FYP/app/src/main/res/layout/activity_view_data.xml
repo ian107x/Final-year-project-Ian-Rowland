@@ -27,7 +27,7 @@
             android:text="data will display here" />
 
         <Button
-            android:id="@+id/setuserinfo"
+            android:id="@+id/viewdatabutton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -39,7 +39,7 @@
             android:text="press this button to view data" />
 
         <Button
-            android:id="@+id/getuserinfo"
+            android:id="@+id/exportdatabutton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"

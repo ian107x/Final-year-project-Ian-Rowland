@@ -5,8 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
 import android.util.Log;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class infoDB {
@@ -23,6 +25,7 @@ public class infoDB {
     public infoDB(Context context){
         this.context = context;
         moduleDBOpenHelper = new ModuleDBOpenHelper(context, ModuleDBOpenHelper.DATABASE_NAME, null, ModuleDBOpenHelper.DATABASE_VERSION);
+
     }
 
     public void addInput(int sessionID, float inputTime, float duration, float pressure, float timeBetween){
@@ -33,6 +36,59 @@ public class infoDB {
         newInput.put(KEY_INPUT_DURATION, duration);
         newInput.put(KEY_INPUT_PRESSURE, pressure);
         newInput.put(KEY_TIME_BETWEEN_TAPS, timeBetween);
+    }
+
+    public void exportDB(){
+        ModuleDBOpenHelper DBHelper = new ModuleDBOpenHelper(context, ModuleDBOpenHelper.DATABASE_NAME, null, ModuleDBOpenHelper.DATABASE_VERSION);
+        File exportDirectory = new File(Environment.getExternalStorageDirectory(), "");
+        if(!exportDirectory.exists()){
+            exportDirectory.mkdirs();
+        }
+        //incomplete - remember to continue working on this.
+    }
+
+    public String[] getAll() {
+
+        ArrayList<String> outputArray = new ArrayList<String>();
+        String[] result_columns = new String[]{
+                KEY_SESSION_ID, KEY_INPUT_TIME, KEY_INPUT_DURATION, KEY_INPUT_PRESSURE, KEY_TIME_BETWEEN_TAPS};
+        int sessionID;
+        float inputTime;
+        float inputDuration;
+        float inputPressure;
+        float timeBetweenTaps;
+
+        float weight;
+        float height;
+        int age;
+        String gender;
+        int stepCount;
+
+        String where = null;
+        String whereArgs[] = null;
+        String groupBy = null;
+        String having = null;
+        String order = null;
+
+        ModuleDBOpenHelper helperDB = new ModuleDBOpenHelper(context, ModuleDBOpenHelper.DATABASE_NAME, null, ModuleDBOpenHelper.DATABASE_VERSION);
+        SQLiteDatabase db = helperDB.getWritableDatabase();
+        Cursor cursor = db.query(ModuleDBOpenHelper.DATABASE_TABLE,
+                result_columns, where,
+                whereArgs, groupBy, having, order);
+        //
+        boolean result = cursor.moveToFirst();
+        while (result) {
+
+            sessionID = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SESSION_ID));
+            inputTime = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_INPUT_TIME));
+            inputDuration = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_INPUT_DURATION));
+            inputPressure = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_INPUT_PRESSURE));
+            timeBetweenTaps = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_TIME_BETWEEN_TAPS));
+
+            outputArray.add(sessionID + " " + inputTime + " " + inputDuration + " " + inputPressure + " " +timeBetweenTaps);
+            result = cursor.moveToNext();
+
+        }return outputArray.toArray(new String[outputArray.size()]);
     }
 
 
