@@ -7,11 +7,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
 import android.util.Log;
+import com.opencsv.CSVWriter;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class infoDB {
+
 
     public static final String KEY_SESSION_ID = "_id";
     public static final String KEY_INPUT_TIME = "input_time";
@@ -44,6 +48,38 @@ public class infoDB {
         if(!exportDirectory.exists()){
             exportDirectory.mkdirs();
         }
+        File file;
+        PrintWriter printWriter = null;
+        try
+        {
+            file = new File(exportDirectory, "inputs.csv");
+            file.createNewFile();
+            printWriter = new PrintWriter(new FileWriter(file));
+            SQLiteDatabase db = this.moduleDBOpenHelper.getReadableDatabase(););
+            Cursor CSVcursor = db.rawQuery("SELECT * from inputs", null);
+
+            printWriter.println("FIRST TABLE OF THE DATABASE");
+            printWriter.println("ID,INPUT TIME,INPUT DURATION,INPUT PRESSURE,TIME BETWEEN TAPS");
+            if( CSVcursor != null && CSVcursor.moveToFirst() ){
+                while(CSVcursor.moveToNext())
+                {
+                    int sessionID = (int) CSVcursor.getInt(CSVcursor.getColumnIndex("_id"));
+                    float inputTime = CSVcursor.getFloat(CSVcursor.getColumnIndex("input_time"));
+                    float inputDuration = CSVcursor.getFloat(CSVcursor.getColumnIndex("input_duration"));
+                    float inputPressure = CSVcursor.getFloat(CSVcursor.getColumnIndex("input_pressure"));
+                    float timeBetweenTaps = CSVcursor.getFloat(CSVcursor.getColumnIndex("time_between_taps"));
+
+                }
+            }
+
+            CSVcursor.close();
+            db.close();
+
+        }
+        catch (Exception exception){
+
+        }
+
         //incomplete - remember to continue working on this.
     }
 
