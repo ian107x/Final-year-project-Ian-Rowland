@@ -25,6 +25,20 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity
+            android:name = ".gamePlayActivity"
+            android:label = "Gameplay activity">
+        </activity>
+        <activity
+            android:name = ".viewDataActivity"
+            android:label = "View Data">
+        </activity>
+        <activity
+            android:name = ".gameOverActivity"
+            android:label = "Game Over">
+        </activity>
+
+
     </application>
 
 </manifest>

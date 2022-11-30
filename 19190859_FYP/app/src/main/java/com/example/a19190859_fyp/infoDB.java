@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
 import android.util.Log;
-import com.opencsv.CSVWriter;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -45,6 +44,13 @@ public class infoDB {
     public void exportDB(){
         ModuleDBOpenHelper DBHelper = new ModuleDBOpenHelper(context, ModuleDBOpenHelper.DATABASE_NAME, null, ModuleDBOpenHelper.DATABASE_VERSION);
         File exportDirectory = new File(Environment.getExternalStorageDirectory(), "");
+
+        int sessionID;
+        float inputTime;
+        float inputDuration;
+        float inputPressure;
+        float timeBetweenTaps;
+
         if(!exportDirectory.exists()){
             exportDirectory.mkdirs();
         }
@@ -55,7 +61,7 @@ public class infoDB {
             file = new File(exportDirectory, "inputs.csv");
             file.createNewFile();
             printWriter = new PrintWriter(new FileWriter(file));
-            SQLiteDatabase db = this.moduleDBOpenHelper.getReadableDatabase(););
+            SQLiteDatabase db = this.moduleDBOpenHelper.getReadableDatabase();
             Cursor CSVcursor = db.rawQuery("SELECT * from inputs", null);
 
             printWriter.println("FIRST TABLE OF THE DATABASE");
@@ -63,11 +69,11 @@ public class infoDB {
             if( CSVcursor != null && CSVcursor.moveToFirst() ){
                 while(CSVcursor.moveToNext())
                 {
-                    int sessionID = (int) CSVcursor.getInt(CSVcursor.getColumnIndex("_id"));
-                    float inputTime = CSVcursor.getFloat(CSVcursor.getColumnIndex("input_time"));
-                    float inputDuration = CSVcursor.getFloat(CSVcursor.getColumnIndex("input_duration"));
-                    float inputPressure = CSVcursor.getFloat(CSVcursor.getColumnIndex("input_pressure"));
-                    float timeBetweenTaps = CSVcursor.getFloat(CSVcursor.getColumnIndex("time_between_taps"));
+                    sessionID = CSVcursor.getInt(CSVcursor.getColumnIndexOrThrow("_id"));
+                    inputTime = CSVcursor.getFloat(CSVcursor.getColumnIndexOrThrow("input_time"));
+                    inputDuration = CSVcursor.getFloat(CSVcursor.getColumnIndexOrThrow("input_duration"));
+                    inputPressure = CSVcursor.getFloat(CSVcursor.getColumnIndexOrThrow("input_pressure"));
+                    timeBetweenTaps = CSVcursor.getFloat(CSVcursor.getColumnIndexOrThrow("time_between_taps"));
 
                 }
             }
@@ -94,12 +100,6 @@ public class infoDB {
         float inputPressure;
         float timeBetweenTaps;
 
-        float weight;
-        float height;
-        int age;
-        String gender;
-        int stepCount;
-
         String where = null;
         String whereArgs[] = null;
         String groupBy = null;
@@ -121,7 +121,7 @@ public class infoDB {
             inputPressure = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_INPUT_PRESSURE));
             timeBetweenTaps = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_TIME_BETWEEN_TAPS));
 
-            outputArray.add(sessionID + " " + inputTime + " " + inputDuration + " " + inputPressure + " " +timeBetweenTaps);
+            outputArray.add(sessionID + " " + inputTime + " " + inputDuration + " " + inputPressure + " " +timeBetweenTaps + "\n");
             result = cursor.moveToNext();
 
         }return outputArray.toArray(new String[outputArray.size()]);
