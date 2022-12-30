@@ -11,12 +11,14 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.view.MotionEvent;
+import android.view.SurfaceHolder;
 import android.view.View;
 import android.widget.Toast;
 
 public class characterView extends View {
 
     private Bitmap bird;
+    private Bitmap enemy;
 
     private int birdXaxis = 10;
     private int birdYaxis;
@@ -28,8 +30,8 @@ public class characterView extends View {
 
     private int canvasWidth, canvasHeight;
 
-    private int enemyX, enemyY, enemySpeed;
-    //private Paint enemyPaint = new Paint();
+    private int enemyX, enemyY, enemySpeed = 20;
+    private Paint enemyPaint = new Paint();
 
     private int score;
 
@@ -43,11 +45,16 @@ public class characterView extends View {
     public characterView(Context context){
         super(context);
         bird = BitmapFactory.decodeResource(getResources(), R.drawable.bird);
+        bird = Bitmap.createScaledBitmap(bird, 200, 100, false);
+
         gameBackground = BitmapFactory.decodeResource(getResources(), R.drawable.bg1);
         gameBackground= Bitmap.createScaledBitmap(gameBackground, getScreenWidth(), getScreenHeight(), false);
 
-        //enemyPaint.setColor(Color.Blue);
-        //enemyPaint.setAntiAlias(false);
+        enemy = BitmapFactory.decodeResource(getResources(), R.drawable.enemy);
+        enemy = Bitmap.createScaledBitmap(enemy, 200, 200, false);
+
+        enemyPaint.setColor(Color.BLUE);
+        enemyPaint.setAntiAlias(false);
 
         scoreBoard.setColor(Color.BLUE);
         scoreBoard.setTextSize(50);
@@ -59,15 +66,18 @@ public class characterView extends View {
         birdYaxis = 500;
         score = 0;
         lifeNum = 5;
+        startTime = System.currentTimeMillis();
 
     }
+
+    //public void draw(Canvas canvas) {
+//
+  //      super.draw(canvas);
+    //}
 
     @Override
     protected void onDraw(Canvas canvas){
         super.onDraw(canvas);
-
-        //canvasWidth = canvas.getWidth();
-        //canvasHeight = canvas.getHeight();
 
         canvasWidth = getScreenWidth();
         canvasHeight = getScreenHeight();
@@ -78,7 +88,8 @@ public class characterView extends View {
 
         int minBirdY = bird.getHeight();
         int maxBirdY = canvasHeight - bird.getHeight() * 3;
-        birdYaxis += speed;
+
+        birdYaxis = birdXaxis + speed;
 
         if(birdYaxis < minBirdY){
             birdYaxis = minBirdY;
@@ -86,46 +97,34 @@ public class characterView extends View {
         if(birdYaxis > maxBirdY){
             birdYaxis = maxBirdY;
         }
-        speed +=5;
+
+        speed = speed + 10;
 
 
         if(touch){
             canvas.drawBitmap(bird, birdXaxis, birdYaxis, null);
             touch = false;
+            //speed = -20;
         }else{
             canvas.drawBitmap(bird, birdXaxis, birdYaxis, null);
         }
 
         enemyX = enemyX - enemySpeed;
-        if(impactEnemyCheck(birdXaxis, birdYaxis)){
+        if(impactEnemyCheck(enemyX, enemyY)){
             lifeNum = lifeNum - 1;
-            birdXaxis = birdXaxis - 100;
+            //birdXaxis = birdXaxis - 100;
+            enemyX = -100;
 
             if (lifeNum == 0){
-                Toast.makeText(getContext(), "Game Over" , Toast.LENGTH_SHORT).show();
-                Intent gameOverIntent = new Intent(getContext(), gameOverActivity.class);
-                gameOverIntent.putExtra("Score", score);
-                getContext().startActivity(gameOverIntent);
+                endGame();
             }
         }
 
-        /*
-        *
-        * enemyX = enemyX - enemySpeed
-        *if(impactEnemyCheck(enemyX, enemyY)){
-        *    lifeNum = lifeNum - 1;
-        *    birdXaxis = birdXaxis - 100;
+        if(enemyX < 0){
+            enemyX = canvasWidth + 21;
+            enemyY = (int) Math.floor(Math.random() * (maxBirdY - minBirdY)) + minBirdY;
         }
-
-        * if(enemyX < 0){
-        *   enemyX = canvasWidth + 21;
-        *   enemyY = (int) Math.floor(Math.random() * (maxBirdY - minBirdY)) + minBirdY;
-        * }
-        * canvas.drawCircle(enemyX, enemyY, 10, enemyPaint);
-        * */
-
-
-        canvas.drawBitmap(bird, 0, 0, null);
+        canvas.drawCircle(enemyX, enemyY, 20, enemyPaint);
 
         canvas.drawText("Score: ", 20, 60, scoreBoard);
 
@@ -144,24 +143,6 @@ public class characterView extends View {
         //}
     }
 
-    //method for resizing bitmap for background and player character
-    public Bitmap resizedBitmap(Bitmap bm, int newWidth, int newHeight) {
-        int width = bm.getWidth();
-        int height = bm.getHeight();
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeight) / height;
-        // CREATE A MATRIX FOR THE MANIPULATION
-        Matrix matrix = new Matrix();
-        // RESIZE THE BIT MAP
-        matrix.postScale(scaleWidth, scaleHeight);
-
-        // "RECREATE" THE NEW BITMAP
-        Bitmap resizedBitmap = Bitmap.createBitmap(
-                bm, 0, 0, width, height, matrix, false);
-        bm.recycle();
-        return resizedBitmap;
-    }
-
     public static int getScreenWidth() {
         return Resources.getSystem().getDisplayMetrics().widthPixels;
     }
@@ -176,6 +157,9 @@ public class characterView extends View {
 
 
         if(event.getAction() == MotionEvent.ACTION_DOWN){
+            //if(perceivedControlTest){
+                //dont act on input
+            //}else{
             touch = true;
             float inputPressure = event.getPressure();
             float prevInputTime = 0;
@@ -183,13 +167,34 @@ public class characterView extends View {
             float inputend = 0;
             float inputduration = inputend - inputStart;
             float timeBetweenInputs = inputStart - prevInputTime;
-            //characterSprite.y = characterSprite.y - (characterSprite.yVelocity * 10);
-            //speed = -10;
-            //check for perceived control
-            if(perceivedControlTest){
+            //send values to database
 
-            }
+            //birdYaxis = birdYaxis - (birdYVelocity * 10);
+            speed = -30;
+            //speed+=20;
+            //check for perceived control
+
+            //}
         }
         return true;
+    }
+
+    public void endGame(){
+        endTime = System.currentTimeMillis();
+        double totalTime = endTime - startTime;
+        Toast.makeText(getContext(), "Game Over" , Toast.LENGTH_SHORT).show();
+        Intent gameOverIntent = new Intent(getContext(), gameOverActivity.class);
+        gameOverIntent.putExtra("Score", score);
+        getContext().startActivity(gameOverIntent);
+    }
+
+    //theoretical method to create gameplay/level
+    public void createLevel(){
+
+    }
+
+    //alternative implementation for game logic - prototyping and experimentation phase
+    public void gameLogic(){
+
     }
 }

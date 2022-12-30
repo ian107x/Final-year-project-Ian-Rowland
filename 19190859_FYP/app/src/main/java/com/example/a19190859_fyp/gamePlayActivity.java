@@ -19,8 +19,8 @@ public class gamePlayActivity extends Activity {
         birdView = new characterView(this);
         setContentView(birdView);
 
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
+        //Timer timer = new Timer();
+        /*timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 gameHandler.post(new Runnable(){
@@ -30,6 +30,6 @@ public class gamePlayActivity extends Activity {
                     }
                 });
             }
-        }, 0 , Interval);
+        }, 0 , Interval);*/
     }
 }
