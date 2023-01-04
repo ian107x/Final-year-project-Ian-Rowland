@@ -13,7 +13,7 @@ public abstract class enemy {
         yAxis = y;
     }
 
-    public abstract void damage();
+    public abstract void interact();
 
     public abstract void draw();
 

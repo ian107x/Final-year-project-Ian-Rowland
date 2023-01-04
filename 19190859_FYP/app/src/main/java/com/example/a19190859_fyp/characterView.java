@@ -12,10 +12,13 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Toast;
 
-public class characterView extends View {
+import androidx.annotation.NonNull;
+
+public class characterView extends SurfaceView implements SurfaceHolder.Callback{
 
     private Bitmap bird;
     private Bitmap enemy;
@@ -41,11 +44,13 @@ public class characterView extends View {
     private Bitmap gameBackground;
     private Paint scoreBoard = new Paint();
     private Bitmap life[] = new Bitmap[2];
+    enemyFactory ef = new enemyFactory();
 
     public characterView(Context context){
         super(context);
         bird = BitmapFactory.decodeResource(getResources(), R.drawable.bird);
         bird = Bitmap.createScaledBitmap(bird, 200, 100, false);
+        //quick note of recycle for bitmaps bird.recycle();
 
         gameBackground = BitmapFactory.decodeResource(getResources(), R.drawable.bg1);
         gameBackground= Bitmap.createScaledBitmap(gameBackground, getScreenWidth(), getScreenHeight(), false);
@@ -67,6 +72,7 @@ public class characterView extends View {
         score = 0;
         lifeNum = 5;
         startTime = System.currentTimeMillis();
+        enemy e = ef.createEnemy(this, "GREENENEMY", enemyX, enemyY);
 
     }
 
@@ -175,6 +181,8 @@ public class characterView extends View {
             //check for perceived control
 
             //}
+        }else if(event.getAction() == MotionEvent.ACTION_DOWN){
+
         }
         return true;
     }
@@ -195,6 +203,21 @@ public class characterView extends View {
 
     //alternative implementation for game logic - prototyping and experimentation phase
     public void gameLogic(){
+
+    }
+
+    @Override
+    public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder) {
+
+    }
+
+    @Override
+    public void surfaceChanged(@NonNull SurfaceHolder surfaceHolder, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {
 
     }
 }

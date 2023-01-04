@@ -8,7 +8,7 @@ public class blueEnemy extends enemy{
     }
 
     @Override
-    public void damage() {
+    public void interact() {
 
     }
 
