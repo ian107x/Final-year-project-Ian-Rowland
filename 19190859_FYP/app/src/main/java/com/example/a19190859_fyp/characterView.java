@@ -73,6 +73,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
         lifeNum = 5;
         startTime = System.currentTimeMillis();
         enemy e = ef.createEnemy(this, "GREENENEMY", enemyX, enemyY);
+        ef.bmp.recycle();
 
     }
 
@@ -181,7 +182,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
             //check for perceived control
 
             //}
-        }else if(event.getAction() == MotionEvent.ACTION_DOWN){
+        }else if(event.getAction() == MotionEvent.ACTION_UP){
 
         }
         return true;

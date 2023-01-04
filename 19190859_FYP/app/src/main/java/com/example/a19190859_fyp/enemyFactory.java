@@ -25,7 +25,9 @@ public class enemyFactory {
         else if(enemyType.equalsIgnoreCase("BLUEENEMY"))
         {
             bmp = BitmapFactory.decodeResource(v.getResources(), R.drawable.enemy);
-            return new blueEnemy(bmp, x, y);
+            enemy be = new blueEnemy(bmp, x, y);
+            bmp.recycle();
+            return be;
         }
         else{
             return null;
