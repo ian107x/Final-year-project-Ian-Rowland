@@ -7,13 +7,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,7 +23,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
 
     private int birdXaxis = 10;
     private int birdYaxis;
-    private int speed = 10;
+    public int speed = 10;
     private int lifeNum;
     private boolean perceivedControlTest;
 
@@ -43,6 +41,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
 
     private Bitmap gameBackground;
     private Paint scoreBoard = new Paint();
+    private Paint lifeCount = new Paint();
     private Bitmap life[] = new Bitmap[2];
     enemyFactory ef = new enemyFactory();
 
@@ -66,14 +65,18 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
         scoreBoard.setTypeface(Typeface.DEFAULT);
         scoreBoard.setAntiAlias(true);
 
+        lifeCount.setColor(Color.GREEN);
+        lifeCount.setTextSize(50);
+        lifeCount.setTypeface(Typeface.DEFAULT);
+        lifeCount.setAntiAlias(true);
+
         life[0] = BitmapFactory.decodeResource(getResources(), R.drawable.life_crystal);
         life[1] = BitmapFactory.decodeResource(getResources(), R.drawable.life_crystal_grayed);
         birdYaxis = 500;
         score = 0;
         lifeNum = 5;
         startTime = System.currentTimeMillis();
-        enemy e = ef.createEnemy(this, "GREENENEMY", enemyX, enemyY);
-        ef.bmp.recycle();
+        obstacle e = ef.createEnemy(this, "GREENENEMY", enemyX, enemyY);
 
     }
 
@@ -134,6 +137,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
         canvas.drawCircle(enemyX, enemyY, 20, enemyPaint);
 
         canvas.drawText("Score: ", 20, 60, scoreBoard);
+        canvas.drawText("Score: ", 20, 120, lifeCount);
 
         canvas.drawBitmap(life[0], 520, 10, null);
         canvas.drawBitmap(life[0], 580, 10, null);
@@ -220,5 +224,16 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
     @Override
     public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {
 
+    }
+
+    public void updateView()
+    {
+
+    }
+
+    public obstacle terminateEnemy(obstacle e)
+    {
+        e.image.recycle();
+        return null;
     }
 }

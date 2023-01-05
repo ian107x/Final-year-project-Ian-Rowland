@@ -2,7 +2,7 @@ package com.example.a19190859_fyp;
 
 import android.graphics.Bitmap;
 
-public class blueEnemy extends enemy{
+public class blueEnemy extends obstacle {
     public blueEnemy(Bitmap bitmap, int x, int y) {
         super(bitmap, x, y);
     }
@@ -14,6 +14,12 @@ public class blueEnemy extends enemy{
 
     @Override
     public void draw() {
+
+    }
+
+    @Override
+    public void moveSprite(characterView v) {
+        this.xAxis -= v.speed;
 
     }
 }

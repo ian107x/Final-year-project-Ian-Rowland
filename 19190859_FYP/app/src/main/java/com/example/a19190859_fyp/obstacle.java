@@ -2,12 +2,12 @@ package com.example.a19190859_fyp;
 
 import android.graphics.Bitmap;
 
-public abstract class enemy {
+public abstract class obstacle implements sprite {
 
-    private Bitmap image;
+    public Bitmap image;
     public int xAxis, yAxis;
 
-    public enemy(Bitmap bitmap, int x, int y){
+    public obstacle(Bitmap bitmap, int x, int y){
         image = bitmap;
         xAxis = x;
         yAxis = y;
@@ -16,5 +16,7 @@ public abstract class enemy {
     public abstract void interact();
 
     public abstract void draw();
+
+    public abstract void moveSprite(characterView v);
 
 }
