@@ -32,6 +32,7 @@ public class gameThread extends Thread{
                 sHolder.unlockCanvasAndPost(gameCanvas);
             }
         }
+        game.endGame();
     }
 
     public void setRunning(boolean running)

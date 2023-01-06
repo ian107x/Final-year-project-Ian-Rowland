@@ -7,6 +7,13 @@ public class playerSprite implements sprite{
     public Bitmap image;
     public int xAxis, yAxis;
 
+    public playerSprite(Bitmap bitmap, int x, int y)
+    {
+        image = bitmap;
+        xAxis = x;
+        yAxis = y;
+    }
+
 
     @Override
     public void draw() {
@@ -15,6 +22,7 @@ public class playerSprite implements sprite{
 
     @Override
     public void moveSprite(characterView v) {
+        xAxis -= v.enemySpeed;
 
     }
 }
