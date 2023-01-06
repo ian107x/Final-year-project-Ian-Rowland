@@ -236,7 +236,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
             if(enemies.get(i).xAxis < 0)
             {
                 //recycle bitmap to free up memory
-                enemies.get(i).image.recycle();
+                enemies.set(i, terminateEnemy(enemies.get(i)));
                 enemies.remove(i);
             }
         }
