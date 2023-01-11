@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 public class redEnemy extends obstacle {
     public redEnemy(Bitmap bitmap, int x, int y) {
         super(bitmap, x, y);
+        this.objectVelocity = 5;
     }
 
     @Override
@@ -18,8 +19,8 @@ public class redEnemy extends obstacle {
     }
 
     @Override
-    public void moveSprite(characterView v) {
-        this.xAxis -= v.speed;
+    public void moveSprite() {
+        this.xAxis += objectVelocity;
 
     }
 }

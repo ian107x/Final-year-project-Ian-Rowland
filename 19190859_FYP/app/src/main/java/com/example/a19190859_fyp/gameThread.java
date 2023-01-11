@@ -7,7 +7,7 @@ public class gameThread extends Thread{
 
     characterView game;
     SurfaceHolder sHolder;
-    Canvas gameCanvas = null;
+    Canvas gameCanvas;
     boolean threadRunning;
 
     public gameThread(characterView v, SurfaceHolder s)
@@ -21,15 +21,29 @@ public class gameThread extends Thread{
     public void run(){
         while(threadRunning)
         {
-            gameCanvas = this.sHolder.lockCanvas();
-            synchronized (sHolder)
+            try
             {
-                this.game.updateView();
-                this.game.draw(gameCanvas);
+                gameCanvas = this.sHolder.lockCanvas();
+                synchronized (sHolder)
+                {
+                    this.game.updateView();
+                    this.game.draw(gameCanvas);
+                }
+
+            } catch(Exception e){
+
             }
-            if(gameCanvas != null)
-            {
-                sHolder.unlockCanvasAndPost(gameCanvas);
+            finally {
+                if(gameCanvas != null)
+                {
+                    try{
+                        sHolder.unlockCanvasAndPost(gameCanvas);
+                    }
+                    catch(Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
         game.endGame();

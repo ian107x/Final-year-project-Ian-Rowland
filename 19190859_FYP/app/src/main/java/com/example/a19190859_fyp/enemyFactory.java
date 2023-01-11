@@ -13,16 +13,20 @@ public class enemyFactory {
         if(enemyType.equalsIgnoreCase("REDENEMY"))
         {
             //return new redEnemy(Bitmap.createBitmap(R.drawable.enemy), x, y);
-            Bitmap bmp = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(v.getResources(), R.drawable.enemy), v.getWidth(), v.getHeight(), false);
-            return new redEnemy(bmp, x, y);
+            Bitmap bmp = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(v.getResources(), R.drawable.enemy), v.getWidth()/10, v.getHeight()/20, false);
+            obstacle re = new redEnemy(bmp, x, y);
+            bmp.recycle();
+            return re;
         }else if (enemyType.equalsIgnoreCase("GREENENEMY"))
         {
-            Bitmap bmp = BitmapFactory.decodeResource(v.getResources(), R.drawable.enemy);
-            return new greenEnemy(bmp, x, y);
+            Bitmap bmp = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(v.getResources(), R.drawable.enemy), v.getWidth()/10, v.getHeight()/20, false);
+            obstacle ge = new redEnemy(bmp, x, y);
+            bmp.recycle();
+            return ge;
         }
         else if(enemyType.equalsIgnoreCase("BLUEENEMY"))
         {
-            Bitmap bmp = BitmapFactory.decodeResource(v.getResources(), R.drawable.enemy);
+            Bitmap bmp = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(v.getResources(), R.drawable.enemy), v.getWidth()/10, v.getHeight()/20, false);
             obstacle be = new blueEnemy(bmp, x, y);
             bmp.recycle();
             return be;

@@ -39,6 +39,9 @@ public class infoDB {
         newInput.put(KEY_INPUT_DURATION, duration);
         newInput.put(KEY_INPUT_PRESSURE, pressure);
         newInput.put(KEY_TIME_BETWEEN_TAPS, timeBetween);
+
+        SQLiteDatabase db = moduleDBOpenHelper.getWritableDatabase();
+        db.insert(ModuleDBOpenHelper.DATABASE_TABLE, null, newInput);
     }
 
     public void exportDB(){
@@ -91,7 +94,7 @@ public class infoDB {
 
     public String[] getAll() {
 
-        ArrayList<String> outputArray = new ArrayList<String>();
+        ArrayList<ArrayList> outputArray = new ArrayList<ArrayList>();
         String[] result_columns = new String[]{
                 KEY_SESSION_ID, KEY_INPUT_TIME, KEY_INPUT_DURATION, KEY_INPUT_PRESSURE, KEY_TIME_BETWEEN_TAPS};
         int sessionID;
@@ -121,7 +124,17 @@ public class infoDB {
             inputPressure = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_INPUT_PRESSURE));
             timeBetweenTaps = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_TIME_BETWEEN_TAPS));
 
-            outputArray.add(sessionID + " " + inputTime + " " + inputDuration + " " + inputPressure + " " +timeBetweenTaps + "\n");
+            ArrayList row = new ArrayList<>();
+
+            row.add(sessionID);
+            row.add(inputTime);
+            row.add(inputDuration);
+            row.add(inputPressure);
+            row.add(timeBetweenTaps+"\n");
+
+            outputArray.add(row);
+
+            //outputArray.add(sessionID + " " + inputTime + " " + inputDuration + " " + inputPressure + " " +timeBetweenTaps + "\n");
             result = cursor.moveToNext();
 
         }return outputArray.toArray(new String[outputArray.size()]);

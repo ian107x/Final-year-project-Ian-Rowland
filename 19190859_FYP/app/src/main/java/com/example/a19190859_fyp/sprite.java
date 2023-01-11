@@ -6,7 +6,7 @@ public interface sprite {
 
     public void draw();
 
-    public abstract void moveSprite(characterView v);
+    public abstract void moveSprite();
 
 
 }

@@ -6,6 +6,7 @@ public abstract class obstacle implements sprite {
 
     public Bitmap image;
     public int xAxis, yAxis;
+    public int objectVelocity;
 
     public obstacle(Bitmap bitmap, int x, int y){
         image = bitmap;
@@ -17,6 +18,6 @@ public abstract class obstacle implements sprite {
 
     public abstract void draw();
 
-    public abstract void moveSprite(characterView v);
+    public abstract void moveSprite();
 
 }
