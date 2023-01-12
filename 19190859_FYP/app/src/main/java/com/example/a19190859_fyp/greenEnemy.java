@@ -1,6 +1,7 @@
 package com.example.a19190859_fyp;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 
 public class greenEnemy extends obstacle {
     public greenEnemy(Bitmap bitmap, int x, int y) {
@@ -13,10 +14,6 @@ public class greenEnemy extends obstacle {
 
     }
 
-    @Override
-    public void draw() {
-
-    }
 
     @Override
     public void moveSprite() {

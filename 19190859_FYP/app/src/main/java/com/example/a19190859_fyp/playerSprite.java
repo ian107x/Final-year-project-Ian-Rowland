@@ -1,6 +1,7 @@
 package com.example.a19190859_fyp;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 
 public class playerSprite implements sprite{
 
@@ -17,13 +18,20 @@ public class playerSprite implements sprite{
 
 
     @Override
-    public void draw() {
+    public void draw(Canvas canvas) {
+        canvas.drawBitmap(image, xAxis, yAxis, null);
 
     }
 
-    @Override
-    public void moveSprite() {
-        yAxis += birdVelocity;
-
+    //@Override
+    public void moveSprite(boolean touch) {
+        if(touch/* && yAxis != maxJumpHeight */)
+        {
+            yAxis -= birdVelocity;
+        }
+        else
+        {
+            yAxis += birdVelocity;
+        }
     }
 }

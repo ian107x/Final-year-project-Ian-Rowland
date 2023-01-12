@@ -1,6 +1,7 @@
 package com.example.a19190859_fyp;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 
 public class blueEnemy extends obstacle {
     public blueEnemy(Bitmap bitmap, int x, int y) {
@@ -10,11 +11,6 @@ public class blueEnemy extends obstacle {
 
     @Override
     public void interact() {
-
-    }
-
-    @Override
-    public void draw() {
 
     }
 

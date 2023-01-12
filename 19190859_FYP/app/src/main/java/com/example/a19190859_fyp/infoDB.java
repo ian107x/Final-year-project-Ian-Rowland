@@ -94,7 +94,8 @@ public class infoDB {
 
     public String[] getAll() {
 
-        ArrayList<ArrayList> outputArray = new ArrayList<ArrayList>();
+        //ArrayList<ArrayList> outputArray = new ArrayList<ArrayList>();
+        ArrayList<String> outputArray = new ArrayList<String>();
         String[] result_columns = new String[]{
                 KEY_SESSION_ID, KEY_INPUT_TIME, KEY_INPUT_DURATION, KEY_INPUT_PRESSURE, KEY_TIME_BETWEEN_TAPS};
         int sessionID;
@@ -124,20 +125,37 @@ public class infoDB {
             inputPressure = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_INPUT_PRESSURE));
             timeBetweenTaps = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_TIME_BETWEEN_TAPS));
 
-            ArrayList row = new ArrayList<>();
+            //ArrayList row = new ArrayList<>();
 
-            row.add(sessionID);
+            /*row.add(sessionID);
             row.add(inputTime);
             row.add(inputDuration);
             row.add(inputPressure);
             row.add(timeBetweenTaps+"\n");
 
-            outputArray.add(row);
+            outputArray.add(row);*/
 
-            //outputArray.add(sessionID + " " + inputTime + " " + inputDuration + " " + inputPressure + " " +timeBetweenTaps + "\n");
+            outputArray.add(sessionID + ", " + inputTime + ", " + inputDuration + ", " + inputPressure + ", " +timeBetweenTaps + "\n");
             result = cursor.moveToNext();
 
         }return outputArray.toArray(new String[outputArray.size()]);
+    }
+
+    public String[][] convertTo2dArray(/*String[] db*/)
+    {
+        String[] db = getAll();
+        int numCols = (db[0].split(", ")).length;
+        String[][] dbList = new String[db.length][numCols];
+        for(int i = 0; i < db.length; i++)
+        {
+            String[] row = db[i].split(" ");
+            for(int y = 0; y < row.length; y++)
+            {
+                dbList[i][y] = row[y];
+            }
+
+        }
+        return dbList;
     }
 
 

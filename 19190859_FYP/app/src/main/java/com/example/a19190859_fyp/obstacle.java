@@ -1,6 +1,7 @@
 package com.example.a19190859_fyp;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 
 public abstract class obstacle implements sprite {
 
@@ -16,7 +17,10 @@ public abstract class obstacle implements sprite {
 
     public abstract void interact();
 
-    public abstract void draw();
+    public void draw(Canvas canvas)
+    {
+        canvas.drawBitmap(image, xAxis, yAxis, null);
+    }
 
     public abstract void moveSprite();
 

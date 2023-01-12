@@ -92,10 +92,24 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
 
     }
 
-    //public void draw(Canvas canvas) {
-//
-  //      super.draw(canvas);
-    //}
+    public void draw(Canvas canvas) {
+
+        super.draw(canvas);
+        if(canvas!=null)
+        {
+            canvas.drawRGB(0, 100, 205);
+            canvas.drawText("Score: " + score, 20, 60, scoreBoard);
+            canvas.drawText("Life: " + lifeNum, 20, 120, lifeCount);
+
+
+            for(int i = 0; i < enemies.size(); i++)
+            {
+                enemies.get(i).draw(canvas);
+                //alt way to draw bitmap of sprite class
+                // canvas.drawBitmap(enemies.get(i).image, enemies.get(i).xAxis, enemies.get(i).yAxis, null);
+            }
+        }
+    }
 
     @Override
     protected void onDraw(Canvas canvas){
@@ -148,8 +162,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
         }
         canvas.drawCircle(enemyX, enemyY, 20, enemyPaint);
 
-        canvas.drawText("Score: " + score, 20, 60, scoreBoard);
-        canvas.drawText("Life: " + lifeNum, 20, 120, lifeCount);
+
     }
 
     public boolean impactEnemyCheck(int x, int y)
@@ -186,41 +199,38 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
 
     public boolean onTouchEvent(MotionEvent event){
 
+        //define max jump height
         boolean perceivedControlTest;
-        float prevInputTime;
-        float inputStart;
+        float prevInputTime = 0;
+        float inputStart = 0;
         float inputend;
         float inputduration;
-        float timeBetweenInputs;
+        float timeBetweenInputs = 0;
+        float inputPressure = 0;
 
         int PCTRNG = (int)Math.floor(Math.random() *(10 - 1 + 1) + 0);
 
         if(PCTRNG == 3 || PCTRNG == 5 ||PCTRNG == 7 )
         {
             perceivedControlTest = true;
-        }else
+        }
+        else
         {
             perceivedControlTest = false;
         }
 
 
-        if(event.getAction() == MotionEvent.ACTION_DOWN){
-            //if(perceivedControlTest){
-                //dont act on input
-            //}else{
-
-
-
+        if(event.getAction() == MotionEvent.ACTION_DOWN)
+        {
             float x = event.getX();
             float y = event.getY();
 
-            float inputPressure = event.getPressure();
-            prevInputTime = 0;
-            inputStart = 0;
-            inputend = 0;
-            inputduration = inputend - inputStart;
+            inputPressure = event.getPressure();
+            inputStart = System.currentTimeMillis();;
+
             timeBetweenInputs = inputStart - prevInputTime;
             //send values to database
+
 
             if(perceivedControlTest)
             {
@@ -233,8 +243,13 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
             //check for perceived control
 
             //}
-        }else if(event.getAction() == MotionEvent.ACTION_UP){
-
+        }else if(event.getAction() == MotionEvent.ACTION_UP)
+        {
+            touch = false;
+            inputend = System.currentTimeMillis();
+            inputduration = inputend - inputStart;
+            db.addInput(1, inputStart, inputduration, inputPressure, timeBetweenInputs);
+            prevInputTime = inputend;
         }
         return super.onTouchEvent(event);
     }
@@ -274,6 +289,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
                 if(lifeNum <=0) {
                     endGame();
                 }
+                enemies.get(i).xAxis = -200;
             }
             if(enemies.get(i).xAxis < 0)
             {
@@ -328,7 +344,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
     public void updateView()
     {
         gameLogic();
-        //characterSprite.update
+        birdSprite.moveSprite(touch);
         for(int i = 0; i <= enemies.size(); i++)
         {
             enemies.get(i).moveSprite();
@@ -340,18 +356,19 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
     {
         obstacle enemy1;
         int enemyRNG = (int)Math.floor(Math.random() *(2 - 0 + 1) + 0);
+        int yAxisRNG = (int)Math.floor(Math.random() *(getScreenHeight() - 0 + 1) + 0);
         if(enemyRNG == 0)
         {
-            enemy1 = ef.createEnemy(this, "GREENENEMY", 200, 200);
+            enemy1 = ef.createEnemy(this, "GREENENEMY", getScreenWidth() + 200, yAxisRNG);
 
         }
         else if(enemyRNG == 1)
         {
-            enemy1 = ef.createEnemy(this, "REDENEMY", 200, 200);
+            enemy1 = ef.createEnemy(this, "REDENEMY", getScreenWidth() + 200, yAxisRNG);
         }
         else
         {
-            enemy1 = ef.createEnemy(this, "BLUEENEMY", 200, 200);
+            enemy1 = ef.createEnemy(this, "BLUEENEMY", getScreenWidth() + 200, yAxisRNG);
         }
 
         enemies.add(enemy1);
