@@ -8,12 +8,17 @@ public class playerSprite implements sprite{
     public Bitmap image;
     public int xAxis, yAxis;
     public int birdVelocity = 10;
+    public int maxJumpHeight;
+    public int life;
+    public int gameScore;
 
     public playerSprite(Bitmap bitmap, int x, int y)
     {
         image = bitmap;
         xAxis = x;
         yAxis = y;
+        life = 5;
+        gameScore = 0;
     }
 
 
@@ -25,9 +30,9 @@ public class playerSprite implements sprite{
 
     //@Override
     public void moveSprite(boolean touch) {
-        if(touch/* && yAxis != maxJumpHeight */)
+        if(touch /*&& yAxis > maxJumpHeight*/)
         {
-            yAxis -= birdVelocity;
+            yAxis -= (birdVelocity * 10);
         }
         else
         {

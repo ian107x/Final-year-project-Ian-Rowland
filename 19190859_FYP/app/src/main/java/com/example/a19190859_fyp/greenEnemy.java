@@ -10,8 +10,8 @@ public class greenEnemy extends obstacle {
     }
 
     @Override
-    public void interact() {
-
+    public void interact(playerSprite p) {
+        p.gameScore += 1;
     }
 
 

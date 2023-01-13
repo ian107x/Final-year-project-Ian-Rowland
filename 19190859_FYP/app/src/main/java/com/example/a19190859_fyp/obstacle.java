@@ -15,7 +15,7 @@ public abstract class obstacle implements sprite {
         yAxis = y;
     }
 
-    public abstract void interact();
+    public abstract void interact(playerSprite p);
 
     public void draw(Canvas canvas)
     {

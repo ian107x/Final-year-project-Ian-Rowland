@@ -10,8 +10,8 @@ public class redEnemy extends obstacle {
     }
 
     @Override
-    public void interact() {
-
+    public void interact(playerSprite p) {
+        p.life -= 2;
     }
 
     @Override
