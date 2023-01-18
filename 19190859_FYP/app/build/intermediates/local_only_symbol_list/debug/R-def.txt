@@ -9,11 +9,16 @@ color teal_700
 color white
 drawable bg1
 drawable bird
+drawable birdimage
+drawable bluecloud
 drawable enemy
+drawable greencloud
 drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable life_crystal
 drawable life_crystal_grayed
+drawable redcloud
+drawable whitecloud
 id datatext
 id exportdatabutton
 id gameOver

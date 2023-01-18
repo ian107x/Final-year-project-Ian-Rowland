@@ -36,7 +36,8 @@
         </activity>
         <activity
             android:name="com.example.a19190859_fyp.gamePlayActivity"
-            android:label="Gameplay activity" >
+            android:label="Gameplay activity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.example.a19190859_fyp.viewDataActivity"

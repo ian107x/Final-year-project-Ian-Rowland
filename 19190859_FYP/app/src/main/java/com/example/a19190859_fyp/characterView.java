@@ -20,61 +20,27 @@ import java.util.ArrayList;
 
 public class characterView extends SurfaceView implements SurfaceHolder.Callback{
 
-    //private Bitmap bird;
-    //private Bitmap enemy;
-
-    //private int birdXaxis = 10;
-    //private int birdYaxis;
-    //public int speed = 10;
     //private int lifeNum;
-
-
     private playerSprite birdSprite;
-
     private boolean touch = false;
-
-    private int canvasWidth, canvasHeight;
     private ArrayList<obstacle> enemies = new ArrayList<obstacle>();
-
-    //public int enemyX, enemyY = 20;
-    //public static int enemySpeed = 20;
-    //private Paint enemyPaint = new Paint();
-
-    //private int score;
-
     private double startTime;
     private double endTime;
-
-    //private Bitmap gameBackground;
     private Paint scoreBoard = new Paint();
     private Paint lifeCount = new Paint();
-    //private Bitmap life[] = new Bitmap[2];
     enemyFactory ef = new enemyFactory();
     gameThread t;
     private infoDB db = new infoDB(getContext());
-
     private int minBirdY;
     private int maxBirdY;
 
     public characterView(Context context){
         super(context);
-
         getHolder().addCallback(this);
-
         t = new gameThread(this, getHolder());
-
         setFocusable(true);
 
         //quick note of recycle for bitmaps bird.recycle();
-
-        //gameBackground = BitmapFactory.decodeResource(getResources(), R.drawable.bg1);
-        //gameBackground= Bitmap.createScaledBitmap(gameBackground, getScreenWidth(), getScreenHeight(), false);
-
-        //enemy = BitmapFactory.decodeResource(getResources(), R.drawable.enemy);
-        //enemy = Bitmap.createScaledBitmap(enemy, 200, 200, false);
-
-        //enemyPaint.setColor(Color.BLUE);
-        //enemyPaint.setAntiAlias(false);
 
         minBirdY = getScreenHeight();
         maxBirdY = 0;
@@ -88,13 +54,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
         lifeCount.setTypeface(Typeface.DEFAULT);
         lifeCount.setAntiAlias(true);
 
-        //life[0] = BitmapFactory.decodeResource(getResources(), R.drawable.life_crystal);
-        //life[1] = BitmapFactory.decodeResource(getResources(), R.drawable.life_crystal_grayed);
-        //birdYaxis = 500;
-        //score = 0;
-        //lifeNum = 5;
         startTime = System.currentTimeMillis();
-        //obstacle e = ef.createEnemy(this, "GREENENEMY", enemyX, enemyY);
 
     }
 
@@ -103,9 +63,11 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
         super.draw(canvas);
         if(canvas!=null)
         {
-            canvas.drawRGB(0, 100, 205);
+            canvas.drawRGB(0, 100, 110);
+            //canvas.drawColor(Color.BLUE);
             canvas.drawText("Score: " + birdSprite.gameScore, 20, 60, scoreBoard);
             canvas.drawText("Life: " + birdSprite.life, 20, 120, lifeCount);
+            birdSprite.draw(canvas);
 
 
             for(int i = 0; i < enemies.size(); i++)
@@ -115,60 +77,6 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
                 // canvas.drawBitmap(enemies.get(i).image, enemies.get(i).xAxis, enemies.get(i).yAxis, null);
             }
         }
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas){
-        super.onDraw(canvas);
-
-        /*canvasWidth = getScreenWidth();
-        canvasHeight = getScreenHeight();
-        //canvas.drawBitmap(gameBackground, 0, 0, null);
-        canvas.drawBitmap(gameBackground, canvasWidth, canvasHeight, null);
-
-
-        //int minBirdY = bird.getHeight();
-        //int maxBirdY = canvasHeight - bird.getHeight() * 3;
-
-        birdYaxis = birdXaxis + speed;
-
-        if(birdYaxis < minBirdY){
-            birdYaxis = minBirdY;
-        }
-        if(birdYaxis > maxBirdY){
-            birdYaxis = maxBirdY;
-        }
-
-        speed = speed + 10;
-
-
-        if(touch){
-            birdYaxis = birdYaxis - (birdSprite.birdVelocity * 10);
-            canvas.drawBitmap(bird, birdXaxis, birdYaxis, null);
-            touch = false;
-            //speed = -20;
-        }else{
-            canvas.drawBitmap(bird, birdXaxis, birdYaxis, null);
-        }
-
-        enemyX = enemyX - enemySpeed;
-        if(impactEnemyCheck(enemyX, enemyY)){
-            lifeNum = lifeNum - 1;
-            //birdXaxis = birdXaxis - 100;
-            enemyX = -100;
-
-            if (lifeNum == 0){
-                endGame();
-            }
-        }
-
-        if(enemyX < 0){
-            enemyX = canvasWidth + 21;
-            enemyY = (int) Math.floor(Math.random() * (maxBirdY - minBirdY)) + minBirdY;
-        }
-        canvas.drawCircle(enemyX, enemyY, 20, enemyPaint);*/
-
-
     }
 
     /*public boolean impactEnemyCheck(int x, int y)
@@ -205,6 +113,9 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
 
     public boolean onTouchEvent(MotionEvent event){
 
+        float x = event.getX();
+        float y = event.getY();
+
         //define max jump height
         boolean perceivedControlTest;
         float prevInputTime = 0;
@@ -228,8 +139,9 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
 
         if(event.getAction() == MotionEvent.ACTION_DOWN)
         {
-            float x = event.getX();
-            float y = event.getY();
+
+            //birdSprite.maxJumpHeight = birdSprite.yAxis + birdSprite.image.getHeight();
+            birdSprite.yAxis -= (birdSprite.birdVelocity * (birdSprite.image.getHeight() * 0.66));
 
             inputPressure = event.getPressure();
             inputStart = System.currentTimeMillis();;
@@ -264,7 +176,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
     public void endGame(){
         endTime = System.currentTimeMillis();
         double totalTime = endTime - startTime;
-        Toast.makeText(getContext(), "Game Over" , Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "Game Over" , Toast.LENGTH_SHORT).show();
         Intent gameOverIntent = new Intent(getContext(), gameOverActivity.class);
         gameOverIntent.putExtra("Score", birdSprite.gameScore);
         getContext().startActivity(gameOverIntent);
@@ -273,7 +185,9 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
     //theoretical method to create gameplay/level
     public void createLevel()
     {
-        birdSprite = new playerSprite(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.bird), 200, 200, false), 250, 250);
+        int birdWidth = getScreenWidth()/10;
+        int birdHeight = birdWidth;
+        birdSprite = new playerSprite(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.birdimage), birdWidth, birdHeight, false), 25, 25);
         for(int i = 0; i < 5; i++)
         {
             generateEnemies();
@@ -288,7 +202,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
         {
             generateEnemies();
         }
-        for(int i = 0; i <= enemies.size(); i++)
+        for(int i = 0; i < enemies.size(); i++)
         {
             if(impactObstacle(enemies.get(i)))
             {
@@ -307,13 +221,13 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
 
         //pre implementation logic for hitting the top or bottom of the screen
 
-         if (birdSprite.yAxis < minBirdY)
+         if (birdSprite.yAxis > minBirdY)
          {
-           birdSprite.yAxis = getScreenHeight()/2;
+           birdSprite.yAxis = getScreenHeight()/3;
            birdSprite.life --;
            //lifeNum--;
          }
-         if (birdSprite.yAxis > maxBirdY)
+         if (birdSprite.yAxis < maxBirdY)
          {
            birdSprite.yAxis = getScreenHeight()/2;
            birdSprite.life --;
@@ -331,6 +245,11 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
         {
             endGame();
         }
+        if(birdSprite.yAxis <= birdSprite.maxJumpHeight)
+        {
+            birdSprite.maxJumpHeight = getScreenHeight();
+            //touch = false;
+        }
 
 
 
@@ -338,6 +257,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
 
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder) {
+
         createLevel();
         t.setRunning(true);
         t.start();
@@ -365,7 +285,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
     {
         gameLogic();
         birdSprite.moveSprite(touch);
-        for(int i = 0; i <= enemies.size(); i++)
+        for(int i = 0; i < enemies.size(); i++)
         {
             enemies.get(i).moveSprite();
         }
@@ -377,26 +297,30 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
         obstacle enemy1;
         int enemyRNG = (int)Math.floor(Math.random() *(2 - 0 + 1) + 0);
         int yAxisRNG = (int)Math.floor(Math.random() *(getScreenHeight() - 0 + 1) + 0);
+        int xAxisRNG = (int)Math.floor(Math.random() *(getScreenWidth() - (getScreenWidth()/2) + 1) + 0);
         if(enemyRNG == 0)
         {
-            enemy1 = ef.createEnemy(this, "GREENENEMY", getScreenWidth() + 200, yAxisRNG);
+            enemy1 = ef.createEnemy(this, "GREENENEMY", getScreenWidth(), yAxisRNG);
 
         }
         else if(enemyRNG == 1)
         {
-            enemy1 = ef.createEnemy(this, "REDENEMY", getScreenWidth() + 200, yAxisRNG);
+            enemy1 = ef.createEnemy(this, "REDENEMY", getScreenWidth(), yAxisRNG);
         }
         else
         {
-            enemy1 = ef.createEnemy(this, "BLUEENEMY", getScreenWidth() + 200, yAxisRNG);
+            enemy1 = ef.createEnemy(this, "BLUEENEMY", getScreenWidth(), yAxisRNG);
         }
 
         enemies.add(enemy1);
     }
 
+    //terminateEnemy is used to recycle the bitmap associated with the enemy, and null the
+    // enemy values so as to free up memory and remove enemy from the arraylist when it is no longer needed, and another enemy can be created
     public obstacle terminateEnemy(obstacle e)
     {
         e.image.recycle();
-        return null;
+        //e.xAxis = getScreenWidth() + 300;
+        return e;
     }
 }

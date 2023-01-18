@@ -3,6 +3,8 @@ package com.example.a19190859_fyp;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Window;
+import android.view.WindowManager;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -16,11 +18,13 @@ public class gamePlayActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         birdView = new characterView(this);
         setContentView(birdView);
 
-        //Timer timer = new Timer();
-        /*timer.schedule(new TimerTask() {
+        /*Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 gameHandler.post(new Runnable(){

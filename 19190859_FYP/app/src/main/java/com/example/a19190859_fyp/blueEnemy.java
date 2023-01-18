@@ -6,7 +6,7 @@ import android.graphics.Canvas;
 public class blueEnemy extends obstacle {
     public blueEnemy(Bitmap bitmap, int x, int y) {
         super(bitmap, x, y);
-        this.objectVelocity = 5;
+        this.objectVelocity = 3;
     }
 
     @Override
@@ -16,7 +16,7 @@ public class blueEnemy extends obstacle {
 
     @Override
     public void moveSprite() {
-        this.xAxis += objectVelocity;
+        this.xAxis -= objectVelocity;
 
     }
 }
