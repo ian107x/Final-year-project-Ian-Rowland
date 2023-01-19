@@ -27,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Restart the Game"
+            android:background="@drawable/buttonbg"
             android:layout_marginLeft="-5dp">
         </Button>
         <Button
@@ -35,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Return to main"
+            android:background="@drawable/buttonbg"
             android:layout_marginLeft="-5dp"/>
         <Button
             android:id="@+id/viewdata"
@@ -42,6 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="View/Export Data"
+            android:background="@drawable/buttonbg"
             android:layout_marginLeft="-5dp"/>
 
     </LinearLayout>

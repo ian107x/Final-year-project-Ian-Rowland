@@ -30,6 +30,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
     private Paint lifeCount = new Paint();
     enemyFactory ef = new enemyFactory();
     gameThread t;
+    boolean perceivedControlTest;
     private infoDB db = new infoDB(getContext());
     private int minBirdY;
     private int maxBirdY;
@@ -117,7 +118,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
         float y = event.getY();
 
         //define max jump height
-        boolean perceivedControlTest;
+
         float prevInputTime = 0;
         float inputStart = 0;
         float inputend;
@@ -141,7 +142,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
         {
 
             //birdSprite.maxJumpHeight = birdSprite.yAxis + birdSprite.image.getHeight();
-            birdSprite.yAxis -= (birdSprite.birdVelocity * (birdSprite.image.getHeight() * 0.66));
+
 
             inputPressure = event.getPressure();
             inputStart = System.currentTimeMillis();;
@@ -157,6 +158,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
             else
             {
                 touch = true;
+                birdSprite.yAxis -= (birdSprite.birdVelocity * (birdSprite.image.getHeight() * 0.66));
                 //birdSprite.maxJumpHeight = birdSprite.image.getHeight() * 5;
             }
             //check for perceived control
@@ -167,7 +169,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
             touch = false;
             inputend = System.currentTimeMillis();
             inputduration = inputend - inputStart;
-            db.addInput(1, inputStart, inputduration, inputPressure, timeBetweenInputs);
+            db.addInput(perceivedControlTest, inputStart, inputduration, inputPressure, timeBetweenInputs);
             prevInputTime = inputend;
         }
         return super.onTouchEvent(event);

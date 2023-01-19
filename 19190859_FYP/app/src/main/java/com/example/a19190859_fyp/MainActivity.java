@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -13,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     Button startGameButton;
     Button startViewDataButton;
     TextView introductionText;
+    ImageButton imageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         startGameButton = (Button) findViewById(R.id.startgamebutton);
         startViewDataButton = (Button) findViewById(R.id.viewdatabutton);
         introductionText = (TextView) findViewById(R.id.introductiontext);
+        imageButton = (ImageButton) findViewById(R.id.imageButton);
 
         startGameButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -34,6 +37,14 @@ public class MainActivity extends AppCompatActivity {
         startViewDataButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                Intent viewDataIntent = new Intent(getBaseContext(), viewDataActivity.class);
+                startActivity(viewDataIntent);
+            }
+        });
+
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Intent viewDataIntent = new Intent(getBaseContext(), viewDataActivity.class);
                 startActivity(viewDataIntent);
             }

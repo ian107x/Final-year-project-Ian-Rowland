@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class infoDB {
 
 
-    public static final String KEY_SESSION_ID = "_id";
+    public static final String KEY_PCT = "_pct";
     public static final String KEY_INPUT_TIME = "input_time";
     public static final String KEY_INPUT_DURATION = "input_duration";
     public static final String KEY_INPUT_PRESSURE = "input_pressure";
@@ -31,10 +31,10 @@ public class infoDB {
 
     }
 
-    public void addInput(int sessionID, float inputTime, float duration, float pressure, float timeBetween){
+    public void addInput(boolean pct, float inputTime, float duration, float pressure, float timeBetween){
         ContentValues newInput = new ContentValues();
 
-        newInput.put(KEY_SESSION_ID, sessionID);
+        newInput.put(KEY_PCT, pct);
         newInput.put(KEY_INPUT_TIME, inputTime);
         newInput.put(KEY_INPUT_DURATION, duration);
         newInput.put(KEY_INPUT_PRESSURE, pressure);
@@ -47,42 +47,38 @@ public class infoDB {
     public void exportDB(){
         ModuleDBOpenHelper DBHelper = new ModuleDBOpenHelper(context, ModuleDBOpenHelper.DATABASE_NAME, null, ModuleDBOpenHelper.DATABASE_VERSION);
         File exportDirectory = new File(Environment.getExternalStorageDirectory(), "");
-
-        int sessionID;
-        float inputTime;
-        float inputDuration;
-        float inputPressure;
-        float timeBetweenTaps;
+        String path = "/storage/sdcard0/inputs.txt";
 
         if(!exportDirectory.exists()){
             exportDirectory.mkdirs();
         }
-        File file;
-        PrintWriter printWriter = null;
+        //File file;
+        //PrintWriter printWriter = null;
         try
         {
-            file = new File(exportDirectory, "inputs.csv");
+            /*file = new File(exportDirectory, "inputs.csv");
             file.createNewFile();
-            printWriter = new PrintWriter(new FileWriter(file));
-            SQLiteDatabase db = this.moduleDBOpenHelper.getReadableDatabase();
-            Cursor CSVcursor = db.rawQuery("SELECT * from inputs", null);
+            printWriter = new PrintWriter(new FileWriter(file));*/
 
-            printWriter.println("FIRST TABLE OF THE DATABASE");
-            printWriter.println("ID,INPUT TIME,INPUT DURATION,INPUT PRESSURE,TIME BETWEEN TAPS");
-            if( CSVcursor != null && CSVcursor.moveToFirst() ){
-                while(CSVcursor.moveToNext())
-                {
-                    sessionID = CSVcursor.getInt(CSVcursor.getColumnIndexOrThrow("_id"));
-                    inputTime = CSVcursor.getFloat(CSVcursor.getColumnIndexOrThrow("input_time"));
-                    inputDuration = CSVcursor.getFloat(CSVcursor.getColumnIndexOrThrow("input_duration"));
-                    inputPressure = CSVcursor.getFloat(CSVcursor.getColumnIndexOrThrow("input_pressure"));
-                    timeBetweenTaps = CSVcursor.getFloat(CSVcursor.getColumnIndexOrThrow("time_between_taps"));
+            File bfile = new File(path);
+            FileWriter myWriter = new FileWriter(bfile);
+            String[] dbToString = getAll();
 
-                }
+            bfile.createNewFile();
+
+            //if (bfile.createNewFile()) {
+            //    myWriter.write("Input id" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " + " time since previous input");
+            //}
+            if(bfile.length() == 0)
+            {
+                myWriter.write("Input id" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " + " time since previous input");
             }
 
-            CSVcursor.close();
-            db.close();
+            for (int i = 0; i < dbToString.length ; i++)
+            {
+                myWriter.write(dbToString[i]);
+            }
+            myWriter.close();
 
         }
         catch (Exception exception){
@@ -97,8 +93,8 @@ public class infoDB {
         //ArrayList<ArrayList> outputArray = new ArrayList<ArrayList>();
         ArrayList<String> outputArray = new ArrayList<String>();
         String[] result_columns = new String[]{
-                KEY_SESSION_ID, KEY_INPUT_TIME, KEY_INPUT_DURATION, KEY_INPUT_PRESSURE, KEY_TIME_BETWEEN_TAPS};
-        int sessionID;
+                KEY_PCT, KEY_INPUT_TIME, KEY_INPUT_DURATION, KEY_INPUT_PRESSURE, KEY_TIME_BETWEEN_TAPS};
+        boolean pct;
         float inputTime;
         float inputDuration;
         float inputPressure;
@@ -119,7 +115,7 @@ public class infoDB {
         boolean result = cursor.moveToFirst();
         while (result) {
 
-            sessionID = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SESSION_ID));
+            pct = cursor.getExtras().getBoolean(String.valueOf(cursor.getColumnIndexOrThrow(KEY_PCT)));
             inputTime = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_INPUT_TIME));
             inputDuration = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_INPUT_DURATION));
             inputPressure = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_INPUT_PRESSURE));
@@ -135,7 +131,7 @@ public class infoDB {
 
             outputArray.add(row);*/
 
-            outputArray.add(sessionID + ", " + inputTime + ", " + inputDuration + ", " + inputPressure + ", " +timeBetweenTaps + "\n");
+            outputArray.add(pct + ", " + inputTime + ", " + inputDuration + ", " + inputPressure + ", " +timeBetweenTaps + "\n");
             result = cursor.moveToNext();
 
         }return outputArray.toArray(new String[outputArray.size()]);
@@ -166,8 +162,8 @@ public class infoDB {
         private static final String DATABASE_TABLE = "inputs";
         private static final int DATABASE_VERSION = 1;
         private static final String DATABASE_CREATE = "create table " +
-                DATABASE_TABLE + " (" + KEY_SESSION_ID +
-                " integer primary key, " +
+                DATABASE_TABLE + " (" + KEY_PCT +
+                " boolean primary key, " +
                 KEY_INPUT_TIME + " float, " +
                 KEY_INPUT_DURATION + " float, " +
                 KEY_TIME_BETWEEN_TAPS + " float, " +

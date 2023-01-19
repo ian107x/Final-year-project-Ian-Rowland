@@ -36,6 +36,7 @@
             android:layout_marginStart="0dp"
             android:layout_marginLeft="0dp"
             android:layout_marginTop="300dp"
+            android:background="@drawable/buttonbg"
             android:text="press this button to view data" />
 
         <Button
@@ -50,7 +51,18 @@
             android:layout_marginStart="0dp"
             android:layout_marginLeft="0dp"
             android:layout_marginTop="500dp"
+            android:background="@drawable/buttonbg"
             android:text="press this button to export the data" />
+
+        <Button
+            android:id="@+id/returntomain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Return to main"
+            android:background="@drawable/buttonbg"
+            android:layout_marginTop="600dp"
+            android:layout_marginLeft="-5dp"/>
 
 
 
