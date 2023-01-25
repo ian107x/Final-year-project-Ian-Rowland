@@ -9,31 +9,37 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.os.Looper;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.widget.Toast;
+import android.os.Handler;
 
 import androidx.annotation.NonNull;
-
 import java.util.ArrayList;
 
 public class characterView extends SurfaceView implements SurfaceHolder.Callback{
 
-    //private int lifeNum;
     private playerSprite birdSprite;
     private boolean touch = false;
     private ArrayList<obstacle> enemies = new ArrayList<obstacle>();
+    private ArrayList<PerceivedControlInfo> pctList = new ArrayList<>();
     private double startTime;
     private double endTime;
     private Paint scoreBoard = new Paint();
     private Paint lifeCount = new Paint();
-    enemyFactory ef = new enemyFactory();
-    gameThread t;
+    private enemyFactory ef = new enemyFactory();
+    private gameThread t;
     boolean perceivedControlTest;
     private infoDB db = new infoDB(getContext());
-    private int minBirdY;
-    private int maxBirdY;
+    private int bottomOfScreen;
+    private int topOfScreen;
+    float prevInputTime = 0;
+    float inputStart;
+    float inputend;
+    float inputduration;
+    float timeBetweenInputs;
+    float inputPressure;
 
     public characterView(Context context){
         super(context);
@@ -43,15 +49,15 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
 
         //quick note of recycle for bitmaps bird.recycle();
 
-        minBirdY = getScreenHeight();
-        maxBirdY = 0;
+        bottomOfScreen = getScreenHeight();
+        topOfScreen = 0;
         scoreBoard.setColor(Color.RED);
-        scoreBoard.setTextSize(50);
+        scoreBoard.setTextSize(70);
         scoreBoard.setTypeface(Typeface.DEFAULT);
         scoreBoard.setAntiAlias(true);
 
         lifeCount.setColor(Color.GREEN);
-        lifeCount.setTextSize(50);
+        lifeCount.setTextSize(70);
         lifeCount.setTypeface(Typeface.DEFAULT);
         lifeCount.setAntiAlias(true);
 
@@ -80,6 +86,12 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
         }
     }
 
+    /*@Override
+    public void onDraw(Canvas canvas)
+    {
+
+    }*/
+
     /*public boolean impactEnemyCheck(int x, int y)
     {
         for(int i = 0; i <= enemies.size(); i++) {
@@ -92,7 +104,8 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
     }*/
 
     public boolean impactObstacle(obstacle e){
-            if((birdSprite.xAxis < e.xAxis && e.xAxis < (birdSprite.xAxis + birdSprite.image.getWidth()))
+            if((birdSprite.xAxis < e.xAxis
+                    && e.xAxis < (birdSprite.xAxis + birdSprite.image.getWidth()))
                     && birdSprite.yAxis < e.yAxis
                     && e.yAxis < (birdSprite.yAxis + birdSprite.image.getHeight()))
             {
@@ -119,18 +132,12 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
 
         //define max jump height
 
-        float prevInputTime = 0;
-        float inputStart = 0;
-        float inputend;
-        float inputduration;
-        float timeBetweenInputs = 0;
-        float inputPressure = 0;
-
         int PCTRNG = (int)Math.floor(Math.random() *(10 - 1 + 1) + 0);
 
-        if(PCTRNG == 3 || PCTRNG == 5 ||PCTRNG == 7 )
+        if(PCTRNG == 3 || PCTRNG == 5)
         {
             perceivedControlTest = true;
+
         }
         else
         {
@@ -140,16 +147,14 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
 
         if(event.getAction() == MotionEvent.ACTION_DOWN)
         {
-
-            //birdSprite.maxJumpHeight = birdSprite.yAxis + birdSprite.image.getHeight();
-
+            birdSprite.maxJumpHeight = birdSprite.yAxis - (birdSprite.image.getHeight() * 5);
 
             inputPressure = event.getPressure();
             inputStart = System.currentTimeMillis();;
 
-            timeBetweenInputs = inputStart - prevInputTime;
+            //value for inputend at this point is the end time for the previous input
+            timeBetweenInputs = inputStart - inputend;
             //send values to database
-
 
             if(perceivedControlTest)
             {
@@ -158,30 +163,50 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
             else
             {
                 touch = true;
-                birdSprite.yAxis -= (birdSprite.birdVelocity * (birdSprite.image.getHeight() * 0.66));
-                //birdSprite.maxJumpHeight = birdSprite.image.getHeight() * 5;
+                //birdSprite.yAxis -= (birdSprite.birdVelocity * birdSprite.image.getHeight());
+                //birdSprite.maxJumpHeight = birdSprite.yAxis + (birdSprite.image.getHeight() * 50);
             }
-            //check for perceived control
 
-            //}
-        }else if(event.getAction() == MotionEvent.ACTION_UP)
+        }
+        else if(event.getAction() == MotionEvent.ACTION_UP)
         {
             touch = false;
+            //set new inputend value
             inputend = System.currentTimeMillis();
-            inputduration = inputend - inputStart;
-            db.addInput(perceivedControlTest, inputStart, inputduration, inputPressure, timeBetweenInputs);
+            inputduration = (inputend - inputStart)/1000;
+            //db.addInput(perceivedControlTest, inputStart, inputduration, inputPressure, timeBetweenInputs);
+            PerceivedControlInfo pct = new PerceivedControlInfo(perceivedControlTest, inputPressure, inputduration, timeBetweenInputs, inputStart);
+            pctList.add(pct);
             prevInputTime = inputend;
         }
         return super.onTouchEvent(event);
     }
 
-    public void endGame(){
-        endTime = System.currentTimeMillis();
-        double totalTime = endTime - startTime;
-        //Toast.makeText(getContext(), "Game Over" , Toast.LENGTH_SHORT).show();
+
+
+    public void endGame()
+    {
+        /*Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                for(int i = 0; i < pctList.size(); i++)
+                {
+                    PerceivedControlInfo pctInstance = pctList.get(i);
+                    db.addInput(pctInstance.tested, pctInstance.inputTime, pctInstance.inputDuration, pctInstance.inputPressure, pctInstance.timeBetweenInputs);
+                }
+                Intent gameOverIntent = new Intent(getContext(), gameOverActivity.class);
+                getContext().startActivity(gameOverIntent);
+            }
+        });*/
+        for(int i = 0; i < pctList.size(); i++)
+        {
+            PerceivedControlInfo pctInstance = pctList.get(i);
+            db.addInput(pctInstance.tested, pctInstance.inputTime, pctInstance.inputDuration, pctInstance.inputPressure, pctInstance.timeBetweenInputs);
+        }
         Intent gameOverIntent = new Intent(getContext(), gameOverActivity.class);
-        gameOverIntent.putExtra("Score", birdSprite.gameScore);
         getContext().startActivity(gameOverIntent);
+
     }
 
     //theoretical method to create gameplay/level
@@ -190,6 +215,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
         int birdWidth = getScreenWidth()/10;
         int birdHeight = birdWidth;
         birdSprite = new playerSprite(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.birdimage), birdWidth, birdHeight, false), 25, 25);
+        birdSprite.maxJumpHeight = getScreenHeight();
         for(int i = 0; i < 5; i++)
         {
             generateEnemies();
@@ -210,34 +236,32 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
             {
                 //lifeNum--;
                 enemies.get(i).interact(birdSprite);
-
                 enemies.get(i).xAxis = -200;
             }
             if(enemies.get(i).xAxis < 0)
             {
                 //recycle bitmap to free up memory
-                enemies.set(i, terminateEnemy(enemies.get(i)));
-                enemies.remove(i);
+                //enemies.set(i, terminateEnemy(enemies.get(i)));
+                //enemies.remove(i);
+
+                terminate(enemies.get(i));
             }
         }
 
         //pre implementation logic for hitting the top or bottom of the screen
 
-         if (birdSprite.yAxis > minBirdY)
+         if (birdSprite.yAxis > bottomOfScreen)
          {
            birdSprite.yAxis = getScreenHeight()/3;
-           birdSprite.life --;
+           birdSprite.life--;
            //lifeNum--;
          }
-         if (birdSprite.yAxis < maxBirdY)
+
+         if (birdSprite.yAxis < topOfScreen)
          {
            birdSprite.yAxis = getScreenHeight()/2;
-           birdSprite.life --;
+           birdSprite.life--;
            //lifeNum--;
-        }
-         if(birdSprite.yAxis < birdSprite.maxJumpHeight)
-         {
-             birdSprite.maxJumpHeight = getScreenHeight();
          }
 
         /*if(lifeNum <=0) {
@@ -286,7 +310,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
     public void updateView()
     {
         gameLogic();
-        birdSprite.moveSprite(touch);
+        birdSprite.moveSprite();
         for(int i = 0; i < enemies.size(); i++)
         {
             enemies.get(i).moveSprite();
@@ -297,22 +321,25 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
     public void generateEnemies()
     {
         obstacle enemy1;
+        String enemyType;
         int enemyRNG = (int)Math.floor(Math.random() *(2 - 0 + 1) + 0);
         int yAxisRNG = (int)Math.floor(Math.random() *(getScreenHeight() - 0 + 1) + 0);
         int xAxisRNG = (int)Math.floor(Math.random() *(getScreenWidth() - (getScreenWidth()/2) + 1) + 0);
         if(enemyRNG == 0)
         {
-            enemy1 = ef.createEnemy(this, "GREENENEMY", getScreenWidth(), yAxisRNG);
+            enemyType = "GREENENEMY";
 
         }
         else if(enemyRNG == 1)
         {
-            enemy1 = ef.createEnemy(this, "REDENEMY", getScreenWidth(), yAxisRNG);
+            enemyType = "REDENEMY";
         }
         else
         {
-            enemy1 = ef.createEnemy(this, "BLUEENEMY", getScreenWidth(), yAxisRNG);
+            enemyType = "BLUEENEMY";
         }
+
+        enemy1 = ef.createEnemy(this, enemyType, getScreenWidth(), yAxisRNG);
 
         enemies.add(enemy1);
     }
@@ -321,8 +348,17 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
     // enemy values so as to free up memory and remove enemy from the arraylist when it is no longer needed, and another enemy can be created
     public obstacle terminateEnemy(obstacle e)
     {
+        e.image = null;
         e.image.recycle();
+        //enemies.remove(e);
         //e.xAxis = getScreenWidth() + 300;
         return e;
+    }
+
+    public void terminate(obstacle e)
+    {
+        //e.image = null;
+        e.image.recycle();
+        enemies.remove(e);
     }
 }

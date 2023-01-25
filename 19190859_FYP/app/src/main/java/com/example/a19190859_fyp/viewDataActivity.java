@@ -15,6 +15,7 @@ public class viewDataActivity extends Activity{
     TextView dataText;
     Button viewDataButton;
     Button exportDataButton;
+    Button returnToMainButton;
     infoDB infoDB;
     List<String> databaseList;
 
@@ -26,6 +27,7 @@ public class viewDataActivity extends Activity{
         dataText = (TextView) findViewById(R.id.datatext);
         viewDataButton = (Button) findViewById(R.id.viewdatabutton);
         exportDataButton = (Button) findViewById(R.id.exportdatabutton);
+        returnToMainButton = (Button) findViewById(R.id.returntomain);
         infoDB = new infoDB(getApplicationContext());
 
         databaseList = new ArrayList<String>();

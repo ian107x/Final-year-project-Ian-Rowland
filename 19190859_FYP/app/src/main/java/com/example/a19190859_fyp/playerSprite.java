@@ -28,18 +28,18 @@ public class playerSprite implements sprite{
 
     }
 
-    //@Override
-    public void moveSprite(boolean touch) {
-        /*if(touch == true)
+    @Override
+    public void moveSprite(){
         {
-            //yAxis -= (birdVelocity * 10);
-            yAxis -= birdVelocity;
-            yAxis -= birdVelocity * 2;
+            if(this.yAxis > this.maxJumpHeight)
+            {
+                yAxis -= birdVelocity * 10;
+            }
+            else
+            {
+                yAxis += birdVelocity;
 
-        }
-        else*/
-        {
-            yAxis += birdVelocity;
+            }
         }
     }
 }

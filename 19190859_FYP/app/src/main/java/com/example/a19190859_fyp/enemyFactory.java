@@ -15,20 +15,18 @@ public class enemyFactory {
             //return new redEnemy(Bitmap.createBitmap(R.drawable.enemy), x, y);
             Bitmap bmp = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(v.getResources(), R.drawable.redcloud), v.getWidth()/5, v.getHeight()/10, false);
             obstacle re = new redEnemy(bmp, x, y);
-            //bmp.recycle();
             return re;
-        }else if (enemyType.equalsIgnoreCase("GREENENEMY"))
+        }
+        else if (enemyType.equalsIgnoreCase("GREENENEMY"))
         {
             Bitmap bmp = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(v.getResources(), R.drawable.greencloud), v.getWidth()/5, v.getHeight()/10, false);
-            obstacle ge = new redEnemy(bmp, x, y);
-            //bmp.recycle();
+            obstacle ge = new greenEnemy(bmp, x, y);
             return ge;
         }
         else if(enemyType.equalsIgnoreCase("BLUEENEMY"))
         {
             Bitmap bmp = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(v.getResources(), R.drawable.bluecloud), v.getWidth()/5, v.getHeight()/10, false);
             obstacle be = new blueEnemy(bmp, x, y);
-            //bmp.recycle();
             return be;
         }
         else{

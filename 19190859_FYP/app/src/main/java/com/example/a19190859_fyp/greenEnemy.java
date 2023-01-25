@@ -15,9 +15,4 @@ public class greenEnemy extends obstacle {
     }
 
 
-    @Override
-    public void moveSprite() {
-        this.xAxis -= objectVelocity;
-
-    }
 }

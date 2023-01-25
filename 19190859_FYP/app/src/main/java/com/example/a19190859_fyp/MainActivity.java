@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     Button startGameButton;
     Button startViewDataButton;
     TextView introductionText;
-    ImageButton imageButton;
+    //ImageButton imageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         startGameButton = (Button) findViewById(R.id.startgamebutton);
         startViewDataButton = (Button) findViewById(R.id.viewdatabutton);
         introductionText = (TextView) findViewById(R.id.introductiontext);
-        imageButton = (ImageButton) findViewById(R.id.imageButton);
+        //imageButton = (ImageButton) findViewById(R.id.imageButton);
 
         startGameButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -42,12 +42,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        imageButton.setOnClickListener(new View.OnClickListener() {
+        /*imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent viewDataIntent = new Intent(getBaseContext(), viewDataActivity.class);
                 startActivity(viewDataIntent);
             }
-        });
+        });*/
     }
 }

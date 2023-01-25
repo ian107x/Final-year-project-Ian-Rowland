@@ -22,6 +22,9 @@ public abstract class obstacle implements sprite {
         canvas.drawBitmap(image, xAxis, yAxis, null);
     }
 
-    public abstract void moveSprite();
+    public void moveSprite() {
+        this.xAxis -= objectVelocity;
+
+    }
 
 }

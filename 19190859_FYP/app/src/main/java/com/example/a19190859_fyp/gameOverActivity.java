@@ -21,7 +21,10 @@ public class gameOverActivity extends Activity {
         gameOverText = (TextView) findViewById(R.id.gameOver);
         restartGameButton = (Button) findViewById(R.id.restartgame);
         returnToMainButton = (Button) findViewById(R.id.returntomain);
-        viewDataButton = (Button) findViewById(R.id.returntomain);
+        viewDataButton = (Button) findViewById(R.id.viewdata);
+
+        //Intent intent = getIntent();
+        //String score = intent.getStringExtra(gamePlayActivity."Score");
 
         restartGameButton.setOnClickListener(new View.OnClickListener(){
             @Override

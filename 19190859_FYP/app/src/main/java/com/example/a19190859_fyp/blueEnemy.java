@@ -14,9 +14,4 @@ public class blueEnemy extends obstacle {
         p.life -= 1;
     }
 
-    @Override
-    public void moveSprite() {
-        this.xAxis -= objectVelocity;
-
-    }
 }

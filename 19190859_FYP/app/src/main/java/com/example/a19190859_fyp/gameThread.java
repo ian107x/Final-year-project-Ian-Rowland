@@ -1,6 +1,5 @@
 package com.example.a19190859_fyp;
 
-import android.annotation.SuppressLint;
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 
@@ -10,8 +9,6 @@ public class gameThread extends Thread{
     private SurfaceHolder sHolder;
     public static Canvas gameCanvas;
     boolean threadRunning;
-    private int targetFPS = 30;
-    private double averageFPS;
 
     public gameThread(characterView v, SurfaceHolder s)
     {
@@ -57,7 +54,7 @@ public class gameThread extends Thread{
         }
     }
 
-        public void setRunning ( boolean running)
+        public void setRunning (boolean running)
         {
             this.threadRunning = running;
         }

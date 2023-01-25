@@ -4,8 +4,20 @@
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/layout/activity_view_data.xml"
     },
     {
+        "merged": "com.example.a19190859_fyp.app-merged_res-25:/drawable_background.png.flat",
+        "source": "com.example.a19190859_fyp.app-main-27:/drawable/background.png"
+    },
+    {
+        "merged": "com.example.a19190859_fyp.app-merged_res-25:/drawable_buttonbg.png.flat",
+        "source": "com.example.a19190859_fyp.app-main-27:/drawable/buttonbg.png"
+    },
+    {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/xml_backup_rules.xml.flat",
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.example.a19190859_fyp.app-merged_res-25:/layout_activity_main.xml.flat",
+        "source": "com.example.a19190859_fyp.app-main-27:/layout/activity_main.xml"
     },
     {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
@@ -20,16 +32,20 @@
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/mipmap-xxhdpi/ic_launcher_round.webp"
     },
     {
+        "merged": "com.example.a19190859_fyp.app-merged_res-25:/layout_activity_game_over_portrait.xml.flat",
+        "source": "com.example.a19190859_fyp.app-main-27:/layout/activity_game_over_portrait.xml"
+    },
+    {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/mipmap-hdpi_ic_launcher.webp.flat",
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/mipmap-hdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.a19190859_fyp.app-merged_res-25:/drawable_greencloud.png.flat",
-        "source": "com.example.a19190859_fyp.app-main-27:/drawable/greencloud.png"
-    },
-    {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/layout_activity_game_over_portrait.xml.flat",
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/layout/activity_game_over_portrait.xml"
+    },
+    {
+        "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/drawable_bluecloud.png.flat",
+        "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/drawable/bluecloud.png"
     },
     {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/layout-land_activity_game_over.xml.flat",
@@ -40,12 +56,16 @@
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/xml/data_extraction_rules.xml"
     },
     {
-        "merged": "com.example.a19190859_fyp.app-merged_res-25:/drawable_bluecloud.png.flat",
-        "source": "com.example.a19190859_fyp.app-main-27:/drawable/bluecloud.png"
+        "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/drawable_whitecloud.png.flat",
+        "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/drawable/whitecloud.png"
     },
     {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/mipmap-xhdpi_ic_launcher_round.webp.flat",
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/drawable_greencloud.png.flat",
+        "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/drawable/greencloud.png"
     },
     {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/drawable-v24_ic_launcher_foreground.xml.flat",
@@ -68,10 +88,6 @@
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/mipmap-hdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.a19190859_fyp.app-merged_res-25:/drawable_redcloud.png.flat",
-        "source": "com.example.a19190859_fyp.app-main-27:/drawable/redcloud.png"
-    },
-    {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/mipmap-xxxhdpi/ic_launcher_round.webp"
     },
@@ -82,6 +98,10 @@
     {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/mipmap-anydpi-v26_ic_launcher.xml.flat",
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/drawable_birdimage.png.flat",
+        "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/drawable/birdimage.png"
     },
     {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/mipmap-xxhdpi_ic_launcher.webp.flat",
@@ -104,10 +124,6 @@
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/drawable/bird.png"
     },
     {
-        "merged": "com.example.a19190859_fyp.app-merged_res-25:/drawable_birdimage.png.flat",
-        "source": "com.example.a19190859_fyp.app-main-27:/drawable/birdimage.png"
-    },
-    {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/drawable_life_crystal.png.flat",
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/drawable/life_crystal.png"
     },
@@ -116,7 +132,15 @@
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/layout/activity_main.xml"
     },
     {
-        "merged": "com.example.a19190859_fyp.app-merged_res-25:/drawable_whitecloud.png.flat",
-        "source": "com.example.a19190859_fyp.app-main-27:/drawable/whitecloud.png"
+        "merged": "com.example.a19190859_fyp.app-merged_res-25:/drawable_logov1.png.flat",
+        "source": "com.example.a19190859_fyp.app-main-27:/drawable/logov1.png"
+    },
+    {
+        "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/drawable_redcloud.png.flat",
+        "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/drawable/redcloud.png"
+    },
+    {
+        "merged": "com.example.a19190859_fyp.app-merged_res-25:/layout_activity_view_data.xml.flat",
+        "source": "com.example.a19190859_fyp.app-main-27:/layout/activity_view_data.xml"
     }
 ]

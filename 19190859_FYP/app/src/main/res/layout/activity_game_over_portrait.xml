@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Restart the Game"
+            android:text="@string/restart_game_text"
             android:background="@drawable/buttonbg"
             android:layout_marginLeft="-5dp">
         </Button>
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Return to main"
+            android:text="@string/return_to_main_text"
             android:background="@drawable/buttonbg"
             android:layout_marginLeft="-5dp"/>
         <Button
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="View/Export Data"
+            android:text="@string/view_data"
             android:background="@drawable/buttonbg"
             android:layout_marginLeft="-5dp"/>
 

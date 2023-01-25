@@ -10,13 +10,11 @@ public class redEnemy extends obstacle {
     }
 
     @Override
-    public void interact(playerSprite p) {
+    public void interact(playerSprite p)
+    {
         p.life -= 2;
     }
 
-    @Override
-    public void moveSprite() {
-        this.xAxis -= objectVelocity;
 
-    }
+
 }

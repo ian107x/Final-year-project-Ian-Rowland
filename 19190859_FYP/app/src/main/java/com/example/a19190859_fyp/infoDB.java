@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class infoDB {
 
 
-    public static final String KEY_PCT = "_pct";
+    public static final String KEY_PCT = "pct";
     public static final String KEY_INPUT_TIME = "input_time";
     public static final String KEY_INPUT_DURATION = "input_duration";
     public static final String KEY_INPUT_PRESSURE = "input_pressure";
@@ -45,13 +45,15 @@ public class infoDB {
     }
 
     public void exportDB(){
-        ModuleDBOpenHelper DBHelper = new ModuleDBOpenHelper(context, ModuleDBOpenHelper.DATABASE_NAME, null, ModuleDBOpenHelper.DATABASE_VERSION);
-        File exportDirectory = new File(Environment.getExternalStorageDirectory(), "");
-        String path = "/storage/sdcard0/inputs.txt";
+        //ModuleDBOpenHelper DBHelper = new ModuleDBOpenHelper(context, ModuleDBOpenHelper.DATABASE_NAME, null, ModuleDBOpenHelper.DATABASE_VERSION);
+        //File exportDirectory = new File(Environment.getExternalStorageDirectory(), "");
+        //String path = "/storage/sdcard0/inputs.txt";
+        //String path = Environment.DIRECTORY_DOWNLOADS;
+        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 
-        if(!exportDirectory.exists()){
-            exportDirectory.mkdirs();
-        }
+        //if(!exportDirectory.exists()){
+        //    exportDirectory.mkdirs();
+        //}
         //File file;
         //PrintWriter printWriter = null;
         try
@@ -60,18 +62,24 @@ public class infoDB {
             file.createNewFile();
             printWriter = new PrintWriter(new FileWriter(file));*/
 
-            File bfile = new File(path);
+            File bfile = new File(dir, "inputs.txt");
+            //File bfile = new File(path + "inputs.txt");
             FileWriter myWriter = new FileWriter(bfile);
             String[] dbToString = getAll();
 
-            bfile.createNewFile();
-
-            //if (bfile.createNewFile()) {
-            //    myWriter.write("Input id" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " + " time since previous input");
-            //}
-            if(bfile.length() == 0)
+            if(bfile.createNewFile())
             {
-                myWriter.write("Input id" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " + " time since previous input");
+
+
+
+                //if (bfile.createNewFile()) {
+                //    myWriter.write("Input id" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " + " time since previous input");
+                //}
+                if(bfile.length() == 0)
+                {
+                    myWriter.write("PCT" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " + " time since previous input\n");
+                }
+
             }
 
             for (int i = 0; i < dbToString.length ; i++)
@@ -134,7 +142,9 @@ public class infoDB {
             outputArray.add(pct + ", " + inputTime + ", " + inputDuration + ", " + inputPressure + ", " +timeBetweenTaps + "\n");
             result = cursor.moveToNext();
 
-        }return outputArray.toArray(new String[outputArray.size()]);
+        }
+        cursor.close();
+        return outputArray.toArray(new String[outputArray.size()]);
     }
 
     public String[][] convertTo2dArray(/*String[] db*/)

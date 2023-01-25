@@ -17,14 +17,14 @@
             android:id="@+id/introductiontext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="press the buttons to do the associated things"/>
+            android:text="@string/instruction_text_main"/>
 
         <TextView
             android:id="@+id/datatext"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginTop="30dp"
-            android:text="data will display here" />
+            android:text="@string/display_text" />
 
         <Button
             android:id="@+id/viewdatabutton"
@@ -37,7 +37,7 @@
             android:layout_marginLeft="0dp"
             android:layout_marginTop="300dp"
             android:background="@drawable/buttonbg"
-            android:text="press this button to view data" />
+            android:text="@string/display_data" />
 
         <Button
             android:id="@+id/exportdatabutton"
@@ -52,14 +52,14 @@
             android:layout_marginLeft="0dp"
             android:layout_marginTop="500dp"
             android:background="@drawable/buttonbg"
-            android:text="press this button to export the data" />
+            android:text="@string/export_Data" />
 
         <Button
             android:id="@+id/returntomain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Return to main"
+            android:text="@string/return_to_main_text"
             android:background="@drawable/buttonbg"
             android:layout_marginTop="600dp"
             android:layout_marginLeft="-5dp"/>
