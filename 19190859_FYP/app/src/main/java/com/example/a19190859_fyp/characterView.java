@@ -130,6 +130,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
         float x = event.getX();
         float y = event.getY();
 
+        boolean nextInputTested;
         //define max jump height
 
         int PCTRNG = (int)Math.floor(Math.random() *(10 - 1 + 1) + 0);
@@ -144,10 +145,19 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
             perceivedControlTest = false;
         }
 
+        if(perceivedControlTest)
+        {
+            nextInputTested = true;
+        }
+        else
+        {
+            nextInputTested = false;
+        }
+
 
         if(event.getAction() == MotionEvent.ACTION_DOWN)
         {
-            birdSprite.maxJumpHeight = birdSprite.yAxis - (birdSprite.image.getHeight() * 5);
+
 
             inputPressure = event.getPressure();
             inputStart = System.currentTimeMillis();;
@@ -163,6 +173,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
             else
             {
                 touch = true;
+                birdSprite.maxJumpHeight = birdSprite.yAxis - (birdSprite.image.getHeight() * 5);
                 //birdSprite.yAxis -= (birdSprite.birdVelocity * birdSprite.image.getHeight());
                 //birdSprite.maxJumpHeight = birdSprite.yAxis + (birdSprite.image.getHeight() * 50);
             }

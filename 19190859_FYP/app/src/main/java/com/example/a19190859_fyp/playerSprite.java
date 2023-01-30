@@ -1,5 +1,6 @@
 package com.example.a19190859_fyp;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
@@ -34,6 +35,10 @@ public class playerSprite implements sprite{
             if(this.yAxis > this.maxJumpHeight)
             {
                 yAxis -= birdVelocity * 10;
+                if(this.yAxis <= this.maxJumpHeight)
+                {
+                    this.maxJumpHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+                }
             }
             else
             {
