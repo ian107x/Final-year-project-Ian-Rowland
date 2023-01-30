@@ -24,16 +24,16 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
     private boolean touch = false;
     private ArrayList<obstacle> enemies = new ArrayList<obstacle>();
     private ArrayList<PerceivedControlInfo> pctList = new ArrayList<>();
-    private double startTime;
-    private double endTime;
+    //private double startTime;
+    //private double endTime;
     private Paint scoreBoard = new Paint();
     private Paint lifeCount = new Paint();
     private enemyFactory ef = new enemyFactory();
     private gameThread t;
     boolean perceivedControlTest;
     private infoDB db = new infoDB(getContext());
-    private int bottomOfScreen;
-    private int topOfScreen;
+    private final int bottomOfScreen;
+    private final int topOfScreen;
     float prevInputTime = 0;
     float inputStart;
     float inputend;
@@ -61,7 +61,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
         lifeCount.setTypeface(Typeface.DEFAULT);
         lifeCount.setAntiAlias(true);
 
-        startTime = System.currentTimeMillis();
+        //startTime = System.currentTimeMillis();
 
     }
 
@@ -86,11 +86,15 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
         }
     }
 
-    /*@Override
+    @Override
     public void onDraw(Canvas canvas)
     {
+        if(birdSprite.life <= 0)
+        {
 
-    }*/
+            endGame();
+        }
+    }
 
     /*public boolean impactEnemyCheck(int x, int y)
     {
@@ -103,7 +107,8 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
         }return true;
     }*/
 
-    public boolean impactObstacle(obstacle e){
+    public boolean impactObstacle(obstacle e)
+    {
             if((birdSprite.xAxis < e.xAxis
                     && e.xAxis < (birdSprite.xAxis + birdSprite.image.getWidth()))
                     && birdSprite.yAxis < e.yAxis
@@ -115,17 +120,20 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
 
     }
 
-    public static int getScreenWidth() {
+    public static int getScreenWidth()
+    {
         return Resources.getSystem().getDisplayMetrics().widthPixels;
     }
 
-    public static int getScreenHeight() {
+    public static int getScreenHeight()
+    {
         return Resources.getSystem().getDisplayMetrics().heightPixels;
     }
 
 
 
-    public boolean onTouchEvent(MotionEvent event){
+    public boolean onTouchEvent(MotionEvent event)
+    {
 
         float x = event.getX();
         float y = event.getY();
@@ -133,31 +141,29 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
         boolean nextInputTested;
         //define max jump height
 
-        int PCTRNG = (int)Math.floor(Math.random() *(10 - 1 + 1) + 0);
-
-        if(PCTRNG == 3 || PCTRNG == 5)
-        {
-            perceivedControlTest = true;
-
-        }
-        else
-        {
-            perceivedControlTest = false;
-        }
-
-        if(perceivedControlTest)
-        {
-            nextInputTested = true;
-        }
-        else
-        {
-            nextInputTested = false;
-        }
-
-
         if(event.getAction() == MotionEvent.ACTION_DOWN)
         {
 
+            int PCTRNG = (int)Math.floor(Math.random() *(10 - 1 + 1) + 0);
+
+            if(PCTRNG == 3 || PCTRNG == 5)
+            {
+                perceivedControlTest = true;
+
+            }
+            else
+            {
+                perceivedControlTest = false;
+            }
+
+            if(perceivedControlTest)
+            {
+                nextInputTested = true;
+            }
+            else
+            {
+                nextInputTested = false;
+            }
 
             inputPressure = event.getPressure();
             inputStart = System.currentTimeMillis();;
@@ -173,7 +179,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
             else
             {
                 touch = true;
-                birdSprite.maxJumpHeight = birdSprite.yAxis - (birdSprite.image.getHeight() * 5);
+                birdSprite.setJumpPeak();
                 //birdSprite.yAxis -= (birdSprite.birdVelocity * birdSprite.image.getHeight());
                 //birdSprite.maxJumpHeight = birdSprite.yAxis + (birdSprite.image.getHeight() * 50);
             }
@@ -224,7 +230,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
     public void createLevel()
     {
         int birdWidth = getScreenWidth()/10;
-        int birdHeight = birdWidth;
+        int birdHeight = getScreenHeight()/15;
         birdSprite = new playerSprite(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.birdimage), birdWidth, birdHeight, false), 25, 25);
         birdSprite.maxJumpHeight = getScreenHeight();
         for(int i = 0; i < 5; i++)
@@ -249,7 +255,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
                 enemies.get(i).interact(birdSprite);
                 enemies.get(i).xAxis = -200;
             }
-            if(enemies.get(i).xAxis < 0)
+            if(enemies.get(i).xAxis < 200)
             {
                 //recycle bitmap to free up memory
                 //enemies.set(i, terminateEnemy(enemies.get(i)));
@@ -278,13 +284,14 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
         /*if(lifeNum <=0) {
             endGame();
         }*/
-        if(birdSprite.life <= 0)
+
+        /*if(birdSprite.life <= 0)
         {
             endGame();
-        }
+        }*/
         if(birdSprite.yAxis <= birdSprite.maxJumpHeight)
         {
-            birdSprite.maxJumpHeight = getScreenHeight();
+            birdSprite.maxJumpHeight = bottomOfScreen;
             //touch = false;
         }
 
@@ -293,7 +300,8 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
     }
 
     @Override
-    public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder) {
+    public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder)
+    {
 
         createLevel();
         t.setRunning(true);
@@ -302,7 +310,8 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
     }
 
     @Override
-    public void surfaceChanged(@NonNull SurfaceHolder surfaceHolder, int i, int i1, int i2) {
+    public void surfaceChanged(@NonNull SurfaceHolder surfaceHolder, int i, int i1, int i2)
+    {
 
     }
 
@@ -333,7 +342,10 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
     {
         obstacle enemy1;
         String enemyType;
+        //create randomised ints that allow for random generation of various enemy types
         int enemyRNG = (int)Math.floor(Math.random() *(2 - 0 + 1) + 0);
+
+        //create randomised ints that allow for random placement of obstacle objects on the y axis
         int yAxisRNG = (int)Math.floor(Math.random() *(getScreenHeight() - 0 + 1) + 0);
         int xAxisRNG = (int)Math.floor(Math.random() *(getScreenWidth() - (getScreenWidth()/2) + 1) + 0);
         if(enemyRNG == 0)

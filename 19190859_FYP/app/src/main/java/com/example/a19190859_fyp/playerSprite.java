@@ -10,7 +10,7 @@ public class playerSprite implements sprite{
     public int xAxis, yAxis;
     public int birdVelocity = 10;
     public int maxJumpHeight;
-    public int life;
+    public volatile int life;
     public int gameScore;
 
     public playerSprite(Bitmap bitmap, int x, int y)
@@ -24,17 +24,19 @@ public class playerSprite implements sprite{
 
 
     @Override
-    public void draw(Canvas canvas) {
+    public void draw(Canvas canvas)
+    {
         canvas.drawBitmap(image, xAxis, yAxis, null);
 
     }
 
     @Override
-    public void moveSprite(){
+    public void moveSprite()
+    {
         {
             if(this.yAxis > this.maxJumpHeight)
             {
-                yAxis -= birdVelocity * 10;
+                yAxis -= birdVelocity * 5;
                 if(this.yAxis <= this.maxJumpHeight)
                 {
                     this.maxJumpHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
@@ -45,6 +47,15 @@ public class playerSprite implements sprite{
                 yAxis += birdVelocity;
 
             }
+        }
+    }
+
+    public void setJumpPeak()
+    {
+        this.maxJumpHeight = this.yAxis -(this.image.getHeight() * 2);
+        if(this.maxJumpHeight < 0)
+        {
+            this.maxJumpHeight = 0;
         }
     }
 }
