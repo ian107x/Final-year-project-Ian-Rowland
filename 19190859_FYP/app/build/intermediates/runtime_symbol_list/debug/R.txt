@@ -2873,6 +2873,8 @@ int id save_non_transition_alpha 0x7f08015e
 int id save_overlay_view 0x7f08015f
 int id sawtooth 0x7f080160
 int id scale 0x7f080161
+int id scoreNumber 0x7f0801e7
+int id scoreTitle 0x7f0801e8
 int id screen 0x7f080162
 int id scroll 0x7f080163
 int id scrollIndicatorDown 0x7f080164

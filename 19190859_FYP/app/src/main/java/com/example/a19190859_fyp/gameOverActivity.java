@@ -10,9 +10,13 @@ import android.widget.TextView;
 
 public class gameOverActivity extends Activity {
     TextView gameOverText;
+    TextView scoretext;
+    TextView scoreTitle;
     Button restartGameButton;
     Button returnToMainButton;
     Button viewDataButton;
+
+    private String score;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +26,10 @@ public class gameOverActivity extends Activity {
         restartGameButton = (Button) findViewById(R.id.restartgame);
         returnToMainButton = (Button) findViewById(R.id.returntomain);
         viewDataButton = (Button) findViewById(R.id.viewdata);
+        scoreTitle = (TextView) findViewById(R.id.scoreTitle);
+        scoretext = (TextView) findViewById(R.id.scoreNumber);
+        score = getIntent().getExtras().get("score").toString();
+        scoretext.setText(score);
 
         //Intent intent = getIntent();
         //String score = intent.getStringExtra(gamePlayActivity."Score");

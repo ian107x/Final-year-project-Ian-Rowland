@@ -25,10 +25,10 @@ public class gameThread extends Thread{
             /*gameCanvas = null;
             {
                 try {
-                    gameCanvas = this.sHolder.lockCanvas();
+                    gameCanvas = sHolder.lockCanvas();
                     synchronized (sHolder) {
-                        this.game.updateView();
-                        this.game.draw(gameCanvas);
+                        game.updateView();
+                        game.draw(gameCanvas);
                     }
 
                 } catch (Exception e) {

@@ -17,7 +17,7 @@ public class viewDataActivity extends Activity{
     Button exportDataButton;
     Button returnToMainButton;
     infoDB infoDB;
-    List<String> databaseList;
+    String[] databaseList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +30,12 @@ public class viewDataActivity extends Activity{
         returnToMainButton = (Button) findViewById(R.id.returntomain);
         infoDB = new infoDB(getApplicationContext());
 
-        databaseList = new ArrayList<String>();
-        databaseList = Arrays.asList(infoDB.getAll());
+        databaseList = infoDB.getAll();
 
         viewDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dataText.setText((CharSequence) databaseList);
+                dataText.setText(compileDBFromList(databaseList));
             }
         });
 
@@ -47,6 +46,20 @@ public class viewDataActivity extends Activity{
             }
         });
 
+
+
     }
+    public String compileDBFromList(String[] dbList)
+    {
+        String returnDB = "";
+        for(int i = 0; i < dbList.length; i++)
+        {
+            returnDB += dbList[i];
+        }
+        return returnDB;
+    }
+
+
+
 
 }

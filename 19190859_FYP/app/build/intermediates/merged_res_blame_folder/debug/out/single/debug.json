@@ -4,20 +4,8 @@
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/layout/activity_view_data.xml"
     },
     {
-        "merged": "com.example.a19190859_fyp.app-merged_res-25:/drawable_background.png.flat",
-        "source": "com.example.a19190859_fyp.app-main-27:/drawable/background.png"
-    },
-    {
-        "merged": "com.example.a19190859_fyp.app-merged_res-25:/drawable_buttonbg.png.flat",
-        "source": "com.example.a19190859_fyp.app-main-27:/drawable/buttonbg.png"
-    },
-    {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/xml_backup_rules.xml.flat",
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/xml/backup_rules.xml"
-    },
-    {
-        "merged": "com.example.a19190859_fyp.app-merged_res-25:/layout_activity_main.xml.flat",
-        "source": "com.example.a19190859_fyp.app-main-27:/layout/activity_main.xml"
     },
     {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
@@ -56,8 +44,16 @@
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/xml/data_extraction_rules.xml"
     },
     {
+        "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/drawable_background.png.flat",
+        "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/drawable/background.png"
+    },
+    {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/drawable_whitecloud.png.flat",
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/drawable/whitecloud.png"
+    },
+    {
+        "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/drawable_logov1.png.flat",
+        "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/drawable/logov1.png"
     },
     {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/mipmap-xhdpi_ic_launcher_round.webp.flat",
@@ -70,6 +66,10 @@
     {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/drawable-v24_ic_launcher_foreground.xml.flat",
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/drawable-v24/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/drawable_buttonbg.png.flat",
+        "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/drawable/buttonbg.png"
     },
     {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/drawable_bg1.png.flat",
@@ -132,15 +132,7 @@
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/layout/activity_main.xml"
     },
     {
-        "merged": "com.example.a19190859_fyp.app-merged_res-25:/drawable_logov1.png.flat",
-        "source": "com.example.a19190859_fyp.app-main-27:/drawable/logov1.png"
-    },
-    {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/drawable_redcloud.png.flat",
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/drawable/redcloud.png"
-    },
-    {
-        "merged": "com.example.a19190859_fyp.app-merged_res-25:/layout_activity_view_data.xml.flat",
-        "source": "com.example.a19190859_fyp.app-main-27:/layout/activity_view_data.xml"
     }
 ]

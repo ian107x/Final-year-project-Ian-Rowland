@@ -1,5 +1,6 @@
 package com.example.a19190859_fyp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -40,6 +41,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
     float inputduration;
     float timeBetweenInputs;
     float inputPressure;
+    boolean nextInputTested;
 
     public characterView(Context context){
         super(context);
@@ -91,7 +93,8 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
     {
         if(birdSprite.life <= 0)
         {
-
+            t.setRunning(false);
+            setAlpha(0);
             endGame();
         }
     }
@@ -137,8 +140,8 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
 
         float x = event.getX();
         float y = event.getY();
+        boolean thisInputTested = perceivedControlTest;
 
-        boolean nextInputTested;
         //define max jump height
 
         if(event.getAction() == MotionEvent.ACTION_DOWN)
@@ -146,24 +149,24 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
 
             int PCTRNG = (int)Math.floor(Math.random() *(10 - 1 + 1) + 0);
 
-            if(PCTRNG == 3 || PCTRNG == 5)
+            /*if(thisInputTested)
             {
-                perceivedControlTest = true;
 
             }
             else
-            {
-                perceivedControlTest = false;
-            }
+            {*/
+                if(PCTRNG == 3 || PCTRNG == 5)
+                {
+                    perceivedControlTest = true;
+                    nextInputTested = true;
 
-            if(perceivedControlTest)
-            {
-                nextInputTested = true;
-            }
-            else
-            {
-                nextInputTested = false;
-            }
+                }
+                else
+                {
+                    perceivedControlTest = false;
+                    nextInputTested = false;
+                }
+            //}
 
             inputPressure = event.getPressure();
             inputStart = System.currentTimeMillis();;
@@ -192,7 +195,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
             inputend = System.currentTimeMillis();
             inputduration = (inputend - inputStart)/1000;
             //db.addInput(perceivedControlTest, inputStart, inputduration, inputPressure, timeBetweenInputs);
-            PerceivedControlInfo pct = new PerceivedControlInfo(perceivedControlTest, inputPressure, inputduration, timeBetweenInputs, inputStart);
+            PerceivedControlInfo pct = new PerceivedControlInfo(thisInputTested, inputPressure, inputduration, timeBetweenInputs, inputStart);
             pctList.add(pct);
             prevInputTime = inputend;
         }
@@ -221,8 +224,13 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
             PerceivedControlInfo pctInstance = pctList.get(i);
             db.addInput(pctInstance.tested, pctInstance.inputTime, pctInstance.inputDuration, pctInstance.inputPressure, pctInstance.timeBetweenInputs);
         }
+
         Intent gameOverIntent = new Intent(getContext(), gameOverActivity.class);
+        //gameOverIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        gameOverIntent.putExtra("score", birdSprite.gameScore);
+        ((Activity) getContext()).finish();
         getContext().startActivity(gameOverIntent);
+
 
     }
 
@@ -255,7 +263,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
                 enemies.get(i).interact(birdSprite);
                 enemies.get(i).xAxis = -200;
             }
-            if(enemies.get(i).xAxis < 200)
+            if(enemies.get(i).xAxis < -200)
             {
                 //recycle bitmap to free up memory
                 //enemies.set(i, terminateEnemy(enemies.get(i)));
@@ -380,7 +388,6 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
 
     public void terminate(obstacle e)
     {
-        //e.image = null;
         e.image.recycle();
         enemies.remove(e);
     }

@@ -11,7 +11,7 @@ public class playerSprite implements sprite{
     public int birdVelocity = 10;
     public int maxJumpHeight;
     public volatile int life;
-    public int gameScore;
+    public volatile int gameScore;
 
     public playerSprite(Bitmap bitmap, int x, int y)
     {

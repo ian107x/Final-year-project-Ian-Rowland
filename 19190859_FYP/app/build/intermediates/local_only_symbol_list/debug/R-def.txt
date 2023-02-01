@@ -30,6 +30,8 @@ id introductiontext
 id lh
 id restartgame
 id returntomain
+id scoreNumber
+id scoreTitle
 id startgamebutton
 id viewdata
 id viewdatabutton
