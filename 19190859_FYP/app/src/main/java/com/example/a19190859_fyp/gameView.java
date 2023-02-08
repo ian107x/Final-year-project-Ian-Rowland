@@ -29,10 +29,12 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
     private Paint lifeCount = new Paint();
     private enemyFactory ef = new enemyFactory();
     private gameThread t;
+    private int scoreIncrementChecker;
     boolean perceivedControlTest;
     private infoDB db = new infoDB(getContext());
     private final int bottomOfScreen;
     private final int topOfScreen;
+    private int maxEnemies;
     float prevInputTime = 0;
     float inputStart;
     float inputend;
@@ -41,7 +43,8 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
     float inputPressure;
     boolean nextInputTested;
 
-    public gameView(Context context){
+    public gameView(Context context)
+    {
         super(context);
         getHolder().addCallback(this);
         t = new gameThread(this, getHolder());
@@ -51,6 +54,9 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 
         bottomOfScreen = getScreenHeight();
         topOfScreen = 0;
+        maxEnemies = 4;
+
+
         scoreBoard.setColor(Color.RED);
         scoreBoard.setTextSize(70);
         scoreBoard.setTypeface(Typeface.DEFAULT);
@@ -60,9 +66,6 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
         lifeCount.setTextSize(70);
         lifeCount.setTypeface(Typeface.DEFAULT);
         lifeCount.setAntiAlias(true);
-
-        //startTime = System.currentTimeMillis();
-
     }
 
     public void draw(Canvas canvas) {
@@ -147,13 +150,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 
             int PCTRNG = (int)Math.floor(Math.random() *(10 - 1 + 1) + 0);
 
-            /*if(thisInputTested)
-            {
-
-            }
-            else
-            {*/
-                if(PCTRNG == 3 || PCTRNG == 5)
+                if(/*PCTRNG == 3 || PCTRNG == 5*/PCTRNG <=3)
                 {
                     perceivedControlTest = true;
                     nextInputTested = true;
@@ -164,7 +161,6 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
                     perceivedControlTest = false;
                     nextInputTested = false;
                 }
-            //}
 
             inputPressure = event.getPressure();
             inputStart = System.currentTimeMillis();;
@@ -181,8 +177,6 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
             {
                 touch = true;
                 birdSprite.setJumpPeak();
-                //birdSprite.yAxis -= (birdSprite.birdVelocity * birdSprite.image.getHeight());
-                //birdSprite.maxJumpHeight = birdSprite.yAxis + (birdSprite.image.getHeight() * 50);
             }
 
         }
@@ -253,53 +247,42 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
         {
             generateEnemies();
         }
+
         for(int i = 0; i < enemies.size(); i++)
         {
+            //check if obstacle has impacted the bird, and remove obstacle from the screen if it has impacted
             if(impactObstacle(enemies.get(i)))
             {
                 //lifeNum--;
                 enemies.get(i).interact(birdSprite);
-                enemies.get(i).xAxis = -200;
+                enemies.get(i).xAxis = -(enemies.get(i).image.getWidth());
             }
-            if(enemies.get(i).xAxis < -200)
+
+            //check if enemies have left the screen
+            if(enemies.get(i).xAxis < -(enemies.get(i).image.getWidth()))
             {
                 //recycle bitmap to free up memory
-                //enemies.set(i, terminateEnemy(enemies.get(i)));
-                //enemies.remove(i);
-
                 terminate(enemies.get(i));
             }
         }
 
-        //pre implementation logic for hitting the top or bottom of the screen
-
-         if (birdSprite.yAxis > bottomOfScreen)
+        /* check to see if the bird has impacted or passed the top or bottom boundaries of the screen */
+         if ((birdSprite.yAxis > bottomOfScreen) || (birdSprite.yAxis < topOfScreen))
          {
-           birdSprite.yAxis = getScreenHeight()/3;
+           birdSprite.yAxis = getScreenHeight()/2;
            birdSprite.life--;
-           //lifeNum--;
          }
 
          if (birdSprite.yAxis < topOfScreen)
          {
            birdSprite.yAxis = getScreenHeight()/2;
            birdSprite.life--;
-           //lifeNum--;
          }
 
-        /*if(lifeNum <=0) {
-            endGame();
-        }*/
-
-        /*if(birdSprite.life <= 0)
-        {
-            endGame();
-        }*/
-        if(birdSprite.yAxis <= birdSprite.maxJumpHeight)
-        {
-            birdSprite.maxJumpHeight = bottomOfScreen;
-            //touch = false;
-        }
+         if(birdSprite.yAxis <= birdSprite.maxJumpHeight)
+         {
+             birdSprite.maxJumpHeight = bottomOfScreen;
+         }
 
 
 
@@ -344,6 +327,9 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 
     }
 
+    /*
+    * method to generate enemies randomly for enemy type
+    * */
     public void generateEnemies()
     {
         obstacle enemy1;
@@ -375,18 +361,26 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 
     //terminateEnemy is used to recycle the bitmap associated with the enemy, and null the
     // enemy values so as to free up memory and remove enemy from the arraylist when it is no longer needed, and another enemy can be created
-    public obstacle terminateEnemy(obstacle e)
-    {
-        e.image = null;
-        e.image.recycle();
-        //enemies.remove(e);
-        //e.xAxis = getScreenWidth() + 300;
-        return e;
-    }
 
     public void terminate(obstacle e)
     {
         e.image.recycle();
         enemies.remove(e);
+    }
+
+    public void checkForScoreIncrement(playerSprite p)
+    {
+        if (p.gameScore - scoreIncrementChecker >= 5)
+        {
+            for(int i = 0; i < enemies.size(); i++)
+            {
+                enemies.get(i).boostSpeed();
+            }
+        }
+
+        if(p.gameScore > 20 && maxEnemies < 8)
+        {
+            maxEnemies = p.gameScore/5;
+        }
     }
 }

@@ -8,9 +8,9 @@
     <string name = "display_data">Display data</string>
     <string name = "export_Data">Export data to file</string>
     <string name = "display_text">Input data will be displayed here</string>
-    <string name = "i"></string>
-    <string name = "j"></string>
-    <string name = "k"></string>
+    <string name = "gameOverText">Game Over</string>
+    <string name = "scoreDisplay">Score: </string>
+    <string name = "zeroText">0</string>
     <string name = "l"></string>
     <string name = "m"></string>
     <string name = "n"></string>

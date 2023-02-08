@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -67,17 +68,17 @@ public class infoDB {
             FileWriter myWriter = new FileWriter(bfile);
             String[] dbToString = getAll();
 
+            FileOutputStream stream = new FileOutputStream(bfile);
             if(bfile.createNewFile())
             {
-
-
-
                 //if (bfile.createNewFile()) {
                 //    myWriter.write("Input id" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " + " time since previous input");
                 //}
                 if(bfile.length() == 0)
                 {
+                    String s = "PCT" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " + " time since previous input\n";
                     myWriter.write("PCT" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " + " time since previous input\n");
+                    stream.write(s.getBytes());
                 }
 
             }
@@ -85,6 +86,7 @@ public class infoDB {
             for (int i = 0; i < dbToString.length ; i++)
             {
                 myWriter.write(dbToString[i]);
+                stream.write(dbToString[i].getBytes());
             }
             myWriter.close();
 
@@ -123,21 +125,12 @@ public class infoDB {
         boolean result = cursor.moveToFirst();
         while (result) {
 
-            pct = cursor.getExtras().getBoolean(String.valueOf(cursor.getColumnIndexOrThrow(KEY_PCT)));
+            //pct = cursor.getExtras().getBoolean(String.valueOf(cursor.getColumnIndexOrThrow(KEY_PCT)));
+            pct = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_PCT)) > 0;
             inputTime = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_INPUT_TIME));
             inputDuration = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_INPUT_DURATION));
             inputPressure = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_INPUT_PRESSURE));
             timeBetweenTaps = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_TIME_BETWEEN_TAPS));
-
-            //ArrayList row = new ArrayList<>();
-
-            /*row.add(sessionID);
-            row.add(inputTime);
-            row.add(inputDuration);
-            row.add(inputPressure);
-            row.add(timeBetweenTaps+"\n");
-
-            outputArray.add(row);*/
 
             outputArray.add(pct + ", " + inputTime + ", " + inputDuration + ", " + inputPressure + ", " +timeBetweenTaps + "\n");
             result = cursor.moveToNext();

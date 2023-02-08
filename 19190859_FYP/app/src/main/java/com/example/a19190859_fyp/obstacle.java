@@ -8,12 +8,14 @@ public abstract class obstacle implements sprite {
     public Bitmap image;
     public int xAxis, yAxis;
     public int objectVelocity;
+    public int maxVelocity;
 
     public obstacle(Bitmap bitmap, int x, int y)
     {
         image = bitmap;
         xAxis = x;
         yAxis = y;
+        maxVelocity = 2 * objectVelocity;
     }
 
     public abstract void interact(playerSprite p);
@@ -27,6 +29,17 @@ public abstract class obstacle implements sprite {
     {
         this.xAxis -= objectVelocity;
 
+    }
+    public void boostSpeed()
+    {
+        if(objectVelocity < maxVelocity)
+        {
+            objectVelocity++;
+        }
+        if (objectVelocity > maxVelocity)
+        {
+            objectVelocity = maxVelocity;
+        }
     }
 
 }

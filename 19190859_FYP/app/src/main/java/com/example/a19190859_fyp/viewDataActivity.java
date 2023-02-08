@@ -36,6 +36,7 @@ public class viewDataActivity extends Activity{
             @Override
             public void onClick(View v) {
                 dataText.setText(compileDBFromList(databaseList));
+                //print(databaseList);
             }
         });
 
@@ -57,6 +58,14 @@ public class viewDataActivity extends Activity{
             returnDB += dbList[i];
         }
         return returnDB;
+    }
+
+    public void print(String[] content)
+    {
+        dataText.setText("");
+        for(int i=0; i<content.length; i++){
+            dataText.append(content[i]+"\n");
+        }
     }
 
 
