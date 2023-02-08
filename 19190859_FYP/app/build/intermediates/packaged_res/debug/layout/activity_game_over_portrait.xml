@@ -9,7 +9,7 @@
         android:id="@+id/gameOver"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Game Over"
+        android:text="@string/gameOverText"
         android:textSize="70sp"
         android:gravity = "center"/>
     <LinearLayout
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:textSize="70sp"
         android:layout_weight="1"
-        android:text = "Score: "
+        android:text = "@string/scoreDisplay"
         />
     <TextView
         android:id="@+id/scoreNumber"
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:textSize="70sp"
         android:layout_weight="1"
-        android:text = "0"/>
+        android:text = "@string/zeroText"/>
     </LinearLayout>
 
     <LinearLayout
@@ -45,7 +45,7 @@
 
         <Button
             android:id="@+id/restartgame"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:text="@string/restart_game_text"
@@ -54,7 +54,7 @@
         </Button>
         <Button
             android:id="@+id/returntomain"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:text="@string/return_to_main_text"

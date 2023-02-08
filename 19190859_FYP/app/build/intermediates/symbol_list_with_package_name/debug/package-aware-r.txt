@@ -3233,13 +3233,11 @@ string export_Data
 string exposed_dropdown_menu_content_description
 string fab_transformation_scrim_behavior
 string fab_transformation_sheet_behavior
+string gameOverText
 string hide_bottom_view_on_scroll_behavior
-string i
 string icon_content_description
 string instruction_text_main
 string item_view_role_description
-string j
-string k
 string l
 string m
 string m3_ref_typeface_brand_display_regular
@@ -3336,6 +3334,7 @@ string r
 string restart_game_text
 string return_to_main_text
 string s
+string scoreDisplay
 string search_menu_title
 string start_game
 string status_bar_notification_info_overflow
@@ -3347,6 +3346,7 @@ string w
 string x
 string y
 string z
+string zeroText
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
 style AndroidThemeColorAccentYellow

@@ -45,10 +45,8 @@ string app_name
 string display_data
 string display_text
 string export_Data
-string i
+string gameOverText
 string instruction_text_main
-string j
-string k
 string l
 string m
 string n
@@ -59,6 +57,7 @@ string r
 string restart_game_text
 string return_to_main_text
 string s
+string scoreDisplay
 string start_game
 string t
 string u
@@ -68,6 +67,7 @@ string w
 string x
 string y
 string z
+string zeroText
 style Theme.19190859_FYP
 xml backup_rules
 xml data_extraction_rules
