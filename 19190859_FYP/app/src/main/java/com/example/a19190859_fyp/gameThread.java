@@ -5,12 +5,12 @@ import android.view.SurfaceHolder;
 
 public class gameThread extends Thread{
 
-    private characterView game;
+    private gameView game;
     private SurfaceHolder sHolder;
     public static Canvas gameCanvas;
     boolean threadRunning;
 
-    public gameThread(characterView v, SurfaceHolder s)
+    public gameThread(gameView v, SurfaceHolder s)
     {
         super();
         this.game = v;

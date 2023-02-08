@@ -6,11 +6,8 @@ import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class gamePlayActivity extends Activity {
-    private characterView birdView;
+    private gameView birdView;
     private Handler gameHandler = new Handler();
     private final static long Interval = 30;
 
@@ -20,7 +17,7 @@ public class gamePlayActivity extends Activity {
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        birdView = new characterView(this);
+        birdView = new gameView(this);
         setContentView(birdView);
 
         /*Timer timer = new Timer();

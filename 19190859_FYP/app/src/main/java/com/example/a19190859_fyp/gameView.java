@@ -10,16 +10,14 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.os.Looper;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.os.Handler;
 
 import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
-public class characterView extends SurfaceView implements SurfaceHolder.Callback{
+public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 
     private playerSprite birdSprite;
     private boolean touch = false;
@@ -43,7 +41,7 @@ public class characterView extends SurfaceView implements SurfaceHolder.Callback
     float inputPressure;
     boolean nextInputTested;
 
-    public characterView(Context context){
+    public gameView(Context context){
         super(context);
         getHolder().addCallback(this);
         t = new gameThread(this, getHolder());
