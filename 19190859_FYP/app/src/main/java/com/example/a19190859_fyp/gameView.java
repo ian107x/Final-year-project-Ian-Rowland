@@ -75,7 +75,8 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
         {
             canvas.drawRGB(0, 100, 110);
             //canvas.drawColor(Color.BLUE);
-            canvas.drawText("Score: " + birdSprite.gameScore, 20, 60, scoreBoard);
+            //canvas.drawText("Score: " + birdSprite.gameScore, 20, 60, scoreBoard);
+            canvas.drawText("No of enemies: " + enemies.size(), 20, 60, scoreBoard);
             canvas.drawText("Life: " + birdSprite.life, 20, 120, lifeCount);
             birdSprite.draw(canvas);
 
@@ -178,9 +179,10 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
                 touch = true;
                 birdSprite.setJumpPeak();
             }
+            //return true;
 
         }
-        else if(event.getAction() == MotionEvent.ACTION_UP)
+        else if((event.getAction() == MotionEvent.ACTION_UP) || event.getAction() == MotionEvent.ACTION_CANCEL)
         {
             touch = false;
             //set new inputend value
@@ -189,28 +191,17 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
             //db.addInput(perceivedControlTest, inputStart, inputduration, inputPressure, timeBetweenInputs);
             PerceivedControlInfo pct = new PerceivedControlInfo(thisInputTested, inputPressure, inputduration, timeBetweenInputs, inputStart);
             pctList.add(pct);
+            db.addInput(thisInputTested, inputStart,inputduration,inputPressure, timeBetweenInputs);
             prevInputTime = inputend;
         }
-        return super.onTouchEvent(event);
+        return true;
+        //return super.onTouchEvent(event);
     }
 
 
 
     public void endGame()
     {
-        /*Handler handler = new Handler(Looper.getMainLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                for(int i = 0; i < pctList.size(); i++)
-                {
-                    PerceivedControlInfo pctInstance = pctList.get(i);
-                    db.addInput(pctInstance.tested, pctInstance.inputTime, pctInstance.inputDuration, pctInstance.inputPressure, pctInstance.timeBetweenInputs);
-                }
-                Intent gameOverIntent = new Intent(getContext(), gameOverActivity.class);
-                getContext().startActivity(gameOverIntent);
-            }
-        });*/
         for(int i = 0; i < pctList.size(); i++)
         {
             PerceivedControlInfo pctInstance = pctList.get(i);
@@ -243,7 +234,8 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
     //alternative implementation for game logic - prototyping and experimentation phase
     public void gameLogic()
     {
-        if(enemies.size() < 5)
+        checkForScoreIncrement(birdSprite);
+        if(enemies.size() < maxEnemies)
         {
             generateEnemies();
         }

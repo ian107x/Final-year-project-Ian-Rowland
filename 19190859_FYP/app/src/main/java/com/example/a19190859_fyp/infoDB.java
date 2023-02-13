@@ -30,6 +30,15 @@ public class infoDB {
         this.context = context;
         moduleDBOpenHelper = new ModuleDBOpenHelper(context, ModuleDBOpenHelper.DATABASE_NAME, null, ModuleDBOpenHelper.DATABASE_VERSION);
 
+        /*if(getAll().length == 0)
+        {
+            addInput(true, 1, 0, 0, 1);
+            addInput(false, 1, 4, 0, 0);
+            addInput(true, 2, 2, 1, 16);
+            addInput(false, 3, 1, 0, 0);
+            addInput(true, 4, 2, 1, 18);
+        }*/
+
     }
 
     public void addInput(boolean pct, float inputTime, float duration, float pressure, float timeBetween){
@@ -50,7 +59,7 @@ public class infoDB {
         //File exportDirectory = new File(Environment.getExternalStorageDirectory(), "");
         //String path = "/storage/sdcard0/inputs.txt";
         //String path = Environment.DIRECTORY_DOWNLOADS;
-        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
 
         //if(!exportDirectory.exists()){
         //    exportDirectory.mkdirs();
@@ -69,7 +78,7 @@ public class infoDB {
             String[] dbToString = getAll();
 
             FileOutputStream stream = new FileOutputStream(bfile);
-            if(bfile.createNewFile())
+            /*if(bfile.createNewFile())
             {
                 //if (bfile.createNewFile()) {
                 //    myWriter.write("Input id" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " + " time since previous input");
@@ -77,16 +86,18 @@ public class infoDB {
                 if(bfile.length() == 0)
                 {
                     String s = "PCT" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " + " time since previous input\n";
-                    myWriter.write("PCT" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " + " time since previous input\n");
-                    stream.write(s.getBytes());
+                    //myWriter.write("PCT" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " + " time since previous input\n");
+                    myWriter.write(s);
+                    //stream.write(s.getBytes());
                 }
 
-            }
+            }*/
 
+            //myWriter.write("PCT" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " + " time since previous input\n");
             for (int i = 0; i < dbToString.length ; i++)
             {
                 myWriter.write(dbToString[i]);
-                stream.write(dbToString[i].getBytes());
+                //stream.write(dbToString[i].getBytes());
             }
             myWriter.close();
 
@@ -122,7 +133,8 @@ public class infoDB {
                 result_columns, where,
                 whereArgs, groupBy, having, order);
         //
-        boolean result = cursor.moveToFirst();
+        Cursor cursor1 = db.rawQuery("select * from inputs", null);
+        /*boolean result = cursor.moveToFirst();
         while (result) {
 
             //pct = cursor.getExtras().getBoolean(String.valueOf(cursor.getColumnIndexOrThrow(KEY_PCT)));
@@ -135,7 +147,22 @@ public class infoDB {
             outputArray.add(pct + ", " + inputTime + ", " + inputDuration + ", " + inputPressure + ", " +timeBetweenTaps + "\n");
             result = cursor.moveToNext();
 
+        }*/
+        if(cursor.moveToFirst())
+        {
+            while (!cursor.isAfterLast())
+            {
+                pct = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_PCT)) > 0;
+                inputTime = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_INPUT_TIME));
+                inputDuration = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_INPUT_DURATION));
+                inputPressure = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_INPUT_PRESSURE));
+                timeBetweenTaps = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_TIME_BETWEEN_TAPS));
+
+                outputArray.add(pct + ", " + inputTime + ", " + inputDuration + ", " + inputPressure + ", " +timeBetweenTaps + "\n");
+                cursor.moveToNext();
+            }
         }
+
         cursor.close();
         return outputArray.toArray(new String[outputArray.size()]);
     }

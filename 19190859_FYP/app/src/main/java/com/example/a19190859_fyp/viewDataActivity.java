@@ -35,8 +35,8 @@ public class viewDataActivity extends Activity{
         viewDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dataText.setText(compileDBFromList(databaseList));
-                //print(databaseList);
+                //dataText.setText(String.valueOf(databaseList.length));
+                print(databaseList);
             }
         });
 
@@ -44,6 +44,7 @@ public class viewDataActivity extends Activity{
             @Override
             public void onClick(View v) {
                 infoDB.exportDB();
+                exportDataButton.setText("dingdong");
             }
         });
 
@@ -64,7 +65,7 @@ public class viewDataActivity extends Activity{
     {
         dataText.setText("");
         for(int i=0; i<content.length; i++){
-            dataText.append(content[i]+"\n");
+            dataText.append(content[i]);
         }
     }
 
