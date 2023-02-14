@@ -10,11 +10,15 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.os.Environment;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import androidx.annotation.NonNull;
+
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class gameView extends SurfaceView implements SurfaceHolder.Callback{
@@ -35,12 +39,12 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
     private final int bottomOfScreen;
     private final int topOfScreen;
     private int maxEnemies;
-    float prevInputTime = 0;
-    float inputStart;
-    float inputend;
-    float inputduration;
-    float timeBetweenInputs;
-    float inputPressure;
+    double prevInputTime = 0;
+    double inputStart;
+    double inputend;
+    double inputduration;
+    double timeBetweenInputs;
+    double inputPressure;
     boolean nextInputTested;
 
     public gameView(Context context)
@@ -76,7 +80,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
             canvas.drawRGB(0, 100, 110);
             //canvas.drawColor(Color.BLUE);
             //canvas.drawText("Score: " + birdSprite.gameScore, 20, 60, scoreBoard);
-            canvas.drawText("No of enemies: " + enemies.size(), 20, 60, scoreBoard);
+            canvas.drawText("Score:  " + birdSprite.gameScore, 20, 60, scoreBoard);
             canvas.drawText("Life: " + birdSprite.life, 20, 120, lifeCount);
             birdSprite.draw(canvas);
 
@@ -100,17 +104,6 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
             endGame();
         }
     }
-
-    /*public boolean impactEnemyCheck(int x, int y)
-    {
-        for(int i = 0; i <= enemies.size(); i++) {
-            if (birdXaxis < x && x < (birdXaxis + birdSprite.image.getWidth()) && birdYaxis < y && y < (birdYaxis + birdSprite.image.getHeight())) {
-                return true;
-            }//else{
-            return false;
-            //}
-        }return true;
-    }*/
 
     public boolean impactObstacle(obstacle e)
     {
@@ -151,7 +144,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 
             int PCTRNG = (int)Math.floor(Math.random() *(10 - 1 + 1) + 0);
 
-                if(/*PCTRNG == 3 || PCTRNG == 5*/PCTRNG <=3)
+                if(PCTRNG <=3)
                 {
                     perceivedControlTest = true;
                     nextInputTested = true;
@@ -164,7 +157,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
                 }
 
             inputPressure = event.getPressure();
-            inputStart = System.currentTimeMillis();;
+            inputStart = System.currentTimeMillis()/1000.0;
 
             //value for inputend at this point is the end time for the previous input
             timeBetweenInputs = inputStart - inputend;
@@ -182,16 +175,16 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
             //return true;
 
         }
+        //set up values to be recorded to object list upon the users finger being lifted
         else if((event.getAction() == MotionEvent.ACTION_UP) || event.getAction() == MotionEvent.ACTION_CANCEL)
         {
             touch = false;
             //set new inputend value
-            inputend = System.currentTimeMillis();
-            inputduration = (inputend - inputStart)/1000;
-            //db.addInput(perceivedControlTest, inputStart, inputduration, inputPressure, timeBetweenInputs);
+            inputend = System.currentTimeMillis()/1000.0;
+            inputduration = (inputend - inputStart);
             PerceivedControlInfo pct = new PerceivedControlInfo(thisInputTested, inputPressure, inputduration, timeBetweenInputs, inputStart);
             pctList.add(pct);
-            db.addInput(thisInputTested, inputStart,inputduration,inputPressure, timeBetweenInputs);
+            //db.addInput(thisInputTested, inputStart,inputduration,inputPressure, timeBetweenInputs);
             prevInputTime = inputend;
         }
         return true;
@@ -202,14 +195,25 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 
     public void endGame()
     {
-        for(int i = 0; i < pctList.size(); i++)
+        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+        try
         {
-            PerceivedControlInfo pctInstance = pctList.get(i);
-            db.addInput(pctInstance.tested, pctInstance.inputTime, pctInstance.inputDuration, pctInstance.inputPressure, pctInstance.timeBetweenInputs);
+            File bfile = new File(dir, "inputs.txt");
+            //File bfile = new File(path + "inputs.txt");
+            FileWriter myWriter = new FileWriter(bfile);
+            myWriter.write("PCT" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " + " time since previous input\n");
+            for (int i = 0; i < pctList.size(); i++)
+            {
+                PerceivedControlInfo pctInstance = pctList.get(i);
+                myWriter.write(pctInstance.tested + ", " + pctInstance.inputTime + ", " + pctInstance.inputDuration + ", " + pctInstance.inputPressure + ", " + pctInstance.timeBetweenInputs + "\n" );
+            }
+            myWriter.close();
         }
+        catch (Exception exception)
+        {
 
+        }
         Intent gameOverIntent = new Intent(getContext(), gameOverActivity.class);
-        //gameOverIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         gameOverIntent.putExtra("score", birdSprite.gameScore);
         ((Activity) getContext()).finish();
         getContext().startActivity(gameOverIntent);
@@ -217,14 +221,14 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 
     }
 
-    //theoretical method to create gameplay/level
+    //method to create gameplay/level
     public void createLevel()
     {
         int birdWidth = getScreenWidth()/10;
         int birdHeight = getScreenHeight()/15;
-        birdSprite = new playerSprite(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.birdimage), birdWidth, birdHeight, false), 25, 25);
+        birdSprite = new playerSprite(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.birdimage), birdWidth, birdHeight, false), birdWidth, 25);
         birdSprite.maxJumpHeight = getScreenHeight();
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < maxEnemies; i++)
         {
             generateEnemies();
         }
@@ -245,15 +249,17 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
             //check if obstacle has impacted the bird, and remove obstacle from the screen if it has impacted
             if(impactObstacle(enemies.get(i)))
             {
-                //lifeNum--;
                 enemies.get(i).interact(birdSprite);
-                enemies.get(i).xAxis = -(enemies.get(i).image.getWidth());
+                //enemies.get(i).xAxis = -(enemies.get(i).image.getWidth());
+                terminate(enemies.get(i));
+
             }
 
             //check if enemies have left the screen
             if(enemies.get(i).xAxis < -(enemies.get(i).image.getWidth()))
             {
                 //recycle bitmap to free up memory
+                enemies.get(i).boostScore(birdSprite);
                 terminate(enemies.get(i));
             }
         }
@@ -280,6 +286,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 
     }
 
+    //start the game upon creation of the surfaceView
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder)
     {
@@ -331,7 +338,6 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 
         //create randomised ints that allow for random placement of obstacle objects on the y axis
         int yAxisRNG = (int)Math.floor(Math.random() *(getScreenHeight() - 0 + 1) + 0);
-        int xAxisRNG = (int)Math.floor(Math.random() *(getScreenWidth() - (getScreenWidth()/2) + 1) + 0);
         if(enemyRNG == 0)
         {
             enemyType = "GREENENEMY";
@@ -360,6 +366,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
         enemies.remove(e);
     }
 
+    //checking for the incremental increase in score to allow for increasing difficulty as the game progresses
     public void checkForScoreIncrement(playerSprite p)
     {
         if (p.gameScore - scoreIncrementChecker >= 5)

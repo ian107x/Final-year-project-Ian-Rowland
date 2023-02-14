@@ -4,15 +4,15 @@ public class PerceivedControlInfo {
 
     boolean tested;
 
-    float inputTime;
+    double inputTime;
 
-    float inputDuration;
+    double inputDuration;
 
-    float inputPressure;
+    double inputPressure;
 
-    float timeBetweenInputs;
+    double timeBetweenInputs;
 
-    public PerceivedControlInfo(boolean tested, float p, float d, float t, float i)
+    public PerceivedControlInfo(boolean tested, double p, double d, double t, double i)
     {
         this.tested = tested;
         this.inputPressure = p;
