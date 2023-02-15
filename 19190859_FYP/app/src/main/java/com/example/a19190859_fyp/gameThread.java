@@ -22,27 +22,6 @@ public class gameThread extends Thread{
     public void run() {
 
         while (threadRunning) {
-            /*gameCanvas = null;
-            {
-                try {
-                    gameCanvas = sHolder.lockCanvas();
-                    synchronized (sHolder) {
-                        game.updateView();
-                        game.draw(gameCanvas);
-                    }
-
-                } catch (Exception e) {
-
-                } finally {
-                    if (gameCanvas != null) {
-                        try {
-                            sHolder.unlockCanvasAndPost(gameCanvas);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }*/
             if(sHolder.getSurface().isValid())
             {
                 gameCanvas = sHolder.lockCanvas();

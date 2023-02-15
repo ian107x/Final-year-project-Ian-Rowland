@@ -1,6 +1,7 @@
 package com.example.a19190859_fyp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +18,7 @@ public class viewDataActivity extends Activity{
     Button exportDataButton;
     Button returnToMainButton;
     infoDB infoDB;
-    String[] databaseList;
+    ArrayList<String> databaseList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,14 @@ public class viewDataActivity extends Activity{
             }
         });
 
+        returnToMainButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent returnToMainIntent = new Intent(getBaseContext(),MainActivity.class);
+                startActivity(returnToMainIntent);
+            }
+        });
+
 
 
     }
@@ -61,12 +70,15 @@ public class viewDataActivity extends Activity{
         return returnDB;
     }
 
-    public void print(String[] content)
+    public void print(ArrayList<String> content)
     {
+        String list = "";
         dataText.setText("");
-        for(int i=0; i<content.length; i++){
-            dataText.append(content[i]);
+        for(int i=0; i<content.size(); i++){
+            dataText.append(content.get(i));
+            list += content.get(i);
         }
+        dataText.setText(list);
     }
 
 

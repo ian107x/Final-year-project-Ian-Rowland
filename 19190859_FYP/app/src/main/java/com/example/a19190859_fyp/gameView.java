@@ -10,6 +10,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
 import android.os.Environment;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -21,20 +24,17 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Scanner;
 
-public class gameView extends SurfaceView implements SurfaceHolder.Callback{
+public class gameView extends SurfaceView implements SurfaceHolder.Callback, SensorEventListener {
 
     private playerSprite birdSprite;
-    private boolean touch = false;
     private ArrayList<obstacle> enemies = new ArrayList<obstacle>();
     private ArrayList<PerceivedControlInfo> pctList = new ArrayList<>();
-    //private double startTime;
-    //private double endTime;
     private Paint scoreBoard = new Paint();
     private Paint lifeCount = new Paint();
     private enemyFactory ef = new enemyFactory();
     private gameThread t;
-    private int scoreIncrementChecker;
     boolean perceivedControlTest;
     private infoDB db = new infoDB(getContext());
     private final int bottomOfScreen;
@@ -49,6 +49,10 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
     boolean nextInputTested;
     int startTime;
     String diff;
+    double previousAccel;
+    double accelDelta;
+    double inputAccel;
+    FileActions fa;
 
     public gameView(Context context, String difficulty)
     {
@@ -56,9 +60,6 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
         getHolder().addCallback(this);
         t = new gameThread(this, getHolder());
         setFocusable(true);
-
-        //quick note of recycle for bitmaps bird.recycle();
-
         bottomOfScreen = getScreenHeight();
         topOfScreen = 0;
         if(Objects.equals(difficulty, "easy"))
@@ -74,6 +75,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
             maxEnemies = 5;
         }
         diff = difficulty;
+        fa = new FileActions();
 
         startTime = (int) System.currentTimeMillis();
 
@@ -94,18 +96,12 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
         if(canvas!=null)
         {
             canvas.drawRGB(0, 100, 110);
-            //canvas.drawColor(Color.BLUE);
-            //canvas.drawText("Score: " + birdSprite.gameScore, 20, 60, scoreBoard);
-            canvas.drawText("Score:  " + diff, 20, 60, scoreBoard);
+            canvas.drawText("Score:  " + birdSprite.gameScore, 20, 60, scoreBoard);
             canvas.drawText("Life: " + birdSprite.life, 20, 120, lifeCount);
             birdSprite.draw(canvas);
-
-
             for(int i = 0; i < enemies.size(); i++)
             {
                 enemies.get(i).draw(canvas);
-                //alt way to draw bitmap of sprite class
-                // canvas.drawBitmap(enemies.get(i).image, enemies.get(i).xAxis, enemies.get(i).yAxis, null);
             }
         }
     }
@@ -153,10 +149,10 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
         float y = event.getY();
         boolean thisInputTested = perceivedControlTest;
 
-        //define max jump height
 
         if(event.getAction() == MotionEvent.ACTION_DOWN)
         {
+            inputAccel = accelDelta;
 
             int PCTRNG = (int)Math.floor(Math.random() *(10 - 1 + 1) + 0);
 
@@ -181,11 +177,10 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 
             if(perceivedControlTest)
             {
-                touch = false;
+
             }
             else
             {
-                touch = true;
                 birdSprite.setJumpPeak();
             }
             //return true;
@@ -194,11 +189,10 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
         //set up values to be recorded to object list upon the users finger being lifted
         else if((event.getAction() == MotionEvent.ACTION_UP) || event.getAction() == MotionEvent.ACTION_CANCEL)
         {
-            touch = false;
             //set new inputend value
             inputend = ((int)System.currentTimeMillis())/1000.0;
             inputduration = (inputend - inputStart);
-            PerceivedControlInfo pct = new PerceivedControlInfo(thisInputTested, inputPressure, inputduration, timeBetweenInputs, inputStart);
+            PerceivedControlInfo pct = new PerceivedControlInfo(thisInputTested, inputPressure, inputduration, timeBetweenInputs, inputStart, inputAccel);
             pctList.add(pct);
             //db.addInput(thisInputTested, inputStart,inputduration,inputPressure, timeBetweenInputs);
             prevInputTime = inputend;
@@ -207,23 +201,39 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
         //return super.onTouchEvent(event);
     }
 
-
-
     public void endGame()
     {
-        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        String fileData = "";
         try
         {
             //create new file to write input data to
-            File bfile = new File(dir, "inputs.txt");
-            //File bfile = new File(path + "inputs.txt");
-            FileWriter myWriter = new FileWriter(bfile);
-            myWriter.write("PCT" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " + " time since previous input\n");
+            File inputs = fa.createFile(fa.inputsFileName);
+            FileWriter myWriter = new FileWriter(inputs);
+
+            if(fa.checkForEmptyFile(inputs))
+            {
+                fileData += "PCT" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " + " time since previous input" + "Accelerometer\n";
+            }
+            else
+            {
+                fileData += fa.compileFileIntoString(inputs);
+
+            }
+            for(int i = 0; i < pctList.size(); i++)
+            {
+                PerceivedControlInfo pctInstance = pctList.get(i);
+                fileData += pctInstance.tested + ", " + pctInstance.inputTime + ", " + pctInstance.inputDuration + ", " +
+                        pctInstance.inputPressure + ", " + pctInstance.timeBetweenInputs + ", "+ pctInstance.acceleration + "\n";
+            }
+
+            myWriter.write(fileData);
+           /* myWriter.write("PCT" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " + " time since previous input" + "Accelerometer\n");
             for (int i = 0; i < pctList.size(); i++)
             {
                 PerceivedControlInfo pctInstance = pctList.get(i);
-                myWriter.write(pctInstance.tested + ", " + pctInstance.inputTime + ", " + pctInstance.inputDuration + ", " + pctInstance.inputPressure + ", " + pctInstance.timeBetweenInputs + "\n" );
-            }
+                myWriter.write(pctInstance.tested + ", " + pctInstance.inputTime + ", " + pctInstance.inputDuration + ", " +
+                        pctInstance.inputPressure + ", " + pctInstance.timeBetweenInputs + ", "+ pctInstance.acceleration + "\n" );
+            }*/
             myWriter.close();
         }
         catch (Exception exception)
@@ -235,8 +245,6 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
         gameOverIntent.putExtra("score", birdSprite.gameScore);
         ((Activity) getContext()).finish();
         getContext().startActivity(gameOverIntent);
-
-
     }
 
     //method to create gameplay/level
@@ -344,6 +352,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 
     }
 
+    //execute code to update view elements
     public void updateView()
     {
         gameLogic();
@@ -388,27 +397,32 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 
     //terminateEnemy is used to recycle the bitmap associated with the enemy,
     // so as to free up memory and remove enemy from the arraylist when it is no longer needed, and another enemy can be created
-
     public void terminate(obstacle e)
     {
         e.image.recycle();
         enemies.remove(e);
     }
 
-    //checking for the incremental increase in score to allow for increasing difficulty as the game progresses
-    public void checkForScoreIncrement(playerSprite p)
-    {/*
-        if (p.gameScore - scoreIncrementChecker >= 5)
-        {
-            for(int i = 0; i < enemies.size(); i++)
-            {
-                enemies.get(i).boostSpeed();
-            }
-        }
+    private void startAccelerometerSensor(SensorEvent event)
+    {
+        float values[] = event.values;
 
-        if(p.gameScore > 20 && maxEnemies < 8)
-        {
-            maxEnemies = p.gameScore/5;
-        }
-    */}
+        float accel_x = values[0];
+        float accel_y = values[1];
+        float accel_z = values[2];
+
+        double acceleration = Math.sqrt((accel_x * accel_x) + (accel_y * accel_y) + (accel_z * accel_z));
+        accelDelta = acceleration - previousAccel;
+        previousAccel = acceleration;
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        startAccelerometerSensor(sensorEvent);
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+
+    }
 }

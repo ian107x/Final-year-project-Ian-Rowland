@@ -12,13 +12,16 @@ public class PerceivedControlInfo {
 
     double timeBetweenInputs;
 
-    public PerceivedControlInfo(boolean tested, double p, double d, double t, double i)
+    double acceleration;
+
+    public PerceivedControlInfo(boolean tested, double p, double d, double t, double i, double accel)
     {
         this.tested = tested;
         this.inputPressure = p;
         this.inputDuration = d;
         this.timeBetweenInputs = t;
         this.inputTime = i;
+        this.acceleration = accel;
     }
 
 

@@ -17,11 +17,10 @@ import java.util.ArrayList;
 public class infoDB {
 
 
-    public static final String KEY_PCT = "pct";
-    public static final String KEY_INPUT_TIME = "input_time";
-    public static final String KEY_INPUT_DURATION = "input_duration";
-    public static final String KEY_INPUT_PRESSURE = "input_pressure";
-    public static final String KEY_TIME_BETWEEN_TAPS = "time_between_taps";
+    public static final String KEY_ID = "id";
+    public static final String KEY_GAME_ENJOYED = "game_enjoyed";
+    public static final String KEY_HOW_MUCH_CONTROL = "how_much_control";
+    public static final String KEY_GAINED_OR_LOST_CONTROL = "gained_or_lost_control";
 
     private Context context;
     private ModuleDBOpenHelper moduleDBOpenHelper;
@@ -30,96 +29,77 @@ public class infoDB {
         this.context = context;
         moduleDBOpenHelper = new ModuleDBOpenHelper(context, ModuleDBOpenHelper.DATABASE_NAME, null, ModuleDBOpenHelper.DATABASE_VERSION);
 
-        /*if(getAll().length == 0)
+        if(getAll().size() == 0)
         {
-            addInput(true, 1, 0, 0, 1);
-            addInput(false, 1, 4, 0, 0);
-            addInput(true, 2, 2, 1, 16);
-            addInput(false, 3, 1, 0, 0);
-            addInput(true, 4, 2, 1, 18);
-        }*/
+            addAnswers("", "", "");
+        }
 
     }
 
-    public void addInput(boolean pct, float inputTime, float duration, float pressure, float timeBetween){
+    /*public void addInput(boolean pct, float inputTime, float duration, float pressure, float timeBetween){
         ContentValues newInput = new ContentValues();
 
         newInput.put(KEY_PCT, pct);
         newInput.put(KEY_INPUT_TIME, inputTime);
         newInput.put(KEY_INPUT_DURATION, duration);
         newInput.put(KEY_INPUT_PRESSURE, pressure);
-        newInput.put(KEY_TIME_BETWEEN_TAPS, timeBetween);
 
         SQLiteDatabase db = moduleDBOpenHelper.getWritableDatabase();
         db.insert(ModuleDBOpenHelper.DATABASE_TABLE, null, newInput);
+    }*/
+
+    public void clearAnswers()
+    {
+        String where = null;
+        String whereArgs[] = null;
+
+        SQLiteDatabase db = moduleDBOpenHelper.getWritableDatabase();
+        db.delete(ModuleDBOpenHelper.DATABASE_TABLE, where, whereArgs);
+    }
+
+    public void addAnswers(String ans1, String ans2, String ans3)
+    {
+        clearAnswers();
+        ContentValues newAnswers = new ContentValues();
+        newAnswers.put(KEY_ID, 1);
+        newAnswers.put(KEY_GAME_ENJOYED, ans1);
+        newAnswers.put(KEY_HOW_MUCH_CONTROL, ans2);
+        newAnswers.put(KEY_GAINED_OR_LOST_CONTROL, ans3);
+
+        SQLiteDatabase db = moduleDBOpenHelper.getWritableDatabase();
+        db.insert(ModuleDBOpenHelper.DATABASE_TABLE, null, newAnswers);
+
     }
 
     public void exportDB(){
-        //ModuleDBOpenHelper DBHelper = new ModuleDBOpenHelper(context, ModuleDBOpenHelper.DATABASE_NAME, null, ModuleDBOpenHelper.DATABASE_VERSION);
-        //File exportDirectory = new File(Environment.getExternalStorageDirectory(), "");
-        //String path = "/storage/sdcard0/inputs.txt";
-        //String path = Environment.DIRECTORY_DOWNLOADS;
         File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-
-        //if(!exportDirectory.exists()){
-        //    exportDirectory.mkdirs();
-        //}
-        //File file;
-        //PrintWriter printWriter = null;
         try
         {
-            /*file = new File(exportDirectory, "inputs.csv");
-            file.createNewFile();
-            printWriter = new PrintWriter(new FileWriter(file));*/
-
-            File bfile = new File(dir, "inputs.txt");
-            //File bfile = new File(path + "inputs.txt");
+            File bfile = new File(dir, "answers.txt");
             FileWriter myWriter = new FileWriter(bfile);
-            String[] dbToString = getAll();
-
-            FileOutputStream stream = new FileOutputStream(bfile);
-            /*if(bfile.createNewFile())
+            ArrayList<String> dbToString = getAll();
+            for (int i = 0; i < dbToString.size() ; i++)
             {
-                //if (bfile.createNewFile()) {
-                //    myWriter.write("Input id" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " + " time since previous input");
-                //}
-                if(bfile.length() == 0)
-                {
-                    String s = "PCT" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " + " time since previous input\n";
-                    //myWriter.write("PCT" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " + " time since previous input\n");
-                    myWriter.write(s);
-                    //stream.write(s.getBytes());
-                }
-
-            }*/
-
-            //myWriter.write("PCT" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " + " time since previous input\n");
-            for (int i = 0; i < dbToString.length ; i++)
-            {
-                myWriter.write(dbToString[i]);
-                //stream.write(dbToString[i].getBytes());
+                myWriter.write(dbToString.get(i));
             }
             myWriter.close();
-
         }
         catch (Exception exception){
 
         }
-
-        //incomplete - remember to continue working on this.
     }
 
-    public String[] getAll() {
+    public ArrayList<String> getAll() {
 
         //ArrayList<ArrayList> outputArray = new ArrayList<ArrayList>();
         ArrayList<String> outputArray = new ArrayList<String>();
         String[] result_columns = new String[]{
-                KEY_PCT, KEY_INPUT_TIME, KEY_INPUT_DURATION, KEY_INPUT_PRESSURE, KEY_TIME_BETWEEN_TAPS};
-        boolean pct;
-        float inputTime;
-        float inputDuration;
-        float inputPressure;
-        float timeBetweenTaps;
+                KEY_ID, KEY_GAME_ENJOYED, KEY_HOW_MUCH_CONTROL, KEY_GAINED_OR_LOST_CONTROL};
+
+        int id;
+        String gameEnjoyed;
+        String howMuchControl;
+        String gainedOrLostControl;
 
         String where = null;
         String whereArgs[] = null;
@@ -133,58 +113,22 @@ public class infoDB {
                 result_columns, where,
                 whereArgs, groupBy, having, order);
         //
-        Cursor cursor1 = db.rawQuery("select * from inputs", null);
-        /*boolean result = cursor.moveToFirst();
+
+        boolean result = cursor.moveToFirst();
         while (result) {
 
-            //pct = cursor.getExtras().getBoolean(String.valueOf(cursor.getColumnIndexOrThrow(KEY_PCT)));
-            pct = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_PCT)) > 0;
-            inputTime = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_INPUT_TIME));
-            inputDuration = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_INPUT_DURATION));
-            inputPressure = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_INPUT_PRESSURE));
-            timeBetweenTaps = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_TIME_BETWEEN_TAPS));
+            gameEnjoyed = cursor.getString(cursor.getColumnIndexOrThrow(KEY_GAME_ENJOYED));
+            howMuchControl = cursor.getString(cursor.getColumnIndexOrThrow(KEY_HOW_MUCH_CONTROL));
+            gainedOrLostControl = cursor.getString(cursor.getColumnIndexOrThrow(KEY_GAINED_OR_LOST_CONTROL));
 
-            outputArray.add(pct + ", " + inputTime + ", " + inputDuration + ", " + inputPressure + ", " +timeBetweenTaps + "\n");
+            outputArray.add("Game enjoyed: " + gameEnjoyed + ", " + "How much control: " + howMuchControl + ", " + "Gained or lost control: " + gainedOrLostControl);
             result = cursor.moveToNext();
 
-        }*/
-        if(cursor.moveToFirst())
-        {
-            while (!cursor.isAfterLast())
-            {
-                pct = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_PCT)) > 0;
-                inputTime = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_INPUT_TIME));
-                inputDuration = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_INPUT_DURATION));
-                inputPressure = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_INPUT_PRESSURE));
-                timeBetweenTaps = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_TIME_BETWEEN_TAPS));
-
-                outputArray.add(pct + ", " + inputTime + ", " + inputDuration + ", " + inputPressure + ", " +timeBetweenTaps + "\n");
-                cursor.moveToNext();
-            }
         }
 
         cursor.close();
-        return outputArray.toArray(new String[outputArray.size()]);
+        return outputArray;
     }
-
-    public String[][] convertTo2dArray(/*String[] db*/)
-    {
-        String[] db = getAll();
-        int numCols = (db[0].split(", ")).length;
-        String[][] dbList = new String[db.length][numCols];
-        for(int i = 0; i < db.length; i++)
-        {
-            String[] row = db[i].split(" ");
-            for(int y = 0; y < row.length; y++)
-            {
-                dbList[i][y] = row[y];
-            }
-
-        }
-        return dbList;
-    }
-
-
 
     private static class ModuleDBOpenHelper extends SQLiteOpenHelper {
 
@@ -192,12 +136,11 @@ public class infoDB {
         private static final String DATABASE_TABLE = "inputs";
         private static final int DATABASE_VERSION = 1;
         private static final String DATABASE_CREATE = "create table " +
-                DATABASE_TABLE + " (" + KEY_PCT +
-                " boolean primary key, " +
-                KEY_INPUT_TIME + " float, " +
-                KEY_INPUT_DURATION + " float, " +
-                KEY_TIME_BETWEEN_TAPS + " float, " +
-                KEY_INPUT_PRESSURE + " float) ";
+                DATABASE_TABLE + " (" + KEY_ID +
+                " int primary key, " +
+                KEY_GAME_ENJOYED + " string, " +
+                KEY_HOW_MUCH_CONTROL + " string, " +
+                KEY_GAINED_OR_LOST_CONTROL + " string) ";
 
         public ModuleDBOpenHelper(Context context, String name,
                                   SQLiteDatabase.CursorFactory factory, int version) {

@@ -1,5 +1,6 @@
 package com.example.a19190859_fyp;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +14,7 @@ public class gameOverActivity extends Activity {
     TextView scoretext;
     TextView scoreTitle;
     Button restartGameButton;
-    Button returnToMainButton;
-    Button viewDataButton;
+    Button answerQuestionsButton;
 
     private String score;
     @Override
@@ -24,15 +24,12 @@ public class gameOverActivity extends Activity {
 
         gameOverText = (TextView) findViewById(R.id.gameOver);
         restartGameButton = (Button) findViewById(R.id.restartgame);
-        returnToMainButton = (Button) findViewById(R.id.returntomain);
-        viewDataButton = (Button) findViewById(R.id.viewdata);
+        answerQuestionsButton = (Button) findViewById(R.id.startquestions);
+
         scoreTitle = (TextView) findViewById(R.id.scoreTitle);
         scoretext = (TextView) findViewById(R.id.scoreNumber);
         score = getIntent().getExtras().get("score").toString();
         scoretext.setText(score);
-
-        //Intent intent = getIntent();
-        //String score = intent.getStringExtra(gamePlayActivity."Score");
 
         restartGameButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -43,16 +40,7 @@ public class gameOverActivity extends Activity {
             }
         });
 
-        returnToMainButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Intent returnToMainIntent = new Intent(getBaseContext(),MainActivity.class);
-                startActivity(returnToMainIntent);
-
-            }
-        });
-
-        viewDataButton.setOnClickListener(new View.OnClickListener(){
+        answerQuestionsButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 Intent viewDataIntent = new Intent(getBaseContext(),viewDataActivity.class);

@@ -16,22 +16,21 @@ public class MainActivity extends AppCompatActivity {
     Button startGameButton;
     Button startViewDataButton;
     TextView introductionText;
-    //ImageButton imageButton;
+    FileActions fa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         startGameButton = (Button) findViewById(R.id.startgamebutton);
         startViewDataButton = (Button) findViewById(R.id.viewdatabutton);
         introductionText = (TextView) findViewById(R.id.introductiontext);
-        //imageButton = (ImageButton) findViewById(R.id.imageButton);
 
         startGameButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                fa.setBlankInputsFile(fa.createFile(fa.inputsFileName));
                 Intent startGameIntent = new Intent(getBaseContext(), SetDifficultyActivity.class);
                 startActivity(startGameIntent);
             }
@@ -44,13 +43,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(viewDataIntent);
             }
         });
-
-        /*imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent viewDataIntent = new Intent(getBaseContext(), viewDataActivity.class);
-                startActivity(viewDataIntent);
-            }
-        });*/
     }
 }
