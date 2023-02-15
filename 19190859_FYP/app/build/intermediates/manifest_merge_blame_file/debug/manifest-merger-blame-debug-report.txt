@@ -18,7 +18,7 @@
 12-->/home/ian/Final-year-project-Ian-Rowland/19190859_FYP/app/src/main/AndroidManifest.xml:6:22-77
 13
 14    <application
-14-->/home/ian/Final-year-project-Ian-Rowland/19190859_FYP/app/src/main/AndroidManifest.xml:8:5-53:19
+14-->/home/ian/Final-year-project-Ian-Rowland/19190859_FYP/app/src/main/AndroidManifest.xml:8:5-58:19
 15        android:allowBackup="true"
 15-->/home/ian/Final-year-project-Ian-Rowland/19190859_FYP/app/src/main/AndroidManifest.xml:9:9-35
 16        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
@@ -106,28 +106,36 @@
 59-->/home/ian/Final-year-project-Ian-Rowland/19190859_FYP/app/src/main/AndroidManifest.xml:51:13-38
 60            android:theme="@style/Theme.19190859_FYP.NoActionBar" />
 60-->/home/ian/Final-year-project-Ian-Rowland/19190859_FYP/app/src/main/AndroidManifest.xml:52:13-66
-61
-62        <provider
-62-->[androidx.emoji2:emoji2:1.0.0] /home/ian/.gradle/caches/transforms-3/534a23b582687ff41a7186a04e3a238c/transformed/emoji2-1.0.0/AndroidManifest.xml:26:9-34:20
-63            android:name="androidx.startup.InitializationProvider"
-63-->[androidx.emoji2:emoji2:1.0.0] /home/ian/.gradle/caches/transforms-3/534a23b582687ff41a7186a04e3a238c/transformed/emoji2-1.0.0/AndroidManifest.xml:27:13-67
-64            android:authorities="com.example.a19190859_fyp.androidx-startup"
-64-->[androidx.emoji2:emoji2:1.0.0] /home/ian/.gradle/caches/transforms-3/534a23b582687ff41a7186a04e3a238c/transformed/emoji2-1.0.0/AndroidManifest.xml:28:13-68
-65            android:exported="false" >
-65-->[androidx.emoji2:emoji2:1.0.0] /home/ian/.gradle/caches/transforms-3/534a23b582687ff41a7186a04e3a238c/transformed/emoji2-1.0.0/AndroidManifest.xml:29:13-37
-66            <meta-data
-66-->[androidx.emoji2:emoji2:1.0.0] /home/ian/.gradle/caches/transforms-3/534a23b582687ff41a7186a04e3a238c/transformed/emoji2-1.0.0/AndroidManifest.xml:31:13-33:52
-67                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-67-->[androidx.emoji2:emoji2:1.0.0] /home/ian/.gradle/caches/transforms-3/534a23b582687ff41a7186a04e3a238c/transformed/emoji2-1.0.0/AndroidManifest.xml:32:17-75
-68                android:value="androidx.startup" />
-68-->[androidx.emoji2:emoji2:1.0.0] /home/ian/.gradle/caches/transforms-3/534a23b582687ff41a7186a04e3a238c/transformed/emoji2-1.0.0/AndroidManifest.xml:33:17-49
-69            <meta-data
-69-->[androidx.lifecycle:lifecycle-process:2.4.0] /home/ian/.gradle/caches/transforms-3/0d1c36957947c0cced820087c8164150/transformed/lifecycle-process-2.4.0/AndroidManifest.xml:31:13-33:52
-70                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-70-->[androidx.lifecycle:lifecycle-process:2.4.0] /home/ian/.gradle/caches/transforms-3/0d1c36957947c0cced820087c8164150/transformed/lifecycle-process-2.4.0/AndroidManifest.xml:32:17-78
-71                android:value="androidx.startup" />
-71-->[androidx.lifecycle:lifecycle-process:2.4.0] /home/ian/.gradle/caches/transforms-3/0d1c36957947c0cced820087c8164150/transformed/lifecycle-process-2.4.0/AndroidManifest.xml:33:17-49
-72        </provider>
-73    </application>
-74
-75</manifest>
+61        <activity
+61-->/home/ian/Final-year-project-Ian-Rowland/19190859_FYP/app/src/main/AndroidManifest.xml:53:9-57:25
+62            android:name="com.example.a19190859_fyp.QuestionnaireActivity"
+62-->/home/ian/Final-year-project-Ian-Rowland/19190859_FYP/app/src/main/AndroidManifest.xml:54:13-50
+63            android:label="Game Over"
+63-->/home/ian/Final-year-project-Ian-Rowland/19190859_FYP/app/src/main/AndroidManifest.xml:55:13-38
+64            android:theme="@style/Theme.19190859_FYP.NoActionBar" />
+64-->/home/ian/Final-year-project-Ian-Rowland/19190859_FYP/app/src/main/AndroidManifest.xml:56:13-66
+65
+66        <provider
+66-->[androidx.emoji2:emoji2:1.0.0] /home/ian/.gradle/caches/transforms-3/534a23b582687ff41a7186a04e3a238c/transformed/emoji2-1.0.0/AndroidManifest.xml:26:9-34:20
+67            android:name="androidx.startup.InitializationProvider"
+67-->[androidx.emoji2:emoji2:1.0.0] /home/ian/.gradle/caches/transforms-3/534a23b582687ff41a7186a04e3a238c/transformed/emoji2-1.0.0/AndroidManifest.xml:27:13-67
+68            android:authorities="com.example.a19190859_fyp.androidx-startup"
+68-->[androidx.emoji2:emoji2:1.0.0] /home/ian/.gradle/caches/transforms-3/534a23b582687ff41a7186a04e3a238c/transformed/emoji2-1.0.0/AndroidManifest.xml:28:13-68
+69            android:exported="false" >
+69-->[androidx.emoji2:emoji2:1.0.0] /home/ian/.gradle/caches/transforms-3/534a23b582687ff41a7186a04e3a238c/transformed/emoji2-1.0.0/AndroidManifest.xml:29:13-37
+70            <meta-data
+70-->[androidx.emoji2:emoji2:1.0.0] /home/ian/.gradle/caches/transforms-3/534a23b582687ff41a7186a04e3a238c/transformed/emoji2-1.0.0/AndroidManifest.xml:31:13-33:52
+71                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+71-->[androidx.emoji2:emoji2:1.0.0] /home/ian/.gradle/caches/transforms-3/534a23b582687ff41a7186a04e3a238c/transformed/emoji2-1.0.0/AndroidManifest.xml:32:17-75
+72                android:value="androidx.startup" />
+72-->[androidx.emoji2:emoji2:1.0.0] /home/ian/.gradle/caches/transforms-3/534a23b582687ff41a7186a04e3a238c/transformed/emoji2-1.0.0/AndroidManifest.xml:33:17-49
+73            <meta-data
+73-->[androidx.lifecycle:lifecycle-process:2.4.0] /home/ian/.gradle/caches/transforms-3/0d1c36957947c0cced820087c8164150/transformed/lifecycle-process-2.4.0/AndroidManifest.xml:31:13-33:52
+74                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+74-->[androidx.lifecycle:lifecycle-process:2.4.0] /home/ian/.gradle/caches/transforms-3/0d1c36957947c0cced820087c8164150/transformed/lifecycle-process-2.4.0/AndroidManifest.xml:32:17-78
+75                android:value="androidx.startup" />
+75-->[androidx.lifecycle:lifecycle-process:2.4.0] /home/ian/.gradle/caches/transforms-3/0d1c36957947c0cced820087c8164150/transformed/lifecycle-process-2.4.0/AndroidManifest.xml:33:17-49
+76        </provider>
+77    </application>
+78
+79</manifest>

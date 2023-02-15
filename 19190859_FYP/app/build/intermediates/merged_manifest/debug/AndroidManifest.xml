@@ -58,6 +58,10 @@
             android:name="com.example.a19190859_fyp.gameOverActivity"
             android:label="Game Over"
             android:theme="@style/Theme.19190859_FYP.NoActionBar" />
+        <activity
+            android:name="com.example.a19190859_fyp.QuestionnaireActivity"
+            android:label="Game Over"
+            android:theme="@style/Theme.19190859_FYP.NoActionBar" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"

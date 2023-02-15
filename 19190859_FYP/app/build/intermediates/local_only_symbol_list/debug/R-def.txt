@@ -1,5 +1,8 @@
 R_DEF: Internal format may change without notice
 local
+array amountOfControl
+array controlOverTime
+array wasGameEnjoyed
 color black
 color purple_200
 color purple_500
@@ -29,19 +32,30 @@ id exportdatabutton
 id gameOver
 id hard
 id imageView
+id instructiontext
 id introductiontext
 id lh
 id normal
+id q1button
+id q1list
+id q2button
+id q2list
+id q3button
+id q3list
 id restartgame
 id returntomain
+id returntomainbutton
 id scoreNumber
 id scoreTitle
+id setinfobutton
 id startgamebutton
+id startquestions
 id viewdata
 id viewdatabutton
 layout activity_game_over
 layout activity_game_over_portrait
 layout activity_main
+layout activity_questionnaire
 layout activity_set_difficulty
 layout activity_view_data
 mipmap ic_launcher

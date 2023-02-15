@@ -40,32 +40,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="bottom"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_alignParentBottom="true">
 
         <Button
             android:id="@+id/restartgame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
+            android:layout_weight="0.5"
             android:text="@string/restart_game_text"
             android:background="@drawable/buttonbg"
             android:layout_marginLeft="-5dp">
         </Button>
         <Button
-            android:id="@+id/returntomain"
+            android:id="@+id/startquestions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:text="@string/return_to_main_text"
-            android:background="@drawable/buttonbg"
-            android:layout_marginLeft="-5dp"/>
-        <Button
-            android:id="@+id/viewdata"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:text="@string/view_data"
+            android:layout_weight="0.5"
+            android:text="start questionnaire"
             android:background="@drawable/buttonbg"
             android:layout_marginLeft="-5dp"/>
 

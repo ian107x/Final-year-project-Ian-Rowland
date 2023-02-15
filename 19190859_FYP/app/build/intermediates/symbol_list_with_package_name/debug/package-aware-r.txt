@@ -63,6 +63,9 @@ animator mtrl_fab_hide_motion_spec
 animator mtrl_fab_show_motion_spec
 animator mtrl_fab_transformation_sheet_collapse_spec
 animator mtrl_fab_transformation_sheet_expand_spec
+array amountOfControl
+array controlOverTime
+array wasGameEnjoyed
 attr SharedValue
 attr SharedValueId
 attr actionBarDivider
@@ -2743,6 +2746,7 @@ id imageView
 id immediateStop
 id included
 id info
+id instructiontext
 id introductiontext
 id invisible
 id inward
@@ -2861,11 +2865,18 @@ id position
 id postLayout
 id progress_circular
 id progress_horizontal
+id q1button
+id q1list
+id q2button
+id q2list
+id q3button
+id q3list
 id radio
 id ratio
 id rectangles
 id restartgame
 id returntomain
+id returntomainbutton
 id reverseSawtooth
 id right
 id rightToLeft
@@ -2898,6 +2909,7 @@ id search_voice_btn
 id select_dialog_listview
 id selected
 id selection_type
+id setinfobutton
 id sharedValueSet
 id sharedValueUnset
 id shortcut
@@ -2930,6 +2942,7 @@ id startHorizontal
 id startToEnd
 id startVertical
 id startgamebutton
+id startquestions
 id staticLayout
 id staticPostLayout
 id stop
@@ -3099,6 +3112,7 @@ layout abc_tooltip
 layout activity_game_over
 layout activity_game_over_portrait
 layout activity_main
+layout activity_questionnaire
 layout activity_set_difficulty
 layout activity_view_data
 layout custom_dialog
