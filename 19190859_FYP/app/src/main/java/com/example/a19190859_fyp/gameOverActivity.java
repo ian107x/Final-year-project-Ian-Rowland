@@ -37,7 +37,7 @@ public class gameOverActivity extends Activity {
         restartGameButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent restartGameIntent = new Intent(getBaseContext(),gamePlayActivity.class);
+                Intent restartGameIntent = new Intent(getBaseContext(),SetDifficultyActivity.class);
                 startActivity(restartGameIntent);
 
             }

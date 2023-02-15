@@ -1919,6 +1919,7 @@ dimen design_tab_text_size_2line
 dimen design_textinput_caption_translate_y
 dimen disabled_alpha_material_dark
 dimen disabled_alpha_material_light
+dimen fab_margin
 dimen fastscroll_default_thickness
 dimen fastscroll_margin
 dimen fastscroll_minimum_range
@@ -2692,6 +2693,7 @@ id easeIn
 id easeInOut
 id easeOut
 id east
+id easy
 id edit_query
 id elastic
 id end
@@ -2724,6 +2726,7 @@ id group_divider
 id grouping
 id groups
 id guideline
+id hard
 id header_title
 id hideable
 id home
@@ -3096,6 +3099,7 @@ layout abc_tooltip
 layout activity_game_over
 layout activity_game_over_portrait
 layout activity_main
+layout activity_set_difficulty
 layout activity_view_data
 layout custom_dialog
 layout design_bottom_navigation_item
@@ -3233,7 +3237,10 @@ string export_Data
 string exposed_dropdown_menu_content_description
 string fab_transformation_scrim_behavior
 string fab_transformation_sheet_behavior
+string first_fragment_label
 string gameOverText
+string hello_first_fragment
+string hello_second_fragment
 string hide_bottom_view_on_scroll_behavior
 string icon_content_description
 string instruction_text_main
@@ -3322,6 +3329,7 @@ string mtrl_picker_toggle_to_text_input_mode
 string mtrl_picker_toggle_to_year_selection
 string mtrl_timepicker_confirm
 string n
+string next
 string o
 string p
 string password_toggle_content_description
@@ -3329,6 +3337,7 @@ string path_password_eye
 string path_password_eye_mask_strike_through
 string path_password_eye_mask_visible
 string path_password_strike_through
+string previous
 string q
 string r
 string restart_game_text
@@ -3336,9 +3345,11 @@ string return_to_main_text
 string s
 string scoreDisplay
 string search_menu_title
+string second_fragment_label
 string start_game
 string status_bar_notification_info_overflow
 string t
+string title_activity_set_difficulty
 string u
 string v
 string view_data
@@ -3820,6 +3831,9 @@ style TextAppearance_Widget_AppCompat_ExpandedMenu_Item
 style TextAppearance_Widget_AppCompat_Toolbar_Subtitle
 style TextAppearance_Widget_AppCompat_Toolbar_Title
 style Theme_19190859_FYP
+style Theme_19190859_FYP_AppBarOverlay
+style Theme_19190859_FYP_NoActionBar
+style Theme_19190859_FYP_PopupOverlay
 style Theme_AppCompat
 style Theme_AppCompat_CompactMenu
 style Theme_AppCompat_DayNight

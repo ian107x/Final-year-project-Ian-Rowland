@@ -44,7 +44,7 @@ public abstract class obstacle implements sprite {
 
     public void boostScore(playerSprite p )
     {
-        playerSprite.gameScore++;
+        p.gameScore++;
     }
 
 }

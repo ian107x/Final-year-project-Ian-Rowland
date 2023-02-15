@@ -1,30 +1,39 @@
 <resources>
     <string name="app_name">19190859_FYP</string>
-    <string name = "start_game">Start Game</string>
-    <string name = "view_data">View Input Data</string>
-    <string name = "instruction_text_main"> Press the buttons for the appropriate actions</string>
-    <string name = "restart_game_text">Restart Game</string>
-    <string name = "return_to_main_text">Return to Main Menu</string>
-    <string name = "display_data">Display data</string>
-    <string name = "export_Data">Export data to file</string>
-    <string name = "display_text">Input data will be displayed here</string>
-    <string name = "gameOverText">Game Over</string>
-    <string name = "scoreDisplay">Score: </string>
-    <string name = "zeroText">0</string>
-    <string name = "l"></string>
-    <string name = "m"></string>
-    <string name = "n"></string>
-    <string name = "o"></string>
-    <string name = "p"></string>
-    <string name = "q"></string>
-    <string name = "r"></string>
-    <string name = "s"></string>
-    <string name = "t"></string>
-    <string name = "u"></string>
-    <string name = "v"></string>
-    <string name = "w"></string>
-    <string name = "x"></string>
-    <string name = "y"></string>
-    <string name = "z"></string>
+    <string name="start_game">Start Game</string>
+    <string name="view_data">View Input Data</string>
+    <string name="instruction_text_main"> Press the buttons for the appropriate actions</string>
+    <string name="restart_game_text">Restart Game</string>
+    <string name="return_to_main_text">Return to Main Menu</string>
+    <string name="display_data">Display data</string>
+    <string name="export_Data">Export data to file</string>
+    <string name="display_text">Input data will be displayed here</string>
+    <string name="gameOverText">Game Over</string>
+    <string name="scoreDisplay">Score: </string>
+    <string name="zeroText">0</string>
+    <string name="l"></string>
+    <string name="m"></string>
+    <string name="n"></string>
+    <string name="o"></string>
+    <string name="p"></string>
+    <string name="q"></string>
+    <string name="r"></string>
+    <string name="s"></string>
+    <string name="t"></string>
+    <string name="u"></string>
+    <string name="v"></string>
+    <string name="w"></string>
+    <string name="x"></string>
+    <string name="y"></string>
+    <string name="z"></string>
+    <string name="title_activity_set_difficulty">SetDifficultyActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
 </resources>

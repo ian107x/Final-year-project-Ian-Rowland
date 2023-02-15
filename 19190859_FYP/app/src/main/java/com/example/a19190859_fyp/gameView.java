@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 
@@ -46,8 +47,10 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
     double timeBetweenInputs;
     double inputPressure;
     boolean nextInputTested;
+    int startTime;
+    String diff;
 
-    public gameView(Context context)
+    public gameView(Context context, String difficulty)
     {
         super(context);
         getHolder().addCallback(this);
@@ -58,8 +61,21 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 
         bottomOfScreen = getScreenHeight();
         topOfScreen = 0;
-        maxEnemies = 4;
+        if(Objects.equals(difficulty, "easy"))
+        {
+            maxEnemies = 3;
+        }
+        else if(Objects.equals(difficulty, "hard"))
+        {
+            maxEnemies = 7;
+        }
+        else
+        {
+            maxEnemies = 5;
+        }
+        diff = difficulty;
 
+        startTime = (int) System.currentTimeMillis();
 
         scoreBoard.setColor(Color.RED);
         scoreBoard.setTextSize(70);
@@ -80,7 +96,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
             canvas.drawRGB(0, 100, 110);
             //canvas.drawColor(Color.BLUE);
             //canvas.drawText("Score: " + birdSprite.gameScore, 20, 60, scoreBoard);
-            canvas.drawText("Score:  " + birdSprite.gameScore, 20, 60, scoreBoard);
+            canvas.drawText("Score:  " + diff, 20, 60, scoreBoard);
             canvas.drawText("Life: " + birdSprite.life, 20, 120, lifeCount);
             birdSprite.draw(canvas);
 
@@ -157,7 +173,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
                 }
 
             inputPressure = event.getPressure();
-            inputStart = System.currentTimeMillis()/1000.0;
+            inputStart = ((int)System.currentTimeMillis())/1000.0;
 
             //value for inputend at this point is the end time for the previous input
             timeBetweenInputs = inputStart - inputend;
@@ -180,7 +196,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
         {
             touch = false;
             //set new inputend value
-            inputend = System.currentTimeMillis()/1000.0;
+            inputend = ((int)System.currentTimeMillis())/1000.0;
             inputduration = (inputend - inputStart);
             PerceivedControlInfo pct = new PerceivedControlInfo(thisInputTested, inputPressure, inputduration, timeBetweenInputs, inputStart);
             pctList.add(pct);
@@ -195,9 +211,10 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 
     public void endGame()
     {
-        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
         try
         {
+            //create new file to write input data to
             File bfile = new File(dir, "inputs.txt");
             //File bfile = new File(path + "inputs.txt");
             FileWriter myWriter = new FileWriter(bfile);
@@ -213,6 +230,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
         {
 
         }
+
         Intent gameOverIntent = new Intent(getContext(), gameOverActivity.class);
         gameOverIntent.putExtra("score", birdSprite.gameScore);
         ((Activity) getContext()).finish();
@@ -224,6 +242,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
     //method to create gameplay/level
     public void createLevel()
     {
+        //set dimensions for bird
         int birdWidth = getScreenWidth()/10;
         int birdHeight = getScreenHeight()/15;
         birdSprite = new playerSprite(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.birdimage), birdWidth, birdHeight, false), birdWidth, 25);
@@ -238,7 +257,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
     //alternative implementation for game logic - prototyping and experimentation phase
     public void gameLogic()
     {
-        checkForScoreIncrement(birdSprite);
+        //checkForScoreIncrement(birdSprite);
         if(enemies.size() < maxEnemies)
         {
             generateEnemies();
@@ -246,22 +265,32 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 
         for(int i = 0; i < enemies.size(); i++)
         {
+            boolean impacted = false;
+            boolean offScreened = false;
             //check if obstacle has impacted the bird, and remove obstacle from the screen if it has impacted
             if(impactObstacle(enemies.get(i)))
             {
                 enemies.get(i).interact(birdSprite);
-                //enemies.get(i).xAxis = -(enemies.get(i).image.getWidth());
-                terminate(enemies.get(i));
+                enemies.get(i).yAxis = -(enemies.get(i).image.getHeight());
+                //terminate(enemies.get(i));
+                impacted = true;
 
             }
-
             //check if enemies have left the screen
             if(enemies.get(i).xAxis < -(enemies.get(i).image.getWidth()))
             {
-                //recycle bitmap to free up memory
+                offScreened = true;
+            }
+            if(impacted)
+            {
+                terminate(enemies.get(i));
+            }
+            else if(offScreened)
+            {
                 enemies.get(i).boostScore(birdSprite);
                 terminate(enemies.get(i));
             }
+
         }
 
         /* check to see if the bird has impacted or passed the top or bottom boundaries of the screen */
@@ -357,8 +386,8 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
         enemies.add(enemy1);
     }
 
-    //terminateEnemy is used to recycle the bitmap associated with the enemy, and null the
-    // enemy values so as to free up memory and remove enemy from the arraylist when it is no longer needed, and another enemy can be created
+    //terminateEnemy is used to recycle the bitmap associated with the enemy,
+    // so as to free up memory and remove enemy from the arraylist when it is no longer needed, and another enemy can be created
 
     public void terminate(obstacle e)
     {
@@ -368,7 +397,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 
     //checking for the incremental increase in score to allow for increasing difficulty as the game progresses
     public void checkForScoreIncrement(playerSprite p)
-    {
+    {/*
         if (p.gameScore - scoreIncrementChecker >= 5)
         {
             for(int i = 0; i < enemies.size(); i++)
@@ -381,5 +410,5 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
         {
             maxEnemies = p.gameScore/5;
         }
-    }
+    */}
 }

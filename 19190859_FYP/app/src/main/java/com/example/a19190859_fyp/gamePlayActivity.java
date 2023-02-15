@@ -8,8 +8,7 @@ import android.view.WindowManager;
 
 public class gamePlayActivity extends Activity {
     private gameView birdView;
-    private Handler gameHandler = new Handler();
-    private final static long Interval = 30;
+    private String difficulty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -17,20 +16,10 @@ public class gamePlayActivity extends Activity {
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        birdView = new gameView(this);
+
+        difficulty = getIntent().getExtras().get("difficulty").toString();
+        birdView = new gameView(this, difficulty);
         setContentView(birdView);
 
-        /*Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                gameHandler.post(new Runnable(){
-                    @Override
-                    public void run(){
-                        birdView.invalidate();
-                    }
-                });
-            }
-        }, 0 , Interval);*/
     }
 }

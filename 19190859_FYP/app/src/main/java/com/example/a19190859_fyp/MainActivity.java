@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         startGameButton = (Button) findViewById(R.id.startgamebutton);
         startViewDataButton = (Button) findViewById(R.id.viewdatabutton);
         introductionText = (TextView) findViewById(R.id.introductiontext);
@@ -29,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         startGameButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent startGameIntent = new Intent(getBaseContext(), gamePlayActivity.class);
+                Intent startGameIntent = new Intent(getBaseContext(), SetDifficultyActivity.class);
                 startActivity(startGameIntent);
             }
         });

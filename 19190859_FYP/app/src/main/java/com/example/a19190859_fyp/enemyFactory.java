@@ -5,29 +5,25 @@ import android.graphics.BitmapFactory;
 import android.view.SurfaceView;
 
 //factory method pattern to allow for random creation of different types of enemies
-public class enemyFactory {
-    //Bitmap bmp;
-
-    //public characterView v;
-    public obstacle createEnemy(SurfaceView v, String enemyType, int x, int y){
+public class enemyFactory
+{
+    public obstacle createEnemy(SurfaceView v, String enemyType, int x, int y)
+    {
         if(enemyType.equalsIgnoreCase("REDENEMY"))
         {
             //return new redEnemy(Bitmap.createBitmap(R.drawable.enemy), x, y);
             Bitmap bmp = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(v.getResources(), R.drawable.redcloud), v.getWidth()/5, v.getHeight()/10, false);
-            obstacle re = new redEnemy(bmp, x, y);
-            return re;
+            return new redEnemy(bmp, x, y);
         }
         else if (enemyType.equalsIgnoreCase("GREENENEMY"))
         {
             Bitmap bmp = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(v.getResources(), R.drawable.greencloud), v.getWidth()/5, v.getHeight()/10, false);
-            obstacle ge = new greenEnemy(bmp, x, y);
-            return ge;
+            return new greenEnemy(bmp, x, y);
         }
         else if(enemyType.equalsIgnoreCase("BLUEENEMY"))
         {
             Bitmap bmp = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(v.getResources(), R.drawable.bluecloud), v.getWidth()/5, v.getHeight()/10, false);
-            obstacle be = new blueEnemy(bmp, x, y);
-            return be;
+            return new blueEnemy(bmp, x, y);
         }
         else{
             return null;
