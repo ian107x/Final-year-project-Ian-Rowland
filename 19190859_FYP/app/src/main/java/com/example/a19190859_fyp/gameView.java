@@ -36,7 +36,6 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback, Sen
     private enemyFactory ef = new enemyFactory();
     private gameThread t;
     boolean perceivedControlTest;
-    private infoDB db = new infoDB(getContext());
     private final int bottomOfScreen;
     private final int topOfScreen;
     private int maxEnemies;

@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         startViewDataButton = (Button) findViewById(R.id.viewdatabutton);
         introductionText = (TextView) findViewById(R.id.introductiontext);
 
+        fa = new FileActions();
+
         startGameButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){

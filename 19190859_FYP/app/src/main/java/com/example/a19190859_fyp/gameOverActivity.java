@@ -43,8 +43,8 @@ public class gameOverActivity extends Activity {
         answerQuestionsButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent viewDataIntent = new Intent(getBaseContext(),viewDataActivity.class);
-                startActivity(viewDataIntent);
+                Intent questionnaireIntent = new Intent(getBaseContext(),QuestionnaireActivity.class);
+                startActivity(questionnaireIntent);
 
             }
         });

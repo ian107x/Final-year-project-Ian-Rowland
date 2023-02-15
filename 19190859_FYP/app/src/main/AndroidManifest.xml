@@ -50,6 +50,11 @@
             android:name=".gameOverActivity"
             android:label="Game Over"
             android:theme="@style/Theme.19190859_FYP.NoActionBar"></activity>
+        <activity
+            android:name=".QuestionnaireActivity"
+            android:label="Game Over"
+            android:theme="@style/Theme.19190859_FYP.NoActionBar"
+            ></activity>
     </application>
 
 </manifest>
