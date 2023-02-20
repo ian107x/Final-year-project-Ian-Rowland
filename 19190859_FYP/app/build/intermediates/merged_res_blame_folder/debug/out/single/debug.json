@@ -12,6 +12,10 @@
         "source": "com.example.a19190859_fyp.app-main-27:/layout/activity_main.xml"
     },
     {
+        "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/layout_activity_game_rules.xml.flat",
+        "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/layout/activity_game_rules.xml"
+    },
+    {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
@@ -26,6 +30,10 @@
     {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.a19190859_fyp.app-merged_res-25:/layout_activity_game_over_portrait.xml.flat",
+        "source": "com.example.a19190859_fyp.app-main-27:/layout/activity_game_over_portrait.xml"
     },
     {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/mipmap-hdpi_ic_launcher.webp.flat",
@@ -94,6 +102,10 @@
     {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/drawable_ic_launcher_background.xml.flat",
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.example.a19190859_fyp.app-merged_res-25:/layout_activity_set_difficulty.xml.flat",
+        "source": "com.example.a19190859_fyp.app-main-27:/layout/activity_set_difficulty.xml"
     },
     {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/mipmap-hdpi_ic_launcher_round.webp.flat",

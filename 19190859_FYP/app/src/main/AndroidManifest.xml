@@ -38,23 +38,26 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity android:name=".GameRulesActivity"
+            android:label="Game Rules Activity"
+            android:theme="@style/Theme.19190859_FYP.NoActionBar"/>
         <activity
             android:name=".gamePlayActivity"
             android:label="Gameplay activity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".viewDataActivity"
             android:label="View Data"
-            android:theme="@style/Theme.19190859_FYP.NoActionBar"></activity>
+            android:theme="@style/Theme.19190859_FYP.NoActionBar"/>
         <activity
             android:name=".gameOverActivity"
             android:label="Game Over"
-            android:theme="@style/Theme.19190859_FYP.NoActionBar"></activity>
+            android:theme="@style/Theme.19190859_FYP.NoActionBar"/>
         <activity
             android:name=".QuestionnaireActivity"
             android:label="Game Over"
             android:theme="@style/Theme.19190859_FYP.NoActionBar"
-            ></activity>
+            />
     </application>
 
 </manifest>

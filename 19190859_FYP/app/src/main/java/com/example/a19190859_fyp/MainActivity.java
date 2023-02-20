@@ -14,8 +14,9 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     Button startGameButton;
-    Button startViewDataButton;
+    Button viewGameRulesButton;
     TextView introductionText;
+    Button questionnaireButton;
     FileActions fa;
 
     @Override
@@ -24,8 +25,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         startGameButton = (Button) findViewById(R.id.startgamebutton);
-        startViewDataButton = (Button) findViewById(R.id.viewdatabutton);
+        viewGameRulesButton = (Button) findViewById(R.id.gameRulesButton);
         introductionText = (TextView) findViewById(R.id.introductiontext);
+        questionnaireButton = (Button) findViewById(R.id.questionnaireButton);
 
         fa = new FileActions();
 
@@ -38,11 +40,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        startViewDataButton.setOnClickListener(new View.OnClickListener(){
+        viewGameRulesButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent viewDataIntent = new Intent(getBaseContext(), viewDataActivity.class);
-                startActivity(viewDataIntent);
+                Intent gameRulesIntent = new Intent(getBaseContext(), GameRulesActivity.class);
+                startActivity(gameRulesIntent);
+            }
+        });
+
+        questionnaireButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent questionnaireIntent = new Intent(getBaseContext(),QuestionnaireActivity.class);
+                startActivity(questionnaireIntent);
             }
         });
     }

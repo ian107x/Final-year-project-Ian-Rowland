@@ -22,6 +22,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:testOnly="true"
         android:theme="@style/Theme.19190859_FYP" >
         <activity
             android:name="com.example.a19190859_fyp.SetDifficultyActivity"
@@ -46,6 +47,10 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity
+            android:name="com.example.a19190859_fyp.GameRulesActivity"
+            android:label="Game Rules Activity"
+            android:theme="@style/Theme.19190859_FYP.NoActionBar" />
         <activity
             android:name="com.example.a19190859_fyp.gamePlayActivity"
             android:label="Gameplay activity"
