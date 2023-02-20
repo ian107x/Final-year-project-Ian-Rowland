@@ -6,7 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:orientation="vertical">
 
     <RelativeLayout
 
@@ -21,6 +22,13 @@
             android:layout_height="wrap_content"
             android:text="Select the difficulty for your game"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true">
+
         <Button
             android:id="@+id/easy"
             android:layout_width="match_parent"
@@ -30,10 +38,14 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="2dp"
             android:layout_marginLeft="2dp"
-            android:layout_marginTop="400dp"
+
             android:background="@drawable/buttonbg"
 
             android:text="easy" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                />
 
         <Button
             android:id="@+id/normal"
@@ -46,9 +58,13 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="0dp"
             android:layout_marginLeft="0dp"
-            android:layout_marginTop="500dp"
+
             android:background="@drawable/buttonbg"
             android:text="normal" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                />
         <Button
             android:id="@+id/hard"
             android:layout_width="match_parent"
@@ -60,9 +76,9 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="0dp"
             android:layout_marginLeft="0dp"
-            android:layout_marginTop="600dp"
             android:background="@drawable/buttonbg"
             android:text="hard" />
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/imageView"
