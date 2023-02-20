@@ -15,29 +15,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="30sp"
-            android:text="Please answer the below questions."/>
+            android:text="@string/questionnaireInstructionText"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="300dp"
-            android:gravity="center">
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            >
 
-
-            <Button
-                android:id="@+id/q1button"
-                android:layout_width="0dp"
-                android:layout_weight="0.25"
-                android:layout_height="match_parent"
-                android:background="@drawable/buttonbg"
-                android:text="po">
-
-            </Button>
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="0.5"
                 android:layout_height="match_parent"
-                android:text = "Did you enjoy the game?"
+                android:text = "@string/q1Text"
                 android:autoSizeTextType="uniform"
                 />
 
@@ -55,25 +50,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="400dp"
+            android:paddingBottom="10dp"
+
             android:gravity="center">
-
-
-            <Button
-                android:id="@+id/q2button"
-                android:layout_width="0dp"
-                android:layout_weight="0.25"
-                android:layout_height="match_parent"
-                android:background="@drawable/buttonbg"
-                android:text="po">
-
-            </Button>
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="0.5"
                 android:layout_height="match_parent"
-                android:text = "How much control did you feels you had over the game?"
+                android:text = "@string/q2Text"
                 android:autoSizeTextType="uniform"
                 />
             <Spinner
@@ -91,25 +76,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="500dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            >
 
-
-            <Button
-                android:id="@+id/q3button"
-                android:layout_width="0dp"
-                android:layout_weight="0.25"
-                android:layout_height="match_parent"
-                android:background="@drawable/buttonbg"
-                android:text="po">
-
-            </Button>
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="0.5"
                 android:layout_height="match_parent"
-                android:text = "Did you feel like your control over the game increased or decreased over time?"
+                android:text = "@string/q3Text"
                 android:autoSizeTextType="uniform"
                 />
             <Spinner
@@ -122,29 +98,21 @@
 
                 />
 
+            </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="600dp"
+            android:layout_alignParentBottom="true"
             >
-
-            <Button
-                android:id="@+id/setinfobutton"
-                android:layout_width="0dp"
-                android:layout_weight="0.5"
-                android:layout_height="wrap_content"
-                android:background="@drawable/buttonbg"
-                android:text="po">
-
-            </Button>
             <Button
                 android:id="@+id/returntomainbutton"
                 android:layout_width="0dp"
                 android:layout_weight="0.5"
                 android:layout_height="wrap_content"
                 android:background="@drawable/buttonbg"
-                android:text="po">
+                android:text="@string/submitAnswersText">
 
             </Button>
 

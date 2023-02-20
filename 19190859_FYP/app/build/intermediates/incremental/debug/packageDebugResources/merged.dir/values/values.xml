@@ -35,14 +35,13 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="instruction_text_main"> Press the buttons for the appropriate actions</string>
-    <string name="l"/>
-    <string name="m"/>
-    <string name="n"/>
     <string name="next">Next</string>
-    <string name="o"/>
-    <string name="p"/>
     <string name="previous">Previous</string>
-    <string name="q"/>
+    <string name="q1Text">Did you enjoy the game?</string>
+    <string name="q2Text">How much control did you feels you had over the game?</string>
+    <string name="q3Text">Did you feel like your control over the game increased or decreased over time?</string>
+    <string name="questionnaireButtonText">Start Questionnaire</string>
+    <string name="questionnaireInstructionText">Please answer the below questions.</string>
     <string name="r"/>
     <string name="restart_game_text">Restart Game</string>
     <string name="return_to_main_text">Return to Main Menu</string>
@@ -50,6 +49,7 @@
     <string name="scoreDisplay">Score: </string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="start_game">Start Game</string>
+    <string name="submitAnswersText">Submit Questionnaire</string>
     <string name="t"/>
     <string name="title_activity_set_difficulty">SetDifficultyActivity</string>
     <string name="u"/>

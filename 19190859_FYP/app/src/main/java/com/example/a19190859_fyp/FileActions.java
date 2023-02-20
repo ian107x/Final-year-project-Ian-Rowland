@@ -19,6 +19,7 @@ public class FileActions {
     public File createFile(String fileName)
     {
         File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+        //String dir = getFilesDir().getAbsolutePath();
         File file = new File(dir, fileName);
         return file;
     }
@@ -47,7 +48,22 @@ public class FileActions {
             FileWriter myWriter = new FileWriter(file);
             myWriter.write("");
             myWriter.close();
-        }catch (Exception exception)
+        }
+        catch (Exception exception)
+        {
+
+        }
+    }
+
+    public void writeToFile(File file, String s)
+    {
+        try
+        {
+            FileWriter myWriter = new FileWriter(file);
+            myWriter.write(s);
+            myWriter.close();
+        }
+        catch(Exception e)
         {
 
         }

@@ -17,7 +17,7 @@ public class viewDataActivity extends Activity{
     Button viewDataButton;
     Button exportDataButton;
     Button returnToMainButton;
-    infoDB infoDB;
+
     ArrayList<String> databaseList;
 
     @Override
@@ -29,9 +29,9 @@ public class viewDataActivity extends Activity{
         viewDataButton = (Button) findViewById(R.id.viewdatabutton);
         exportDataButton = (Button) findViewById(R.id.exportdatabutton);
         returnToMainButton = (Button) findViewById(R.id.returntomain);
-        infoDB = new infoDB(getApplicationContext());
 
-        databaseList = infoDB.getAll();
+
+
 
         viewDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,7 +44,7 @@ public class viewDataActivity extends Activity{
         exportDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                infoDB.exportDB();
+
                 exportDataButton.setText("dingdong");
             }
         });

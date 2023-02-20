@@ -21,6 +21,13 @@
             android:layout_height="wrap_content"
             android:text="@string/instruction_text_main"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true">
+
         <Button
             android:id="@+id/startgamebutton"
             android:layout_width="match_parent"
@@ -30,10 +37,15 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="2dp"
             android:layout_marginLeft="2dp"
-            android:layout_marginTop="400dp"
-            android:background="@drawable/buttonbg"
 
-            android:text="@string/start_game" />
+            android:background="@drawable/buttonbg"
+            android:text="@string/start_game"
+            android:gravity="center"
+            />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                />
 
         <Button
             android:id="@+id/viewdatabutton"
@@ -46,15 +58,31 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="0dp"
             android:layout_marginLeft="0dp"
-            android:layout_marginTop="500dp"
+
             android:background="@drawable/buttonbg"
-            android:text="@string/view_data" />
+            android:text="@string/view_data"
+            />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                />
+
+            <Button
+                android:id="@+id/questionnaireButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/buttonbg"
+                android:text="@string/questionnaireButtonText"
+                />
+
+
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             app:srcCompat="@drawable/logov1" />
 
 

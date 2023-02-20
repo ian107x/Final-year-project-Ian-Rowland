@@ -1634,8 +1634,6 @@
     <string description="Content description for an icon that appears in the title area of a dialog" name="icon_content_description">Dialog Icon</string>
     <string name="instruction_text_main"> Press the buttons for the appropriate actions</string>
     <string name="item_view_role_description">Tab</string>
-    <string name="l"/>
-    <string name="m"/>
     <string name="m3_ref_typeface_brand_display_regular" translatable="false">sans-serif</string>
     <string name="m3_ref_typeface_brand_medium" translatable="false">sans-serif-medium</string>
     <string name="m3_ref_typeface_brand_regular" translatable="false">sans-serif</string>
@@ -1717,17 +1715,18 @@
     <string description="a11y string to indicate this button changes the input mode to a text field [CHAR_LIMIT=NONE]" name="mtrl_picker_toggle_to_text_input_mode">Switch to text input mode</string>
     <string description="a11y string to indicate this button switches the user to choosing a year [CHAR_LIMIT=NONE]" name="mtrl_picker_toggle_to_year_selection">Tap to switch to selecting a year</string>
     <string description="Button text to indicate that the widget will save the user&apos;s selection [CHAR_LIMIT=16]" name="mtrl_timepicker_confirm">OK</string>
-    <string name="n"/>
     <string name="next">Next</string>
-    <string name="o"/>
-    <string name="p"/>
     <string name="password_toggle_content_description">Show password</string>
     <string name="path_password_eye" translatable="false">M12,4.5C7,4.5 2.73,7.61 1,12c1.73,4.39 6,7.5 11,7.5s9.27,-3.11 11,-7.5c-1.73,-4.39 -6,-7.5 -11,-7.5zM12,17c-2.76,0 -5,-2.24 -5,-5s2.24,-5 5,-5 5,2.24 5,5 -2.24,5 -5,5zM12,9c-1.66,0 -3,1.34 -3,3s1.34,3 3,3 3,-1.34 3,-3 -1.34,-3 -3,-3z</string>
     <string name="path_password_eye_mask_strike_through" translatable="false">M2,4.27 L19.73,22 L22.27,19.46 L4.54,1.73 L4.54,1 L23,1 L23,23 L1,23 L1,4.27 Z</string>
     <string name="path_password_eye_mask_visible" translatable="false">M2,4.27 L2,4.27 L4.54,1.73 L4.54,1.73 L4.54,1 L23,1 L23,23 L1,23 L1,4.27 Z</string>
     <string name="path_password_strike_through" translatable="false">M3.27,4.27 L19.74,20.74</string>
     <string name="previous">Previous</string>
-    <string name="q"/>
+    <string name="q1Text">Did you enjoy the game?</string>
+    <string name="q2Text">How much control did you feels you had over the game?</string>
+    <string name="q3Text">Did you feel like your control over the game increased or decreased over time?</string>
+    <string name="questionnaireButtonText">Start Questionnaire</string>
+    <string name="questionnaireInstructionText">Please answer the below questions.</string>
     <string name="r"/>
     <string name="restart_game_text">Restart Game</string>
     <string name="return_to_main_text">Return to Main Menu</string>
@@ -1737,6 +1736,7 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="start_game">Start Game</string>
     <string name="status_bar_notification_info_overflow">999+</string>
+    <string name="submitAnswersText">Submit Questionnaire</string>
     <string name="t"/>
     <string name="title_activity_set_difficulty">SetDifficultyActivity</string>
     <string name="u"/>

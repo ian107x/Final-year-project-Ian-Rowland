@@ -9,10 +9,12 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Environment;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -47,11 +49,13 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback, Sen
     double inputPressure;
     boolean nextInputTested;
     int startTime;
-    String diff;
     double previousAccel;
     double accelDelta;
     double inputAccel;
     FileActions fa;
+    boolean thisInputTested;
+    private SensorManager sensorManager;
+    private Sensor accelerometer;
 
     public gameView(Context context, String difficulty)
     {
@@ -59,6 +63,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback, Sen
         getHolder().addCallback(this);
         t = new gameThread(this, getHolder());
         setFocusable(true);
+        //bottomOfScreen = this.getHeight();
         bottomOfScreen = getScreenHeight();
         topOfScreen = 0;
         if(Objects.equals(difficulty, "easy"))
@@ -73,10 +78,13 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback, Sen
         {
             maxEnemies = 5;
         }
-        diff = difficulty;
         fa = new FileActions();
 
-        startTime = (int) System.currentTimeMillis();
+
+        startTime = (int) System.currentTimeMillis()/1000;
+
+        //ensures that time between inputs for first input of the game is not set to input start time
+        inputend = startTime;
 
         scoreBoard.setColor(Color.RED);
         scoreBoard.setTextSize(70);
@@ -87,6 +95,9 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback, Sen
         lifeCount.setTextSize(70);
         lifeCount.setTypeface(Typeface.DEFAULT);
         lifeCount.setAntiAlias(true);
+
+        sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
     }
 
     public void draw(Canvas canvas) {
@@ -118,10 +129,22 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback, Sen
 
     public boolean impactObstacle(obstacle e)
     {
-            if((birdSprite.xAxis < e.xAxis
+            /*if((birdSprite.xAxis < e.xAxis && (birdSprite.xAxis < e.xAxis + e.image.getWidth() || birdSprite.xAxis < e.yAxis + e.image.getWidth())
                     && e.xAxis < (birdSprite.xAxis + birdSprite.image.getWidth()))
-                    && birdSprite.yAxis < e.yAxis
-                    && e.yAxis < (birdSprite.yAxis + birdSprite.image.getHeight()))
+                    && birdSprite.yAxis < e.yAxis && birdSprite.yAxis < e.yAxis + e.image.getHeight()
+                    && e.yAxis < (birdSprite.yAxis + birdSprite.image.getHeight()))*/
+
+
+        int left1 = birdSprite.xAxis;
+        int top1 = birdSprite.yAxis;
+        int right1 = left1 + birdSprite.image.getWidth();
+        int bottom1 = top1 + birdSprite.image.getHeight();
+
+        int left2 = e.xAxis;
+        int top2 = e.yAxis;
+        int right2 = left2 + e.image.getWidth();
+        int bottom2 = top2 + e.image.getHeight();
+        if(left1 < right2 && right1 > left2 && top1 < bottom2 && bottom1 > top2)
             {
                 return true;
             }
@@ -146,7 +169,6 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback, Sen
 
         float x = event.getX();
         float y = event.getY();
-        boolean thisInputTested = perceivedControlTest;
 
 
         if(event.getAction() == MotionEvent.ACTION_DOWN)
@@ -155,16 +177,14 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback, Sen
 
             int PCTRNG = (int)Math.floor(Math.random() *(10 - 1 + 1) + 0);
 
-                if(PCTRNG <=3)
+                if(PCTRNG <=2)
                 {
                     perceivedControlTest = true;
-                    nextInputTested = true;
 
                 }
                 else
                 {
                     perceivedControlTest = false;
-                    nextInputTested = false;
                 }
 
             inputPressure = event.getPressure();
@@ -182,7 +202,6 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback, Sen
             {
                 birdSprite.setJumpPeak();
             }
-            //return true;
 
         }
         //set up values to be recorded to object list upon the users finger being lifted
@@ -191,10 +210,13 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback, Sen
             //set new inputend value
             inputend = ((int)System.currentTimeMillis())/1000.0;
             inputduration = (inputend - inputStart);
+            thisInputTested = nextInputTested;
+
             PerceivedControlInfo pct = new PerceivedControlInfo(thisInputTested, inputPressure, inputduration, timeBetweenInputs, inputStart, inputAccel);
             pctList.add(pct);
             //db.addInput(thisInputTested, inputStart,inputduration,inputPressure, timeBetweenInputs);
             prevInputTime = inputend;
+            nextInputTested = perceivedControlTest;
         }
         return true;
         //return super.onTouchEvent(event);
@@ -207,11 +229,11 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback, Sen
         {
             //create new file to write input data to
             File inputs = fa.createFile(fa.inputsFileName);
-            FileWriter myWriter = new FileWriter(inputs);
+            //FileWriter myWriter = new FileWriter(inputs);
 
             if(fa.checkForEmptyFile(inputs))
             {
-                fileData += "PCT" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " + " time since previous input" + "Accelerometer\n";
+                fileData += "PCT" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " + " time since previous input" + ", " + "Accelerometer\n";
             }
             else
             {
@@ -224,8 +246,9 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback, Sen
                 fileData += pctInstance.tested + ", " + pctInstance.inputTime + ", " + pctInstance.inputDuration + ", " +
                         pctInstance.inputPressure + ", " + pctInstance.timeBetweenInputs + ", "+ pctInstance.acceleration + "\n";
             }
+            fa.writeToFile(inputs, fileData);
 
-            myWriter.write(fileData);
+            //myWriter.write(fileData);
            /* myWriter.write("PCT" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " + " time since previous input" + "Accelerometer\n");
             for (int i = 0; i < pctList.size(); i++)
             {
@@ -233,7 +256,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback, Sen
                 myWriter.write(pctInstance.tested + ", " + pctInstance.inputTime + ", " + pctInstance.inputDuration + ", " +
                         pctInstance.inputPressure + ", " + pctInstance.timeBetweenInputs + ", "+ pctInstance.acceleration + "\n" );
             }*/
-            myWriter.close();
+            //myWriter.close();
         }
         catch (Exception exception)
         {
@@ -252,8 +275,10 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback, Sen
         //set dimensions for bird
         int birdWidth = getScreenWidth()/10;
         int birdHeight = getScreenHeight()/15;
+
         birdSprite = new playerSprite(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.birdimage), birdWidth, birdHeight, false), birdWidth, 25);
         birdSprite.maxJumpHeight = getScreenHeight();
+
         for(int i = 0; i < maxEnemies; i++)
         {
             generateEnemies();
@@ -330,6 +355,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback, Sen
         createLevel();
         t.setRunning(true);
         t.start();
+        sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 
     }
 
@@ -342,6 +368,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback, Sen
     @Override
     public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder)
     {
+        sensorManager.unregisterListener(this);
         t.setRunning(false);
         try {
             t.join();

@@ -14,7 +14,7 @@ public class PerceivedControlInfo {
 
     double acceleration;
 
-    public PerceivedControlInfo(boolean tested, double p, double d, double t, double i, double accel)
+    public PerceivedControlInfo(boolean tested, double p, double d, double t, double i,double accel)
     {
         this.tested = tested;
         this.inputPressure = p;

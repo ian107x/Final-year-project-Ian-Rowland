@@ -8,8 +8,16 @@
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/xml/backup_rules.xml"
     },
     {
+        "merged": "com.example.a19190859_fyp.app-merged_res-25:/layout_activity_main.xml.flat",
+        "source": "com.example.a19190859_fyp.app-main-27:/layout/activity_main.xml"
+    },
+    {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.example.a19190859_fyp.app-merged_res-25:/layout_activity_game_rules.xml.flat",
+        "source": "com.example.a19190859_fyp.app-main-27:/layout/activity_game_rules.xml"
     },
     {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/drawable_life_crystal_grayed.png.flat",
@@ -18,10 +26,6 @@
     {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/mipmap-xxhdpi/ic_launcher_round.webp"
-    },
-    {
-        "merged": "com.example.a19190859_fyp.app-merged_res-25:/layout_activity_game_over_portrait.xml.flat",
-        "source": "com.example.a19190859_fyp.app-main-27:/layout/activity_game_over_portrait.xml"
     },
     {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/mipmap-hdpi_ic_launcher.webp.flat",
@@ -106,6 +110,10 @@
     {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/mipmap-anydpi-v26_ic_launcher.xml.flat",
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/layout_activity_questionnaire.xml.flat",
+        "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/layout/activity_questionnaire.xml"
     },
     {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/drawable_birdimage.png.flat",
