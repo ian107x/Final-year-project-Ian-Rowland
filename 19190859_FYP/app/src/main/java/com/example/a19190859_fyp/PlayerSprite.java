@@ -111,6 +111,16 @@ public class PlayerSprite implements Sprite {
         this.life = life;
     }
 
+    public void gainLife(int heal)
+    {
+        this.life += heal;
+    }
+
+    public void loseLife(int damage)
+    {
+        this.life += damage;
+    }
+
     public int getWidth()
     {
         return this.width;

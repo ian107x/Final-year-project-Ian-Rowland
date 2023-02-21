@@ -300,6 +300,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
            //birdSprite.setyAxis(bottomOfScreen/2);
            birdSprite.life--;
            //birdSprite.setLife(birdSprite.getLife() - 1);
+             //birdSprite.loseLife(1);
          }
 
          /*if (birdSprite.yAxis < topOfScreen)

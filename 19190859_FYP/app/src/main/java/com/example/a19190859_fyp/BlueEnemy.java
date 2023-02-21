@@ -13,6 +13,7 @@ public class BlueEnemy extends Obstacle {
     {
         p.life -= 1;
         //p.setLife(p.getLife() - 1);
+        p.loseLife(1);
     }
 
 }

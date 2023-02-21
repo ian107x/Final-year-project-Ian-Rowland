@@ -13,6 +13,7 @@ public class RedEnemy extends Obstacle {
     {
         p.life -= 2;
         //p.setLife(p.getLife() - 2);
+        p.loseLife(2);
     }
 
 
