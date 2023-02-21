@@ -4,7 +4,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fillViewport="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/background">
 
     <TextView
         android:id="@+id/gameOver"
@@ -41,26 +42,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="bottom"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_alignParentBottom="true">
 
         <Button
             android:id="@+id/restartgame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
             android:text="@string/restart_game_text"
             android:background="@drawable/buttonbg"
-            android:layout_marginLeft="-5dp">
+            android:layout_marginStart="-5dp">
         </Button>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            />
         <Button
             android:id="@+id/startquestions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
+
             android:text="start questionnaire"
             android:background="@drawable/buttonbg"
-            android:layout_marginLeft="-5dp"/>
+            android:layout_marginStart="-5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/buttonbg"
+            android:text="@string/return_to_main_text"/>
 
     </LinearLayout>
 </RelativeLayout>

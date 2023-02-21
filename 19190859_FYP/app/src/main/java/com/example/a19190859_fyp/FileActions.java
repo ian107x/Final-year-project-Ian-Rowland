@@ -18,8 +18,7 @@ public class FileActions {
 
     public File createFile(String fileName)
     {
-        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-        //String dir = getFilesDir().getAbsolutePath();
+        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
         File file = new File(dir, fileName);
         return file;
     }
@@ -36,7 +35,7 @@ public class FileActions {
 
         }catch (Exception exception)
         {
-
+            exception.printStackTrace();
         }
         return data;
     }
@@ -51,7 +50,7 @@ public class FileActions {
         }
         catch (Exception exception)
         {
-
+            exception.printStackTrace();
         }
     }
 
@@ -63,9 +62,9 @@ public class FileActions {
             myWriter.write(s);
             myWriter.close();
         }
-        catch(Exception e)
+        catch(Exception exception)
         {
-
+            exception.printStackTrace();
         }
     }
 
@@ -88,9 +87,9 @@ public class FileActions {
             {
                 emptyFile = false;
             }
-        }catch (Exception e)
+        }catch (Exception exception)
         {
-
+            exception.printStackTrace();
         }
         return emptyFile;
     }

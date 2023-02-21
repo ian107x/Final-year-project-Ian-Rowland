@@ -2442,8 +2442,6 @@ drawable abc_vector_test
 drawable avd_hide_password
 drawable avd_show_password
 drawable background
-drawable bg1
-drawable bird
 drawable birdimage
 drawable bluecloud
 drawable btn_checkbox_checked_mtrl
@@ -2460,7 +2458,6 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
-drawable enemy
 drawable greencloud
 drawable ic_clock_black_24dp
 drawable ic_keyboard_black_24dp
@@ -2473,8 +2470,6 @@ drawable ic_mtrl_checked_circle
 drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
-drawable life_crystal
-drawable life_crystal_grayed
 drawable logov1
 drawable m3_appbar_background
 drawable m3_popupmenu_background_overlay
@@ -2522,7 +2517,6 @@ drawable test_custom_background
 drawable test_level_drawable
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
-drawable whitecloud
 id ALT
 id BOTTOM_END
 id BOTTOM_START
@@ -3010,7 +3004,6 @@ id view_transition
 id view_tree_lifecycle_owner
 id view_tree_saved_state_registry_owner
 id view_tree_view_model_store_owner
-id viewdata
 id viewdatabutton
 id visible
 id visible_removing_fragment_view_tag
@@ -3108,7 +3101,6 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
-layout activity_game_over
 layout activity_game_over_portrait
 layout activity_game_rules
 layout activity_main
@@ -3247,6 +3239,7 @@ string chip_text
 string clear_text_end_icon_content_description
 string display_data
 string display_text
+string easy
 string error_icon_content_description
 string export_Data
 string exposed_dropdown_menu_content_description
@@ -3256,6 +3249,7 @@ string first_fragment_label
 string gameOverText
 string gameRulesButtonText
 string greenRule
+string hard
 string hello_first_fragment
 string hello_second_fragment
 string hide_bottom_view_on_scroll_behavior
@@ -3344,6 +3338,7 @@ string mtrl_picker_toggle_to_text_input_mode
 string mtrl_picker_toggle_to_year_selection
 string mtrl_timepicker_confirm
 string next
+string normal
 string password_toggle_content_description
 string path_password_eye
 string path_password_eye_mask_strike_through
@@ -3363,14 +3358,12 @@ string scoreDisplay
 string scoreRule
 string search_menu_title
 string second_fragment_label
+string setDifficultyInstructions
 string start_game
 string status_bar_notification_info_overflow
 string submitAnswersText
 string title_activity_set_difficulty
 string view_data
-string x
-string y
-string z
 string zeroText
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light

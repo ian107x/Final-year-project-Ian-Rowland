@@ -15,7 +15,6 @@ public class MainActivity extends AppCompatActivity {
 
     Button startGameButton;
     Button viewGameRulesButton;
-    TextView introductionText;
     Button questionnaireButton;
     FileActions fa;
 
@@ -26,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
 
         startGameButton = (Button) findViewById(R.id.startgamebutton);
         viewGameRulesButton = (Button) findViewById(R.id.gameRulesButton);
-        introductionText = (TextView) findViewById(R.id.introductiontext);
         questionnaireButton = (Button) findViewById(R.id.questionnaireButton);
 
         fa = new FileActions();

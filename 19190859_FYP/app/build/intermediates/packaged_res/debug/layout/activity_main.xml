@@ -16,12 +16,6 @@
         android:background="@drawable/background"
         tools:context=".MainActivity" >
 
-        <TextView
-            android:id="@+id/introductiontext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/instruction_text_main"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,15 +27,9 @@
             android:id="@+id/startgamebutton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
             android:layout_marginStart="2dp"
-            android:layout_marginLeft="2dp"
-
             android:background="@drawable/buttonbg"
             android:text="@string/start_game"
-            android:gravity="center"
             />
             <TextView
                 android:layout_width="match_parent"
@@ -52,14 +40,7 @@
             android:id="@+id/gameRulesButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
             android:layout_marginStart="0dp"
-            android:layout_marginLeft="0dp"
-
             android:background="@drawable/buttonbg"
             android:text="@string/gameRulesButtonText"
             />

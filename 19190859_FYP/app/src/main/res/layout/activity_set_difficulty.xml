@@ -10,17 +10,18 @@
     android:orientation="vertical">
 
     <RelativeLayout
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background"
         tools:context=".MainActivity" >
 
-        <TextView
-            android:id="@+id/introductiontext"
+        <ImageView
+            android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select the difficulty for your game"/>
+            app:srcCompat="@drawable/logov1" />
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,19 +30,21 @@
             android:orientation="vertical"
             android:layout_alignParentBottom="true">
 
+            <TextView
+                android:id="@+id/introductiontext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/setDifficultyInstructions"/>
+
         <Button
             android:id="@+id/easy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
             android:layout_marginStart="2dp"
-            android:layout_marginLeft="2dp"
 
             android:background="@drawable/buttonbg"
 
-            android:text="easy" />
+            android:text="@string/easy" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
@@ -51,16 +54,10 @@
             android:id="@+id/normal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
             android:layout_marginStart="0dp"
-            android:layout_marginLeft="0dp"
 
             android:background="@drawable/buttonbg"
-            android:text="normal" />
+            android:text="@string/normal" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
@@ -69,24 +66,10 @@
             android:id="@+id/hard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
             android:layout_marginStart="0dp"
-            android:layout_marginLeft="0dp"
             android:background="@drawable/buttonbg"
-            android:text="hard" />
+            android:text="@string/hard"
+            />
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:srcCompat="@drawable/logov1" />
-
-
     </RelativeLayout>
 </ScrollView>

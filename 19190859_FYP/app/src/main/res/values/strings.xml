@@ -44,9 +44,10 @@
     <string name="blueRule">Blue enemies inflict 1 damage</string>
     <string name="greenRule">Green enemies heal you by one point</string>
     <string name="scoreRule">Avoiding clouds and allowing them to fly off screen earns one point per cloud</string>
-    <string name="x"></string>
-    <string name="y"></string>
-    <string name="z"></string>
+    <string name="setDifficultyInstructions">Select the difficulty for your game</string>
+    <string name="easy">easy</string>
+    <string name="normal">normal</string>
+    <string name="hard">hard</string>
     <string name="title_activity_set_difficulty">SetDifficultyActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
