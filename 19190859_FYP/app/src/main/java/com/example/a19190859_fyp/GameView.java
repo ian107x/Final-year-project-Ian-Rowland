@@ -98,7 +98,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
         super.draw(canvas);
         if(canvas!=null)
         {
-            canvas.drawRGB(0, 100, 110);
+            canvas.drawRGB(30, 150, 140);
             canvas.drawText("Score:  " + birdSprite.getScore(), 20, 60, scoreBoard);
             canvas.drawText("Life: " + birdSprite.getLife(), 20, 120, lifeCount);
             birdSprite.draw(canvas);
@@ -150,7 +150,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
 
     public boolean onTouchEvent(MotionEvent event)
     {
-
         float x = event.getX();
         float y = event.getY();
 
@@ -243,7 +242,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
         int birdHeight = getScreenHeight()/15;
 
         birdSprite = new PlayerSprite(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.birdimage), birdWidth, birdHeight, false), birdWidth, 25);
-        birdSprite.maxJumpHeight = getScreenHeight();
+        //birdSprite.maxJumpHeight = getScreenHeight();
         birdSprite.startFalling();
 
         for(int i = 0; i < maxEnemies; i++)
@@ -270,13 +269,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
             if(impactObstacle(enemies.get(i)))
             {
                 enemies.get(i).interact(birdSprite);
-                enemies.get(i).yAxis = -(enemies.get(i).image.getHeight());
-                //enemies.get(i).setyAxis(-(enemies.get(i).image.getHeight()));
+                //enemies.get(i).yAxis = -(enemies.get(i).image.getHeight());
+                enemies.get(i).setyAxis(-(enemies.get(i).getHeight()));
                 impacted = true;
 
             }
             //check if enemies have left the screen
-            if(enemies.get(i).xAxis < -(enemies.get(i).image.getWidth()))
+            if(enemies.get(i).getxAxis() < -(enemies.get(i).image.getWidth()))
             {
                 offScreened = true;
             }
@@ -296,19 +295,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
          if ((birdSprite.getyAxis() > bottomOfScreen) || (birdSprite.getyAxis() < topOfScreen))
          {
            //place bird at the mid point of the screen immediately if it hits the top or bottom of the screen
-           birdSprite.yAxis = bottomOfScreen/2;
-           //birdSprite.setyAxis(bottomOfScreen/2);
-           birdSprite.life--;
-           //birdSprite.setLife(birdSprite.getLife() - 1);
-             //birdSprite.loseLife(1);
+           birdSprite.setyAxis(bottomOfScreen/2);
+           birdSprite.loseLife(1);
          }
-
-         /*if (birdSprite.yAxis < topOfScreen)
-         {
-           birdSprite.yAxis = getScreenHeight()/2;
-           birdSprite.life--;
-         }*/
-
          //
          /*if(birdSprite.yAxis <= birdSprite.maxJumpHeight)
          {

@@ -1,6 +1,5 @@
 package com.example.a19190859_fyp;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +10,7 @@ import android.widget.TextView;
 
 public class gameOverActivity extends Activity {
     TextView gameOverText;
-    TextView scoretext;
+    TextView scoreText;
     TextView scoreTitle;
     Button restartGameButton;
     Button answerQuestionsButton;
@@ -20,16 +19,16 @@ public class gameOverActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game_over_portrait);
+        setContentView(R.layout.activity_game_over);
 
         gameOverText = (TextView) findViewById(R.id.gameOver);
         restartGameButton = (Button) findViewById(R.id.restartgame);
         answerQuestionsButton = (Button) findViewById(R.id.startquestions);
 
         scoreTitle = (TextView) findViewById(R.id.scoreTitle);
-        scoretext = (TextView) findViewById(R.id.scoreNumber);
+        scoreText = (TextView) findViewById(R.id.scoreNumber);
         score = getIntent().getExtras().get("score").toString();
-        scoretext.setText(score);
+        scoreText.setText(score);
 
         restartGameButton.setOnClickListener(new View.OnClickListener(){
             @Override

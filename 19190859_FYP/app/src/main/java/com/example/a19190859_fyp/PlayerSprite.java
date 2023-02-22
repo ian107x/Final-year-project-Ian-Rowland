@@ -8,7 +8,7 @@ public class PlayerSprite implements Sprite {
 
     public Bitmap image;
     public int xAxis, yAxis;
-    private final int birdVelocity = 20;
+    private final int birdVelocity = 10;
     public int maxJumpHeight;
     public volatile int life;
     public volatile int gameScore;
@@ -27,6 +27,7 @@ public class PlayerSprite implements Sprite {
     }
 
 
+    //draw the sprite PlayerSprite class to the canvas
     @Override
     public void draw(Canvas canvas)
     {
@@ -34,6 +35,7 @@ public class PlayerSprite implements Sprite {
 
     }
 
+    //change the yAxis value of the bird
     @Override
     public void moveSprite()
     {
@@ -55,6 +57,7 @@ public class PlayerSprite implements Sprite {
         }
     }
 
+    //set the jump peak to make the bird jump
     public void setJumpPeak()
     {
         this.maxJumpHeight = this.yAxis - (this.height * 2);
@@ -66,6 +69,7 @@ public class PlayerSprite implements Sprite {
         }
     }
 
+    //set jump peak to the bottom of the screen to make the bird fall
     public void startFalling()
     {
         this.maxJumpHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
@@ -118,7 +122,7 @@ public class PlayerSprite implements Sprite {
 
     public void loseLife(int damage)
     {
-        this.life += damage;
+        this.life -= damage;
     }
 
     public int getWidth()

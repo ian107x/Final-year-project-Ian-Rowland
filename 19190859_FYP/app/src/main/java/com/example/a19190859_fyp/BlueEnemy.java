@@ -11,8 +11,6 @@ public class BlueEnemy extends Obstacle {
     @Override
     public void interact(PlayerSprite p)
     {
-        p.life -= 1;
-        //p.setLife(p.getLife() - 1);
         p.loseLife(1);
     }
 

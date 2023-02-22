@@ -29,7 +29,7 @@ public class QuestionnaireActivity extends AppCompatActivity {
         setContentView(R.layout.activity_questionnaire);
 
         returnToMainButton= (Button)findViewById(R.id.returntomainbutton);
-        FileActions fa = new FileActions();
+        fa = new FileActions();
 
         q1= (Spinner) findViewById(R.id.q1list);
         q2= (Spinner) findViewById(R.id.q2list);
