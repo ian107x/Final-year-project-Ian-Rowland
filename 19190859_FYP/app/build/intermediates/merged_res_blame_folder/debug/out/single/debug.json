@@ -8,16 +8,16 @@
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/xml/backup_rules.xml"
     },
     {
-        "merged": "com.example.a19190859_fyp.app-merged_res-25:/layout_activity_main.xml.flat",
-        "source": "com.example.a19190859_fyp.app-main-27:/layout/activity_main.xml"
-    },
-    {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/layout_activity_game_rules.xml.flat",
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/layout/activity_game_rules.xml"
     },
     {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.example.a19190859_fyp.app-merged_res-25:/layout_activity_game_over.xml.flat",
+        "source": "com.example.a19190859_fyp.app-main-27:/layout/activity_game_over.xml"
     },
     {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/drawable_life_crystal_grayed.png.flat",
@@ -34,6 +34,10 @@
     {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/layout_activity_set_difficulty.xml.flat",
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/layout/activity_set_difficulty.xml"
+    },
+    {
+        "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/layout_activity_game_over.xml.flat",
+        "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/layout/activity_game_over.xml"
     },
     {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/layout_activity_game_over_portrait.xml.flat",

@@ -44,7 +44,7 @@ id scoreTitle
 id startgamebutton
 id startquestions
 id viewdatabutton
-layout activity_game_over_portrait
+layout activity_game_over
 layout activity_game_rules
 layout activity_main
 layout activity_questionnaire

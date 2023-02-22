@@ -62,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:text="start questionnaire"
+            android:text="@string/questionnaireButtonText"
             android:background="@drawable/buttonbg"
             android:layout_marginStart="-5dp"/>
         <TextView
