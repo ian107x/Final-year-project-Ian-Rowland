@@ -11,7 +11,11 @@ public class GreenEnemy extends Obstacle {
     @Override
     public void interact(PlayerSprite p)
     {
-        p.gainLife(1);
+        //recover life if life is not at the maximum value
+        if(p.getLife() < 10)
+        {
+            p.gainLife(1);
+        }
     }
 
 

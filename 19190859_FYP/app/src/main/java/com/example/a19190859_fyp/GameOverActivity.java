@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
-public class gameOverActivity extends Activity {
+public class GameOverActivity extends Activity {
     TextView gameOverText;
     TextView scoreText;
     TextView scoreTitle;

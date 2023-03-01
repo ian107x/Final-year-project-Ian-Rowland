@@ -61,7 +61,7 @@ public class SetDifficultyActivity extends AppCompatActivity {
         {
             x = "normal";
         }
-        Intent startGameIntent = new Intent(getBaseContext(), gamePlayActivity.class);
+        Intent startGameIntent = new Intent(getBaseContext(), GamePlayActivity.class);
         startGameIntent.putExtra("difficulty", x);
         startActivity(startGameIntent);
     }

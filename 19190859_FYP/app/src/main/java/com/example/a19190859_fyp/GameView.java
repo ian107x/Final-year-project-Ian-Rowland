@@ -169,7 +169,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
                     perceivedControlTest = false;
                 }
 
+            //get input pressure
             inputPressure = event.getPressure();
+
+            //get start time for input relative to game start time
             inputStart = (((int)System.currentTimeMillis())/1000.0) - startTime;
 
             //value for inputend at this point is the end time for the previous input
@@ -205,6 +208,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
             //create new file to write input data to
             File inputs = fa.createFile(fa.inputsFileName);
 
+            //check if there is contents in the file before writing to it.
+            //if there are contents, add those contents to data string first
             if(fa.checkForEmptyFile(inputs))
             {
                 fileData += "PCT" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " + " time since previous input" + ", " + "Accelerometer\n";
@@ -217,8 +222,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
             for(int i = 0; i < pctList.size(); i++)
             {
                 PerceivedControlInfo pctInstance = pctList.get(i);
-                fileData += pctInstance.tested + ", " + pctInstance.inputTime + ", " + pctInstance.inputDuration + ", " +
-                        pctInstance.inputPressure + ", " + pctInstance.timeBetweenInputs + ", "+ pctInstance.acceleration + "\n";
+                fileData += pctInstance.getTested() + ", " + pctInstance.getInputTime() + ", " + pctInstance.getInputDuration() + ", " +
+                        pctInstance.getInputPressure() + ", " + pctInstance.getTimeBetweenInputs() + ", "+ pctInstance.getAccel() + "\n";
             }
             fa.writeToFile(inputs, fileData);
         }
@@ -228,7 +233,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
             exception.printStackTrace();
         }
 
-        Intent gameOverIntent = new Intent(getContext(), gameOverActivity.class);
+        Intent gameOverIntent = new Intent(getContext(), GameOverActivity.class);
         gameOverIntent.putExtra("score", birdSprite.getScore()/*gameScore*/);
         ((Activity) getContext()).finish();
         getContext().startActivity(gameOverIntent);
@@ -269,13 +274,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
             if(impactObstacle(enemies.get(i)))
             {
                 enemies.get(i).interact(birdSprite);
-                //enemies.get(i).yAxis = -(enemies.get(i).image.getHeight());
                 enemies.get(i).setyAxis(-(enemies.get(i).getHeight()));
                 impacted = true;
 
             }
             //check if enemies have left the screen
-            if(enemies.get(i).getxAxis() < -(enemies.get(i).image.getWidth()))
+            if(enemies.get(i).getxAxis() < -(enemies.get(i).getWidth()))
             {
                 offScreened = true;
             }

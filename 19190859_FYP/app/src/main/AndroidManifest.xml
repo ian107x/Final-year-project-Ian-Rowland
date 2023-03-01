@@ -42,15 +42,15 @@
             android:label="Game Rules Activity"
             android:theme="@style/Theme.19190859_FYP.NoActionBar"/>
         <activity
-            android:name=".gamePlayActivity"
+            android:name=".GamePlayActivity"
             android:label="Gameplay activity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".viewDataActivity"
+            android:name=".ViewDataActivity"
             android:label="View Data"
             android:theme="@style/Theme.19190859_FYP.NoActionBar"/>
         <activity
-            android:name=".gameOverActivity"
+            android:name=".GameOverActivity"
             android:label="Game Over"
             android:theme="@style/Theme.19190859_FYP.NoActionBar"/>
         <activity

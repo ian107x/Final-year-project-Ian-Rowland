@@ -6,9 +6,9 @@ import android.graphics.Canvas;
 public abstract class Obstacle implements Sprite {
 
     public Bitmap image;
-    public int xAxis, yAxis;
+    private int xAxis, yAxis;
     public int objectVelocity;
-    public int maxVelocity;
+    private int maxVelocity;
     private int height;
     private int width;
 
@@ -34,6 +34,7 @@ public abstract class Obstacle implements Sprite {
         this.xAxis -= objectVelocity;
 
     }
+
     public void boostSpeed()
     {
         if(objectVelocity < maxVelocity)
@@ -50,10 +51,11 @@ public abstract class Obstacle implements Sprite {
     {
         //p.gameScore++;
         p.setScore(p.getScore() + 1);
-        /*if(p.getScore() == 20 || p.getScore() == 40)
+        //if(p.getScore() % 20 == 0 && p.getScore() <= 60){}
+        if(p.getScore() == 20 || p.getScore() == 40 || p.getScore() == 60)
         {
             boostSpeed();
-        }*/
+        }
     }
 
     public int getxAxis()

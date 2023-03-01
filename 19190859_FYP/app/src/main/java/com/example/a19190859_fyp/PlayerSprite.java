@@ -6,12 +6,12 @@ import android.graphics.Canvas;
 
 public class PlayerSprite implements Sprite {
 
-    public Bitmap image;
-    public int xAxis, yAxis;
+    private Bitmap image;
+    private int xAxis, yAxis;
     private final int birdVelocity = 10;
-    public int maxJumpHeight;
-    public volatile int life;
-    public volatile int gameScore;
+    private int maxJumpHeight;
+    private volatile int life;
+    private volatile int gameScore;
     private int height;
     private int width;
 

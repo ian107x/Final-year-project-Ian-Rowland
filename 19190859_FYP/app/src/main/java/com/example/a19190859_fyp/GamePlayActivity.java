@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class gamePlayActivity extends Activity {
+public class GamePlayActivity extends Activity {
     private GameView birdView;
     private String difficulty;
 

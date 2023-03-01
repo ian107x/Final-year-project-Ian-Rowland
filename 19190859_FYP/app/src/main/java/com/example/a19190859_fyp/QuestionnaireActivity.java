@@ -35,15 +35,18 @@ public class QuestionnaireActivity extends AppCompatActivity {
         q2= (Spinner) findViewById(R.id.q2list);
         q3= (Spinner) findViewById(R.id.q3list);
 
+
+        //submit answers to questionnaire, and return to main activity
         returnToMainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                //pull answers from drop down lists
                 String answer1 = q1.getSelectedItem().toString();
                 String answer2 = q2.getSelectedItem().toString();
                 String answer3 = q3.getSelectedItem().toString();
-                //exportAnswers(answer1, answer2, answer3);
 
+                //create file and write answers to it
                 File answersFile = fa.createFile(fa.answersFileName);
                 String answersData = compileAnswers(answer1, answer2, answer3);
                 fa.writeToFile(answersFile, answersData);
@@ -51,6 +54,7 @@ public class QuestionnaireActivity extends AppCompatActivity {
                 String message = "Answers submitted. Returning to main menu";
                 Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
 
+                //return to main menu when questionnaire is submitted
                 Intent returnToMainIntent = new Intent(getBaseContext(),MainActivity.class);
                 startActivity(returnToMainIntent);
             }

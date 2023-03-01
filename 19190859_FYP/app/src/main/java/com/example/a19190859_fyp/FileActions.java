@@ -16,13 +16,15 @@ public class FileActions {
         answersFileName = "answers.txt";
     }
 
+    //create file object
     public File createFile(String fileName)
     {
-        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
         File file = new File(dir, fileName);
         return file;
     }
 
+    //take existing data from a file, and compile it into a string so as to ensure file operations do not overwrite it
     public String compileFileIntoString(File file)
     {
         String data = "";
@@ -40,6 +42,7 @@ public class FileActions {
         return data;
     }
 
+    //set file contents to blank
     public void setBlankInputsFile(File file)
     {
         try {
@@ -54,6 +57,7 @@ public class FileActions {
         }
     }
 
+    //write to file as necessary
     public void writeToFile(File file, String s)
     {
         try
@@ -68,6 +72,7 @@ public class FileActions {
         }
     }
 
+    //check to see if a file is blank
     public boolean checkForEmptyFile(File file)
     {
         boolean emptyFile = false;

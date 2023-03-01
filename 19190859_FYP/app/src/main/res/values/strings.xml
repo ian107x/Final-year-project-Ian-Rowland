@@ -42,7 +42,7 @@
     <string name="premiseText">Fly the bird around the clouds to score points. You start with 10 life</string>
     <string name="redRule">Red enemies inflict two damage</string>
     <string name="blueRule">Blue enemies inflict 1 damage</string>
-    <string name="greenRule">Green enemies heal you by one point</string>
+    <string name="greenRule">Green enemies heal you by one point(maximum life is 10)</string>
     <string name="scoreRule">Avoiding clouds and allowing them to fly off screen earns one point per cloud</string>
     <string name="setDifficultyInstructions">Select the difficulty for your game</string>
     <string name="easy">easy</string>

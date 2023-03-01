@@ -24,5 +24,32 @@ public class PerceivedControlInfo {
         this.acceleration = accel;
     }
 
+    public boolean getTested()
+    {
+        return this.tested;
+    }
+
+    public double getInputTime()
+    {
+        return this.inputTime;
+
+    }
+    public double getInputDuration()
+    {
+        return this.inputDuration;
+    }
+    public double getInputPressure()
+    {
+        return this.inputPressure;
+    }
+    public double getTimeBetweenInputs()
+    {
+        return this.timeBetweenInputs;
+    }
+    public double getAccel()
+    {
+        return this.acceleration;
+    }
+
 
 }
