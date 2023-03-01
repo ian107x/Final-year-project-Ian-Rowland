@@ -19,6 +19,18 @@
         <item>No</item>
         <item>Not Sure</item>
     </string-array>
+    <string-array name="systemControl">
+        <item>None</item>
+        <item>Little</item>
+        <item>A normal amount</item>
+        <item>A lot</item>
+        <item>Not Sure</item>
+    </string-array>
+    <string-array name="gender">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
 
     <string name="app_name">19190859_FYP</string>
     <string name="start_game">Start Game</string>
@@ -26,8 +38,8 @@
     <string name="instruction_text_main"> Press the buttons for the appropriate actions</string>
     <string name="restart_game_text">Restart Game</string>
     <string name="return_to_main_text">Return to Main Menu</string>
-    <string name="display_data">Display data</string>
-    <string name="export_Data">Export data to file</string>
+    <string name="display_data">Display all users answers</string>
+    <string name="view_Data_by_id">View user answers by input id</string>
     <string name="display_text">Input data will be displayed here</string>
     <string name="gameOverText">Game Over</string>
     <string name="scoreDisplay">Score: </string>
@@ -38,6 +50,9 @@
     <string name="q1Text">Did you enjoy the game?</string>
     <string name="q2Text">How much control did you feels you had over the game?</string>
     <string name="q3Text">Did you feel like your control over the game increased or decreased over time?</string>
+    <string name="q4text">How much control did you feel that the system had over your actions</string>
+    <string name="q5text">What is your Gender?</string>
+    <string name="q6text">How old are you?</string>
     <string name="gameRulesButtonText">View the Game Rules</string>
     <string name="premiseText">Fly the bird around the clouds to score points. You start with 10 life</string>
     <string name="redRule">Red enemies inflict two damage</string>
@@ -48,6 +63,7 @@
     <string name="easy">easy</string>
     <string name="normal">normal</string>
     <string name="hard">hard</string>
+    <string name="edittextInstruction">Put in user id above to get relevant answers</string>
     <string name="title_activity_set_difficulty">SetDifficultyActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>

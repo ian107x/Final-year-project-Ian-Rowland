@@ -4,7 +4,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-public class PlayerSprite implements Sprite {
+public class PlayerSprite {
 
     private Bitmap image;
     private int xAxis, yAxis;
@@ -28,7 +28,6 @@ public class PlayerSprite implements Sprite {
 
 
     //draw the sprite PlayerSprite class to the canvas
-    @Override
     public void draw(Canvas canvas)
     {
         canvas.drawBitmap(image, xAxis, yAxis, null);
@@ -36,7 +35,6 @@ public class PlayerSprite implements Sprite {
     }
 
     //change the yAxis value of the bird
-    @Override
     public void moveSprite()
     {
         {

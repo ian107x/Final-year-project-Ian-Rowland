@@ -194,7 +194,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
             inputduration = (inputend - inputStart);
             boolean thisInputTested = nextInputTested;
 
-            PerceivedControlInfo pct = new PerceivedControlInfo(thisInputTested, inputPressure, inputduration, timeBetweenInputs, inputStart, inputAccel);
+            PerceivedControlInfo pct = new PerceivedControlInfo(thisInputTested, inputPressure, inputduration, timeBetweenInputs, inputStart, inputAccel, accel_x, accel_y, accel_z);
             pctList.add(pct);
             //prevInputTime = inputend;
             nextInputTested = perceivedControlTest;
@@ -214,7 +214,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
             //if there are contents, add those contents to data string first
             if(fa.checkForEmptyFile(inputs))
             {
-                fileData += "PCT" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " + " time since previous input" + ", " + "Accelerometer\n";
+                fileData += "PCT" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " +
+                        " time since previous input" + ", " + "Accelerometer" + "accel_x" + "accel_y" + "accel_z" + "\n";
             }
             else
             {
@@ -225,7 +226,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
             {
                 PerceivedControlInfo pctInstance = pctList.get(i);
                 fileData += pctInstance.getTested() + ", " + pctInstance.getInputTime() + ", " + pctInstance.getInputDuration() + ", " +
-                        pctInstance.getInputPressure() + ", " + pctInstance.getTimeBetweenInputs() + ", "+ pctInstance.getAccel() + "\n";
+                        pctInstance.getInputPressure() + ", " + pctInstance.getTimeBetweenInputs() + ", "+ pctInstance.getAccel() +
+                        pctInstance.getAccelX() + pctInstance.getAccelY() + pctInstance.getAccelZ() + "\n";
             }
             fa.writeToFile(inputs, fileData);
         }

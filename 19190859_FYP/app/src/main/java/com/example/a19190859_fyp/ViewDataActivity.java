@@ -14,7 +14,7 @@ public class ViewDataActivity extends Activity{
 
     TextView dataText;
     Button viewDataButton;
-    Button exportDataButton;
+    Button getIndividualDataButton;
     Button returnToMainButton;
     InfoDB db;
     EditText et;
@@ -27,7 +27,7 @@ public class ViewDataActivity extends Activity{
 
         dataText = (TextView) findViewById(R.id.datatext);
         viewDataButton = (Button) findViewById(R.id.viewdatabutton);
-        exportDataButton = (Button) findViewById(R.id.exportdatabutton);
+        getIndividualDataButton = (Button) findViewById(R.id.viewDataByIDbutton);
         returnToMainButton = (Button) findViewById(R.id.returntomain);
         et = (EditText) findViewById(R.id.edittext);
         db = new InfoDB(getApplicationContext());
@@ -43,7 +43,7 @@ public class ViewDataActivity extends Activity{
             }
         });
 
-        exportDataButton.setOnClickListener(new View.OnClickListener() {
+        getIndividualDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

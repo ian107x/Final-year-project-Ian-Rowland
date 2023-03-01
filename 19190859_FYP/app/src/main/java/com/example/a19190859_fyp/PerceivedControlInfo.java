@@ -18,7 +18,7 @@ public class PerceivedControlInfo {
     float accel_y;
     float accel_z;
 
-    public PerceivedControlInfo(boolean tested, double p, double d, double t, double i,double accel)
+    public PerceivedControlInfo(boolean tested, double p, double d, double t, double i, double accel, float accel_x, float accel_y, float accel_z)
     {
         this.tested = tested;
         this.inputPressure = p;

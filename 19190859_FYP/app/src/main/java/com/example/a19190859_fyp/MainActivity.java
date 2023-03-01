@@ -15,7 +15,6 @@ public class MainActivity extends AppCompatActivity {
 
     Button startGameButton;
     Button viewGameRulesButton;
-    Button questionnaireButton;
     Button viewDataButton;
     FileActions fa;
 
@@ -26,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
 
         startGameButton = (Button) findViewById(R.id.startgamebutton);
         viewGameRulesButton = (Button) findViewById(R.id.gameRulesButton);
-        questionnaireButton = (Button) findViewById(R.id.questionnaireButton);
         viewDataButton = (Button) findViewById(R.id.viewDataButton);
 
         fa = new FileActions();
@@ -45,14 +43,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v){
                 Intent gameRulesIntent = new Intent(getBaseContext(), GameRulesActivity.class);
                 startActivity(gameRulesIntent);
-            }
-        });
-
-        questionnaireButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent questionnaireIntent = new Intent(getBaseContext(),QuestionnaireActivity.class);
-                startActivity(questionnaireIntent);
             }
         });
 
