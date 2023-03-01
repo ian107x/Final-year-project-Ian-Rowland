@@ -35,7 +35,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
     private final int bottomOfScreen;
     private final int topOfScreen;
     private int maxEnemies;
-    //double prevInputTime = 0;
     private double inputStart;
     private double inputend;
     private double inputduration;
@@ -49,6 +48,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
     private FileActions fa;
     private SensorManager sensorManager;
     private Sensor accelerometer;
+    private float accel_x;
+    private float accel_y;
+    private float accel_z;
+
 
     public GameView(Context context, String difficulty)
     {
@@ -56,7 +59,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
         getHolder().addCallback(this);
         t = new GameThread(this, getHolder());
         setFocusable(true);
-        //bottomOfScreen = this.getHeight();
         bottomOfScreen = getScreenHeight();
         topOfScreen = 0;
         if(Objects.equals(difficulty, "easy"))
@@ -159,7 +161,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
 
             int PCTRNG = (int)Math.floor(Math.random() *(10 - 1 + 1) + 0);
 
-                if(PCTRNG <=2)
+                if(PCTRNG <=3)
                 {
                     perceivedControlTest = true;
 
@@ -206,7 +208,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
         try
         {
             //create new file to write input data to
-            File inputs = fa.createFile(fa.inputsFileName);
+            File inputs = fa.createFile(fa.inputsFileName + fa.fileExtension);
 
             //check if there is contents in the file before writing to it.
             //if there are contents, add those contents to data string first
@@ -234,7 +236,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
         }
 
         Intent gameOverIntent = new Intent(getContext(), GameOverActivity.class);
-        gameOverIntent.putExtra("score", birdSprite.getScore()/*gameScore*/);
+        gameOverIntent.putExtra("score", birdSprite.getScore());
+        gameOverIntent.putExtra("inputs", fileData);
         ((Activity) getContext()).finish();
         getContext().startActivity(gameOverIntent);
     }
@@ -302,11 +305,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
            birdSprite.setyAxis(bottomOfScreen/2);
            birdSprite.loseLife(1);
          }
-         //
-         /*if(birdSprite.yAxis <= birdSprite.maxJumpHeight)
-         {
-             birdSprite.maxJumpHeight = bottomOfScreen;
-         }*/
     }
 
     //start the game upon creation of the surfaceView
@@ -389,9 +387,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
     {
         float values[] = event.values;
 
-        float accel_x = values[0];
-        float accel_y = values[1];
-        float accel_z = values[2];
+        accel_x = values[0];
+        accel_y = values[1];
+        accel_z = values[2];
 
         double acceleration = Math.sqrt((accel_x * accel_x) + (accel_y * accel_y) + (accel_z * accel_z));
         accelDelta = acceleration - previousAccel;

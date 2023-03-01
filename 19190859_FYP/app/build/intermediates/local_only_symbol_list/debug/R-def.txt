@@ -22,6 +22,7 @@ drawable logov1
 drawable redcloud
 id datatext
 id easy
+id edittext
 id exportdatabutton
 id gameOver
 id gameRulesButton
@@ -43,6 +44,7 @@ id scoreNumber
 id scoreTitle
 id startgamebutton
 id startquestions
+id viewDataButton
 id viewdatabutton
 layout activity_game_over
 layout activity_game_rules

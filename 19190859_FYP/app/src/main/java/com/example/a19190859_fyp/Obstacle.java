@@ -37,22 +37,15 @@ public abstract class Obstacle implements Sprite {
 
     public void boostSpeed()
     {
-        if(objectVelocity < maxVelocity)
-        {
             objectVelocity++;
-        }
-        if (objectVelocity > maxVelocity)
-        {
-            objectVelocity = maxVelocity;
-        }
     }
 
     public void boostScore(PlayerSprite p)
     {
         //p.gameScore++;
         p.setScore(p.getScore() + 1);
-        //if(p.getScore() % 20 == 0 && p.getScore() <= 60){}
-        if(p.getScore() == 20 || p.getScore() == 40 || p.getScore() == 60)
+        if(p.getScore() % 20 == 0 && p.getScore() <= 80)
+        //if(p.getScore() == 20 || p.getScore() == 40 || p.getScore() == 60 || p.getScore() == 80)
         {
             boostSpeed();
         }

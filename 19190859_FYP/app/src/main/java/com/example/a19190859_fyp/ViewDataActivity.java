@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -15,7 +16,8 @@ public class ViewDataActivity extends Activity{
     Button viewDataButton;
     Button exportDataButton;
     Button returnToMainButton;
-
+    InfoDB db;
+    EditText et;
     ArrayList<String> databaseList;
 
     @Override
@@ -27,15 +29,17 @@ public class ViewDataActivity extends Activity{
         viewDataButton = (Button) findViewById(R.id.viewdatabutton);
         exportDataButton = (Button) findViewById(R.id.exportdatabutton);
         returnToMainButton = (Button) findViewById(R.id.returntomain);
-
-
+        et = (EditText) findViewById(R.id.edittext);
+        db = new InfoDB(getApplicationContext());
+        databaseList = db.getAll();
 
 
         viewDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //dataText.setText(String.valueOf(databaseList.length));
+                //dataText.setText(String.valueOf(compileDBFromList(databaseList)));
                 print(databaseList);
+                //dataText.setText(String.valueOf(compileDBFromList(db.getAnswersByID(Integer.parseInt(et.getText().toString())))));
             }
         });
 
@@ -43,7 +47,10 @@ public class ViewDataActivity extends Activity{
             @Override
             public void onClick(View v) {
 
-                exportDataButton.setText("dingdong");
+                if(!et.getText().toString().contentEquals(""))
+                {
+                    dataText.setText(String.valueOf(compileDBFromList(db.getAnswersByID(Integer.parseInt(et.getText().toString())))));
+                }
             }
         });
 

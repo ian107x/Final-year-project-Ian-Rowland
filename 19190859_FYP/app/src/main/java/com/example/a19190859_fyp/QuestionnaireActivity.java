@@ -22,6 +22,8 @@ public class QuestionnaireActivity extends AppCompatActivity {
     Spinner q2;
     Spinner q3;
     FileActions fa;
+    InfoDB db;
+    private String inputs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +32,13 @@ public class QuestionnaireActivity extends AppCompatActivity {
 
         returnToMainButton= (Button)findViewById(R.id.returntomainbutton);
         fa = new FileActions();
+        db = new InfoDB(getApplicationContext());
 
         q1= (Spinner) findViewById(R.id.q1list);
         q2= (Spinner) findViewById(R.id.q2list);
         q3= (Spinner) findViewById(R.id.q3list);
+
+        inputs = getIntent().getExtras().get("inputs").toString();
 
 
         //submit answers to questionnaire, and return to main activity
@@ -47,9 +52,14 @@ public class QuestionnaireActivity extends AppCompatActivity {
                 String answer3 = q3.getSelectedItem().toString();
 
                 //create file and write answers to it
-                File answersFile = fa.createFile(fa.answersFileName);
+                File answersFile = fa.createFile(fa.answersFileName + fa.fileExtension);
                 String answersData = compileAnswers(answer1, answer2, answer3);
                 fa.writeToFile(answersFile, answersData);
+
+                db.addAnswers(answer1, answer2, answer3);
+
+                File inputsFile = fa.createFile(fa.inputsFileName + (db.getAll().size() - 1) + fa.fileExtension);
+                fa.writeToFile(inputsFile, inputs);
 
                 String message = "Answers submitted. Returning to main menu";
                 Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();

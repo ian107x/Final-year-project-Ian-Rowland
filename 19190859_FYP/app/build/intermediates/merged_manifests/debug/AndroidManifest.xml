@@ -20,10 +20,8 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:testOnly="true"
         android:theme="@style/Theme.19190859_FYP" >
         <activity
             android:name="com.example.a19190859_fyp.SetDifficultyActivity"
@@ -53,15 +51,15 @@
             android:label="Game Rules Activity"
             android:theme="@style/Theme.19190859_FYP.NoActionBar" />
         <activity
-            android:name="com.example.a19190859_fyp.gamePlayActivity"
+            android:name="com.example.a19190859_fyp.GamePlayActivity"
             android:label="Gameplay activity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.example.a19190859_fyp.viewDataActivity"
+            android:name="com.example.a19190859_fyp.ViewDataActivity"
             android:label="View Data"
             android:theme="@style/Theme.19190859_FYP.NoActionBar" />
         <activity
-            android:name="com.example.a19190859_fyp.gameOverActivity"
+            android:name="com.example.a19190859_fyp.GameOverActivity"
             android:label="Game Over"
             android:theme="@style/Theme.19190859_FYP.NoActionBar" />
         <activity

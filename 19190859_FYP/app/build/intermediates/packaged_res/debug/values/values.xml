@@ -35,7 +35,7 @@
     <string name="first_fragment_label">First Fragment</string>
     <string name="gameOverText">Game Over</string>
     <string name="gameRulesButtonText">View the Game Rules</string>
-    <string name="greenRule">Green enemies heal you by one point</string>
+    <string name="greenRule">Green enemies heal you by one point(maximum life is 10)</string>
     <string name="hard">hard</string>
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>

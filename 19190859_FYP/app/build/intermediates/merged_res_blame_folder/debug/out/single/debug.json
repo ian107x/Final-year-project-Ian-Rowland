@@ -16,10 +16,6 @@
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
     {
-        "merged": "com.example.a19190859_fyp.app-merged_res-25:/layout_activity_game_over.xml.flat",
-        "source": "com.example.a19190859_fyp.app-main-27:/layout/activity_game_over.xml"
-    },
-    {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/drawable_life_crystal_grayed.png.flat",
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/drawable/life_crystal_grayed.png"
     },
@@ -150,5 +146,9 @@
     {
         "merged": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-merged_res-25:/drawable_redcloud.png.flat",
         "source": "/home/ian/.gradle/daemon/7.4/com.example.a19190859_fyp.app-main-27:/drawable/redcloud.png"
+    },
+    {
+        "merged": "com.example.a19190859_fyp.app-merged_res-25:/layout_activity_view_data.xml.flat",
+        "source": "com.example.a19190859_fyp.app-main-27:/layout/activity_view_data.xml"
     }
 ]

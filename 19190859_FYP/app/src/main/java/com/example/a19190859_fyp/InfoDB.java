@@ -29,7 +29,12 @@ public class InfoDB {
 
         if(getAll().size() == 0)
         {
-            addAnswers("", "", "");
+            addAnswers("1", "0", "0");
+            addAnswers("0", "1", "0");
+            addAnswers("0", "0", "1");
+            addAnswers("0", "1", "0");
+            addAnswers("1", "0", "0");
+            addAnswers("0", "1", "0");
         }
 
     }
@@ -57,9 +62,9 @@ public class InfoDB {
 
     public void addAnswers(String ans1, String ans2, String ans3)
     {
-        clearAnswers();
+        //clearAnswers();
         ContentValues newAnswers = new ContentValues();
-        newAnswers.put(KEY_ID, 1);
+        //newAnswers.put(KEY_ID, 1);
         newAnswers.put(KEY_GAME_ENJOYED, ans1);
         newAnswers.put(KEY_HOW_MUCH_CONTROL, ans2);
         newAnswers.put(KEY_GAINED_OR_LOST_CONTROL, ans3);
@@ -85,6 +90,39 @@ public class InfoDB {
         catch (Exception exception){
 
         }
+    }
+
+    public String[] getAnswersByID(Integer id)
+    {
+        ArrayList<String> outputArray = new ArrayList<String>();
+        String[] result_columns = new String[]{
+                KEY_GAME_ENJOYED, KEY_HOW_MUCH_CONTROL, KEY_GAINED_OR_LOST_CONTROL};
+
+        String gameEnjoyed;
+        String howmuchcontrol;
+        String gainedorlost;
+        String where = KEY_ID + "= ?";
+        String whereArgs[] = {id.toString()};
+        String groupBy = null;
+        String having = null;
+        String order = null;
+
+        SQLiteDatabase db = moduleDBOpenHelper.getWritableDatabase();
+        Cursor cursor = db.query(ModuleDBOpenHelper.DATABASE_TABLE,
+                result_columns, where,
+                whereArgs, groupBy, having, order);
+
+        boolean result = cursor.moveToFirst();
+        if(result) {
+            gameEnjoyed = cursor.getString(cursor.getColumnIndexOrThrow(KEY_GAME_ENJOYED));
+            howmuchcontrol = cursor.getString(cursor.getColumnIndexOrThrow(KEY_HOW_MUCH_CONTROL));
+            gainedorlost = cursor.getString(cursor.getColumnIndexOrThrow(KEY_GAINED_OR_LOST_CONTROL));
+
+            outputArray.add("Was Game enjoyed:" + " " + gameEnjoyed + "\n " + "How much control" +  " " + howmuchcontrol + "\n " +
+                    "Control gained or lost" + " " + gainedorlost);
+
+        }
+        return outputArray.toArray(new String[outputArray.size()]);
     }
 
     public ArrayList<String> getAll() {
@@ -113,13 +151,16 @@ public class InfoDB {
         //
 
         boolean result = cursor.moveToFirst();
+        outputArray.add("ID, " + " Game enjoyed, " + " How much control, " + " Gained or lost control " + "\n");
         while (result) {
 
+            id = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_ID));
             gameEnjoyed = cursor.getString(cursor.getColumnIndexOrThrow(KEY_GAME_ENJOYED));
             howMuchControl = cursor.getString(cursor.getColumnIndexOrThrow(KEY_HOW_MUCH_CONTROL));
             gainedOrLostControl = cursor.getString(cursor.getColumnIndexOrThrow(KEY_GAINED_OR_LOST_CONTROL));
 
-            outputArray.add("Game enjoyed: " + gameEnjoyed + ", " + "How much control: " + howMuchControl + ", " + "Gained or lost control: " + gainedOrLostControl);
+
+            outputArray.add(id + ", " + gameEnjoyed + ", " + howMuchControl + ", " + gainedOrLostControl + "\n");
             result = cursor.moveToNext();
 
         }
@@ -135,10 +176,10 @@ public class InfoDB {
         private static final int DATABASE_VERSION = 1;
         private static final String DATABASE_CREATE = "create table " +
                 DATABASE_TABLE + " (" + KEY_ID +
-                " int primary key, " +
-                KEY_GAME_ENJOYED + " string, " +
-                KEY_HOW_MUCH_CONTROL + " string, " +
-                KEY_GAINED_OR_LOST_CONTROL + " string) ";
+                " integer primary key autoincrement, " +
+                KEY_GAME_ENJOYED + " string not null, " +
+                KEY_HOW_MUCH_CONTROL + " string not null, " +
+                KEY_GAINED_OR_LOST_CONTROL + " string not null) ";
 
         public ModuleDBOpenHelper(Context context, String name,
                                   SQLiteDatabase.CursorFactory factory, int version) {

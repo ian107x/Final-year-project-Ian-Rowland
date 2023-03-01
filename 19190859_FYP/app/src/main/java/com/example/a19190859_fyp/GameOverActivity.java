@@ -16,6 +16,7 @@ public class GameOverActivity extends Activity {
     Button answerQuestionsButton;
 
     private String score;
+    private String inputs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +31,8 @@ public class GameOverActivity extends Activity {
         score = getIntent().getExtras().get("score").toString();
         scoreText.setText(score);
 
+        inputs = getIntent().getExtras().get("inputs").toString();
+
         restartGameButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -43,6 +46,7 @@ public class GameOverActivity extends Activity {
             @Override
             public void onClick(View v){
                 Intent questionnaireIntent = new Intent(getBaseContext(),QuestionnaireActivity.class);
+                questionnaireIntent.putExtra("inputs", inputs);
                 startActivity(questionnaireIntent);
 
             }

@@ -9,11 +9,13 @@ import java.util.Scanner;
 public class FileActions {
     String inputsFileName;
     String answersFileName;
+    String fileExtension;
 
     public FileActions()
     {
-        inputsFileName = "inputs.txt";
-        answersFileName = "answers.txt";
+        inputsFileName = "inputs";
+        answersFileName = "answers";
+        fileExtension = ".txt";
     }
 
     //create file object

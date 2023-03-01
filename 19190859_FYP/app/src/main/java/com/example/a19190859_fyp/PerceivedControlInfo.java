@@ -14,6 +14,10 @@ public class PerceivedControlInfo {
 
     double acceleration;
 
+    float accel_x;
+    float accel_y;
+    float accel_z;
+
     public PerceivedControlInfo(boolean tested, double p, double d, double t, double i,double accel)
     {
         this.tested = tested;
@@ -49,6 +53,18 @@ public class PerceivedControlInfo {
     public double getAccel()
     {
         return this.acceleration;
+    }
+
+    public double getAccelX(){
+        return this.accel_x;
+    }
+
+    public double getAccelY(){
+        return this.accel_y;
+    }
+
+    public double getAccelZ(){
+        return this.accel_z;
     }
 
 

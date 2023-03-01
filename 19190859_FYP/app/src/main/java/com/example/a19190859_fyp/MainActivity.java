@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     Button startGameButton;
     Button viewGameRulesButton;
     Button questionnaireButton;
+    Button viewDataButton;
     FileActions fa;
 
     @Override
@@ -26,13 +27,14 @@ public class MainActivity extends AppCompatActivity {
         startGameButton = (Button) findViewById(R.id.startgamebutton);
         viewGameRulesButton = (Button) findViewById(R.id.gameRulesButton);
         questionnaireButton = (Button) findViewById(R.id.questionnaireButton);
+        viewDataButton = (Button) findViewById(R.id.viewDataButton);
 
         fa = new FileActions();
 
         startGameButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                fa.setBlankInputsFile(fa.createFile(fa.inputsFileName));
+                fa.setBlankInputsFile(fa.createFile(fa.inputsFileName + fa.fileExtension));
                 Intent startGameIntent = new Intent(getBaseContext(), SetDifficultyActivity.class);
                 startActivity(startGameIntent);
             }
@@ -51,6 +53,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent questionnaireIntent = new Intent(getBaseContext(),QuestionnaireActivity.class);
                 startActivity(questionnaireIntent);
+            }
+        });
+
+        viewDataButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent viewDataIntent = new Intent(getBaseContext(),ViewDataActivity.class);
+                startActivity(viewDataIntent);
             }
         });
     }
