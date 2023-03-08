@@ -55,15 +55,15 @@ public class PerceivedControlInfo {
         return this.acceleration;
     }
 
-    public double getAccelX(){
+    public float getAccelX(){
         return this.accel_x;
     }
 
-    public double getAccelY(){
+    public float getAccelY(){
         return this.accel_y;
     }
 
-    public double getAccelZ(){
+    public float getAccelZ(){
         return this.accel_z;
     }
 

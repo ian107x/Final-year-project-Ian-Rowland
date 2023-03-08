@@ -11,7 +11,6 @@ public class EnemyFactory
     {
         if(enemyType.equalsIgnoreCase("REDENEMY"))
         {
-            //return new redEnemy(Bitmap.createBitmap(R.drawable.enemy), x, y);
             Bitmap bmp = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(v.getResources(), R.drawable.redcloud), v.getWidth()/5, v.getHeight()/10, false);
             return new RedEnemy(bmp, x, y);
         }

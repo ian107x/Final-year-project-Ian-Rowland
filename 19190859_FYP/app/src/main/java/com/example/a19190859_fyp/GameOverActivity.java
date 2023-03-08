@@ -12,18 +12,16 @@ public class GameOverActivity extends Activity {
     TextView gameOverText;
     TextView scoreText;
     TextView scoreTitle;
-    Button restartGameButton;
     Button answerQuestionsButton;
-
     private String score;
     private String inputs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_over);
 
         gameOverText = (TextView) findViewById(R.id.gameOver);
-        restartGameButton = (Button) findViewById(R.id.restartgame);
         answerQuestionsButton = (Button) findViewById(R.id.startquestions);
 
         scoreTitle = (TextView) findViewById(R.id.scoreTitle);
@@ -33,14 +31,6 @@ public class GameOverActivity extends Activity {
 
         inputs = getIntent().getExtras().get("inputs").toString();
 
-        restartGameButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Intent restartGameIntent = new Intent(getBaseContext(),SetDifficultyActivity.class);
-                startActivity(restartGameIntent);
-
-            }
-        });
 
         answerQuestionsButton.setOnClickListener(new View.OnClickListener(){
             @Override

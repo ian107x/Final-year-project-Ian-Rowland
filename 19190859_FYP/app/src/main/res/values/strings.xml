@@ -7,6 +7,11 @@
         <item>Not Sure</item>
     </string-array>
 
+    <string-array name="ableToRegainControl">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
     <string-array name = "controlOverTime">
         <item>Increased</item>
         <item>Decreased</item>
@@ -40,7 +45,7 @@
     <string name="return_to_main_text">Return to Main Menu</string>
     <string name="display_data">Display all users answers</string>
     <string name="view_Data_by_id">View user answers by input id</string>
-    <string name="display_text">Input data will be displayed here</string>
+    <string name="display_text">Recorded answers will be displayed here</string>
     <string name="gameOverText">Game Over</string>
     <string name="scoreDisplay">Score: </string>
     <string name="zeroText">0</string>
@@ -53,6 +58,7 @@
     <string name="q4text">How much control did you feel that the system had over your actions</string>
     <string name="q5text">What is your Gender?</string>
     <string name="q6text">How old are you?</string>
+    <string name="q7text">In situations where you lost control, did you feel you were able to regain control?</string>
     <string name="gameRulesButtonText">View the Game Rules</string>
     <string name="premiseText">Fly the bird around the clouds to score points. You start with 10 life</string>
     <string name="redRule">Red enemies inflict two damage</string>

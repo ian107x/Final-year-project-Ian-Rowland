@@ -1,7 +1,10 @@
 R_DEF: Internal format may change without notice
 local
+array ableToRegainControl
 array amountOfControl
 array controlOverTime
+array gender
+array systemControl
 array wasGameEnjoyed
 color black
 color purple_200
@@ -23,7 +26,6 @@ drawable redcloud
 id datatext
 id easy
 id edittext
-id exportdatabutton
 id gameOver
 id gameRulesButton
 id hard
@@ -35,8 +37,10 @@ id normal
 id q1list
 id q2list
 id q3list
-id questionnaireButton
-id restartgame
+id q4list
+id q5list
+id q6text
+id q7list
 id returntomain
 id returntomainButton
 id returntomainbutton
@@ -45,6 +49,7 @@ id scoreTitle
 id startgamebutton
 id startquestions
 id viewDataButton
+id viewDataByIDbutton
 id viewdatabutton
 layout activity_game_over
 layout activity_game_rules
@@ -59,7 +64,7 @@ string blueRule
 string display_data
 string display_text
 string easy
-string export_Data
+string edittextInstruction
 string first_fragment_label
 string gameOverText
 string gameRulesButtonText
@@ -75,6 +80,10 @@ string previous
 string q1Text
 string q2Text
 string q3Text
+string q4text
+string q5text
+string q6text
+string q7text
 string questionnaireButtonText
 string questionnaireInstructionText
 string redRule
@@ -87,6 +96,7 @@ string setDifficultyInstructions
 string start_game
 string submitAnswersText
 string title_activity_set_difficulty
+string view_Data_by_id
 string view_data
 string zeroText
 style Theme.19190859_FYP

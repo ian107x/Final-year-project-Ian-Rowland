@@ -5,18 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     Button startGameButton;
     Button viewGameRulesButton;
     Button viewDataButton;
-    FileActions fa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +22,9 @@ public class MainActivity extends AppCompatActivity {
         viewGameRulesButton = (Button) findViewById(R.id.gameRulesButton);
         viewDataButton = (Button) findViewById(R.id.viewDataButton);
 
-        fa = new FileActions();
-
         startGameButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                fa.setBlankInputsFile(fa.createFile(fa.inputsFileName + fa.fileExtension));
                 Intent startGameIntent = new Intent(getBaseContext(), SetDifficultyActivity.class);
                 startActivity(startGameIntent);
             }

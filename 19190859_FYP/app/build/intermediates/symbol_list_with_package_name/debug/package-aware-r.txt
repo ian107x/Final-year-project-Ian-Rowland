@@ -63,8 +63,11 @@ animator mtrl_fab_hide_motion_spec
 animator mtrl_fab_show_motion_spec
 animator mtrl_fab_transformation_sheet_collapse_spec
 animator mtrl_fab_transformation_sheet_expand_spec
+array ableToRegainControl
 array amountOfControl
 array controlOverTime
+array gender
+array systemControl
 array wasGameEnjoyed
 attr SharedValue
 attr SharedValueId
@@ -2701,7 +2704,6 @@ id enterAlwaysCollapsed
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
-id exportdatabutton
 id fade
 id fill
 id fill_horizontal
@@ -2864,11 +2866,13 @@ id progress_horizontal
 id q1list
 id q2list
 id q3list
-id questionnaireButton
+id q4list
+id q5list
+id q6text
+id q7list
 id radio
 id ratio
 id rectangles
-id restartgame
 id returntomain
 id returntomainButton
 id returntomainbutton
@@ -3001,6 +3005,7 @@ id up
 id useLogo
 id vertical_only
 id viewDataButton
+id viewDataByIDbutton
 id view_offset_helper
 id view_transition
 id view_tree_lifecycle_owner
@@ -3242,8 +3247,8 @@ string clear_text_end_icon_content_description
 string display_data
 string display_text
 string easy
+string edittextInstruction
 string error_icon_content_description
-string export_Data
 string exposed_dropdown_menu_content_description
 string fab_transformation_scrim_behavior
 string fab_transformation_sheet_behavior
@@ -3351,6 +3356,10 @@ string previous
 string q1Text
 string q2Text
 string q3Text
+string q4text
+string q5text
+string q6text
+string q7text
 string questionnaireButtonText
 string questionnaireInstructionText
 string redRule
@@ -3365,6 +3374,7 @@ string start_game
 string status_bar_notification_info_overflow
 string submitAnswersText
 string title_activity_set_difficulty
+string view_Data_by_id
 string view_data
 string zeroText
 style AlertDialog_AppCompat

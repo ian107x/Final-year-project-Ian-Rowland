@@ -25,6 +25,7 @@ public class QuestionnaireActivity extends AppCompatActivity {
     Spinner q4;
     Spinner q5;
     EditText q6;
+    Spinner q7;
     FileActions fa;
     InfoDB db;
     private String inputs;
@@ -44,6 +45,7 @@ public class QuestionnaireActivity extends AppCompatActivity {
         q4 = (Spinner) findViewById(R.id.q4list);
         q5 = (Spinner) findViewById(R.id.q5list);
         q6 = (EditText) findViewById(R.id.q6text);
+        q7 = (Spinner) findViewById(R.id.q7list);
 
         inputs = getIntent().getExtras().get("inputs").toString();
 
@@ -60,17 +62,12 @@ public class QuestionnaireActivity extends AppCompatActivity {
                     String answer4 = q4.getSelectedItem().toString();
                     String answer5 = q5.getSelectedItem().toString();
                     String answer6 = q6.getText().toString();
+                    String answer7 = q7.getSelectedItem().toString();
 
+                    db.addAnswers(answer1, answer2, answer3, answer4, answer5, answer6, answer7);
 
-                    //create file and write answers to it
-                    File answersFile = fa.createFile(fa.answersFileName + fa.fileExtension);
-                    String answersData = compileAnswers(answer1, answer2, answer3);
-                    fa.writeToFile(answersFile, answersData);
-
-                    db.addAnswers(answer1, answer2, answer3, answer4, answer5, answer6);
-
-                    //File inputsFile = fa.createFile(fa.inputsFileName + (db.getAll().size() - 1) + fa.fileExtension);
-                    //fa.writeToFile(inputsFile, inputs);
+                    File inputsFile = fa.createFile(fa.inputsFileName + (db.getAll().size() - 1) + fa.fileExtension);
+                    fa.writeToFile(inputsFile, inputs);
 
                     String message = "Answers submitted. Returning to main menu";
                     Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();

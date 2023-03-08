@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
 public class ViewDataActivity extends Activity{
@@ -18,7 +17,6 @@ public class ViewDataActivity extends Activity{
     Button returnToMainButton;
     InfoDB db;
     EditText et;
-    ArrayList<String> databaseList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,15 +29,11 @@ public class ViewDataActivity extends Activity{
         returnToMainButton = (Button) findViewById(R.id.returntomain);
         et = (EditText) findViewById(R.id.edittext);
         db = new InfoDB(getApplicationContext());
-        databaseList = db.getAll();
-
 
         viewDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //dataText.setText(String.valueOf(compileDBFromList(databaseList)));
-                print(databaseList);
-                //dataText.setText(String.valueOf(compileDBFromList(db.getAnswersByID(Integer.parseInt(et.getText().toString())))));
+                print(db.getAll());
             }
         });
 
@@ -49,7 +43,7 @@ public class ViewDataActivity extends Activity{
 
                 if(!et.getText().toString().contentEquals(""))
                 {
-                    dataText.setText(String.valueOf(compileDBFromList(db.getAnswersByID(Integer.parseInt(et.getText().toString())))));
+                    dataText.setText(String.valueOf(compileListToString(db.getAnswersByID(Integer.parseInt(et.getText().toString())))));
                 }
             }
         });
@@ -65,7 +59,7 @@ public class ViewDataActivity extends Activity{
 
 
     }
-    public String compileDBFromList(String[] dbList)
+    public String compileListToString(String[] dbList)
     {
         String returnDB = "";
         for(int i = 0; i < dbList.length; i++)

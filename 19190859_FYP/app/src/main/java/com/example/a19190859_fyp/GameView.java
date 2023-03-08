@@ -42,10 +42,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
     private double inputPressure;
     private boolean nextInputTested;
     private int startTime;
-    private double previousAccel;
-    private double accelDelta;
+    //private double previousAccel;
+    //private double accelDelta;
     private double inputAccel;
-    private FileActions fa;
+    private double acceleration;
     private SensorManager sensorManager;
     private Sensor accelerometer;
     private float accel_x;
@@ -73,7 +73,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
         {
             maxEnemies = 5;
         }
-        fa = new FileActions();
 
 
         startTime = (int) System.currentTimeMillis()/1000;
@@ -157,7 +156,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
 
         if(event.getAction() == MotionEvent.ACTION_DOWN)
         {
-            inputAccel = accelDelta;
+            inputAccel = acceleration;
 
             int PCTRNG = (int)Math.floor(Math.random() *(10 - 1 + 1) + 0);
 
@@ -207,29 +206,15 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
         String fileData = "";
         try
         {
-            //create new file to write input data to
-            File inputs = fa.createFile(fa.inputsFileName + fa.fileExtension);
-
-            //check if there is contents in the file before writing to it.
-            //if there are contents, add those contents to data string first
-            if(fa.checkForEmptyFile(inputs))
-            {
                 fileData += "PCT" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " +
-                        " time since previous input" + ", " + "Accelerometer" + "accel_x" + "accel_y" + "accel_z" + "\n";
-            }
-            else
-            {
-                fileData += fa.compileFileIntoString(inputs);
-
-            }
+                        " time since previous input" + ", " + "Accelerometer, " + "accel_x, " + "accel_y, " + "accel_z" + "\n";
             for(int i = 0; i < pctList.size(); i++)
             {
                 PerceivedControlInfo pctInstance = pctList.get(i);
                 fileData += pctInstance.getTested() + ", " + pctInstance.getInputTime() + ", " + pctInstance.getInputDuration() + ", " +
-                        pctInstance.getInputPressure() + ", " + pctInstance.getTimeBetweenInputs() + ", "+ pctInstance.getAccel() +
-                        pctInstance.getAccelX() + pctInstance.getAccelY() + pctInstance.getAccelZ() + "\n";
+                        pctInstance.getInputPressure() + ", " + pctInstance.getTimeBetweenInputs() + ", "+ pctInstance.getAccel() + ", " +
+                        pctInstance.getAccelX() + ", " + pctInstance.getAccelY() + ", " + pctInstance.getAccelZ() + "\n";
             }
-            fa.writeToFile(inputs, fileData);
         }
 
         catch (Exception exception)
@@ -393,9 +378,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
         accel_y = values[1];
         accel_z = values[2];
 
-        double acceleration = Math.sqrt((accel_x * accel_x) + (accel_y * accel_y) + (accel_z * accel_z));
-        accelDelta = acceleration - previousAccel;
-        previousAccel = acceleration;
+        acceleration = Math.sqrt((accel_x * accel_x) + (accel_y * accel_y) + (accel_z * accel_z));
+        //accelDelta = acceleration - previousAccel;
+        //previousAccel = acceleration;
     }
 
     @Override

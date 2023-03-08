@@ -22,6 +22,7 @@ public class GameThread extends Thread{
     public void run() {
 
         while (threadRunning) {
+            //check if surfaceHolder is valid before doing any operations
             if(sHolder.getSurface().isValid())
             {
                 gameCanvas = sHolder.lockCanvas();
@@ -33,6 +34,7 @@ public class GameThread extends Thread{
         }
     }
 
+    //set running status of thread in order to start or stop it
         public void setRunning (boolean running)
         {
             this.threadRunning = running;
