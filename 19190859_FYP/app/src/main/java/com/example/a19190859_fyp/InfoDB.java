@@ -17,6 +17,7 @@ public class InfoDB {
     public static final String KEY_GENDER = "gender";
     public static final String KEY_AGE = "age";
     public static final String KEY_ABLE_TO_REGAIN_CONTROL = "able_to_regain_control";
+    public static final String KEY_SCORE = "score";
 
     private Context context;
     private ModuleDBOpenHelper moduleDBOpenHelper;
@@ -26,7 +27,7 @@ public class InfoDB {
         moduleDBOpenHelper = new ModuleDBOpenHelper(context, ModuleDBOpenHelper.DATABASE_NAME, null, ModuleDBOpenHelper.DATABASE_VERSION);
     }
 
-    public void addAnswers(String ans1, String ans2, String ans3, String ans4, String ans5, String ans6, String ans7)
+    public void addAnswers(String ans1, String ans2, String ans3, String ans4, String ans5, String ans6, String ans7, String score)
     {
         ContentValues newAnswers = new ContentValues();
         newAnswers.put(KEY_GAME_ENJOYED, ans1);
@@ -36,6 +37,7 @@ public class InfoDB {
         newAnswers.put(KEY_GENDER, ans5);
         newAnswers.put(KEY_AGE, ans6);
         newAnswers.put(KEY_ABLE_TO_REGAIN_CONTROL, ans7);
+        newAnswers.put(KEY_SCORE, score);
 
         SQLiteDatabase db = moduleDBOpenHelper.getWritableDatabase();
         db.insert(ModuleDBOpenHelper.DATABASE_TABLE, null, newAnswers);
@@ -46,7 +48,7 @@ public class InfoDB {
         ArrayList<String> outputArray = new ArrayList<String>();
         String[] result_columns = new String[]{
                 KEY_GAME_ENJOYED, KEY_HOW_MUCH_CONTROL, KEY_GAINED_OR_LOST_CONTROL, KEY_HOW_MUCH_SYSTEM_CONTROL,
-                KEY_GENDER, KEY_AGE, KEY_ABLE_TO_REGAIN_CONTROL};
+                KEY_GENDER, KEY_AGE, KEY_ABLE_TO_REGAIN_CONTROL, KEY_SCORE};
 
         String gameEnjoyed;
         String howmuchcontrol;
@@ -55,6 +57,7 @@ public class InfoDB {
         String gender;
         String age;
         String ableToRegainControl;
+        String score;
 
         String where = KEY_ID + "= ?";
         String whereArgs[] = {id.toString()};
@@ -76,6 +79,7 @@ public class InfoDB {
             gender = cursor.getString(cursor.getColumnIndexOrThrow(KEY_GENDER));
             age = cursor.getString(cursor.getColumnIndexOrThrow(KEY_AGE));
             ableToRegainControl = cursor.getString(cursor.getColumnIndexOrThrow(KEY_ABLE_TO_REGAIN_CONTROL));
+            score = cursor.getString(cursor.getColumnIndexOrThrow(KEY_SCORE));
 
             outputArray.add("Was Game enjoyed: "  + gameEnjoyed + "\n " +
                             "How much control: "  + howmuchcontrol + "\n " +
@@ -83,7 +87,8 @@ public class InfoDB {
                             "Age: " + age + "\n" +
                             "Gender: " + gender + "\n" +
                             "Control gained or lost: " + gainedorlost + "\n" +
-                            "Able to regain lost Control: " + ableToRegainControl + "\n");
+                            "Able to regain lost Control: " + ableToRegainControl + "\n" +
+                            "Score: " + score + "\n");
 
         }
         return outputArray.toArray(new String[outputArray.size()]);
@@ -91,11 +96,10 @@ public class InfoDB {
 
     public ArrayList<String> getAll() {
 
-        //ArrayList<ArrayList> outputArray = new ArrayList<ArrayList>();
         ArrayList<String> outputArray = new ArrayList<String>();
         String[] result_columns = new String[]{
                 KEY_ID, KEY_GAME_ENJOYED, KEY_HOW_MUCH_CONTROL, KEY_GAINED_OR_LOST_CONTROL, KEY_HOW_MUCH_SYSTEM_CONTROL,
-                KEY_GENDER, KEY_AGE, KEY_ABLE_TO_REGAIN_CONTROL};
+                KEY_GENDER, KEY_AGE, KEY_ABLE_TO_REGAIN_CONTROL, KEY_SCORE};
 
         int id;
         String gameEnjoyed;
@@ -105,6 +109,7 @@ public class InfoDB {
         String gender;
         String age;
         String ableToRegainControl;
+        String score;
 
         String where = null;
         String whereArgs[] = null;
@@ -120,7 +125,8 @@ public class InfoDB {
         //
 
         boolean result = cursor.moveToFirst();
-        outputArray.add("ID, " + " Game enjoyed, " + " How much control, " + " Gained or lost control, " + "How much system control, " + "Gender, " + "Age, " + "Able to regain lost control" + "\n");
+        outputArray.add("ID, " + " Game enjoyed, " + " How much control, " + " Gained or lost control, " +
+                "How much system control, " + "Gender, " + "Age, " + "Able to regain lost control, " + "Score" + "\n");
         while (result) {
 
             id = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_ID));
@@ -131,10 +137,11 @@ public class InfoDB {
             gender = cursor.getString(cursor.getColumnIndexOrThrow(KEY_GENDER));
             age = cursor.getString(cursor.getColumnIndexOrThrow(KEY_AGE));
             ableToRegainControl = cursor.getString(cursor.getColumnIndexOrThrow(KEY_ABLE_TO_REGAIN_CONTROL));
+            score = cursor.getString(cursor.getColumnIndexOrThrow(KEY_SCORE));
 
 
             outputArray.add(id + ", " + gameEnjoyed + ", " + howMuchControl + ", " + gainedOrLostControl + ", " +
-                    howmuchSystemControl + ", " + gender + ", " + age + ", " + ableToRegainControl + "\n");
+                    howmuchSystemControl + ", " + gender + ", " + age + ", " + ableToRegainControl + ", " + score +"\n");
             result = cursor.moveToNext();
 
         }
@@ -157,6 +164,7 @@ public class InfoDB {
                 KEY_HOW_MUCH_SYSTEM_CONTROL + " string not null, " +
                 KEY_GENDER + " string not null, " +
                 KEY_ABLE_TO_REGAIN_CONTROL + " string not null, " +
+                KEY_SCORE + " string not null, " +
                 KEY_GAINED_OR_LOST_CONTROL + " string not null) ";
 
         public ModuleDBOpenHelper(Context context, String name,

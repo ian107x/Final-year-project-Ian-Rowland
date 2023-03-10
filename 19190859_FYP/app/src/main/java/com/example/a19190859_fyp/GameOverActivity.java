@@ -37,6 +37,7 @@ public class GameOverActivity extends Activity {
             public void onClick(View v){
                 Intent questionnaireIntent = new Intent(getBaseContext(),QuestionnaireActivity.class);
                 questionnaireIntent.putExtra("inputs", inputs);
+                questionnaireIntent.putExtra("score", score);
                 startActivity(questionnaireIntent);
 
             }

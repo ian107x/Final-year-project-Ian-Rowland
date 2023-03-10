@@ -8,7 +8,6 @@ public abstract class Obstacle{
     public Bitmap image;
     private int xAxis, yAxis;
     public int objectVelocity;
-    //private int maxVelocity;
     private int height;
     private int width;
 
@@ -17,7 +16,6 @@ public abstract class Obstacle{
         image = bitmap;
         xAxis = x;
         yAxis = y;
-        //maxVelocity = 2 * objectVelocity;
         height = this.image.getHeight();
         width = this.image.getWidth();
     }
@@ -54,11 +52,6 @@ public abstract class Obstacle{
         return this.xAxis;
     }
 
-    /*public void setxAxis(int x)
-    {
-        this.xAxis = x;
-    }*/
-
     public int getyAxis()
     {
         return this.yAxis;
@@ -73,6 +66,7 @@ public abstract class Obstacle{
     {
         return this.width;
     }
+
     public int getHeight()
     {
         return this.height;

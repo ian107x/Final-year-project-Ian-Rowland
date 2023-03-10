@@ -1,9 +1,7 @@
 package com.example.a19190859_fyp;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,8 +11,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.util.ArrayList;
 
 public class QuestionnaireActivity extends AppCompatActivity {
 
@@ -29,6 +25,7 @@ public class QuestionnaireActivity extends AppCompatActivity {
     FileActions fa;
     InfoDB db;
     private String inputs;
+    private String score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +45,7 @@ public class QuestionnaireActivity extends AppCompatActivity {
         q7 = (Spinner) findViewById(R.id.q7list);
 
         inputs = getIntent().getExtras().get("inputs").toString();
+        score = getIntent().getExtras().get("score").toString();
 
 
         //submit answers to questionnaire, and return to main activity
@@ -64,12 +62,12 @@ public class QuestionnaireActivity extends AppCompatActivity {
                     String answer6 = q6.getText().toString();
                     String answer7 = q7.getSelectedItem().toString();
 
-                    db.addAnswers(answer1, answer2, answer3, answer4, answer5, answer6, answer7);
+                    db.addAnswers(answer1, answer2, answer3, answer4, answer5, answer6, answer7, score);
 
                     File inputsFile = fa.createFile(fa.inputsFileName + (db.getAll().size() - 1) + fa.fileExtension);
                     fa.writeToFile(inputsFile, inputs);
 
-                    String message = "Answers submitted. Returning to main menu";
+                    String message = "Answers submitted. Returning to main menu. You're user id is: " +  (db.getAll().size() - 1);
                     Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
 
                     //return to main menu when questionnaire is submitted
@@ -84,14 +82,4 @@ public class QuestionnaireActivity extends AppCompatActivity {
         });
 
     }
-    public String compileAnswers(String ans1, String ans2, String ans3)
-    {
-        String data = "";
-        String title = "Was game enjoyed, How Much Control, Control gained or lost over time\n";
-        data += title;
-        String compiledAnswers = ans1 + ", " + ans2 + ", " + ans3;
-        data += compiledAnswers;
-        return data;
-    }
-
 }

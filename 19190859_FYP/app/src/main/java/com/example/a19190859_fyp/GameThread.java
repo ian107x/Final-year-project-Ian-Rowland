@@ -18,6 +18,7 @@ public class GameThread extends Thread{
     }
 
 
+    //method to start execution of thread operations
     @Override
     public void run() {
 

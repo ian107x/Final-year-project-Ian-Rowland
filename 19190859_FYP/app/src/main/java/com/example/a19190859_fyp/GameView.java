@@ -18,7 +18,6 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import androidx.annotation.NonNull;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -42,16 +41,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
     private double inputPressure;
     private boolean nextInputTested;
     private int startTime;
-    //private double previousAccel;
-    //private double accelDelta;
     private double inputAccel;
     private double acceleration;
     private SensorManager sensorManager;
     private Sensor accelerometer;
-    private float accel_x;
-    private float accel_y;
-    private float accel_z;
-
 
     public GameView(Context context, String difficulty)
     {
@@ -110,6 +103,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
         }
     }
 
+    //check the birds life in onDraw to call endGame when needed
     @Override
     public void onDraw(Canvas canvas)
     {
@@ -121,6 +115,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
         }
     }
 
+    //return true if birdsprite has collided with an obstacle
     public boolean impactObstacle(Obstacle e)
     {
         int left1 = birdSprite.getxAxis();
@@ -193,9 +188,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
             inputduration = (inputend - inputStart);
             boolean thisInputTested = nextInputTested;
 
-            PerceivedControlInfo pct = new PerceivedControlInfo(thisInputTested, inputPressure, inputduration, timeBetweenInputs, inputStart, inputAccel, accel_x, accel_y, accel_z);
+            PerceivedControlInfo pct = new PerceivedControlInfo(thisInputTested, inputPressure, inputduration, timeBetweenInputs, inputStart, inputAccel);
             pctList.add(pct);
-            //prevInputTime = inputend;
             nextInputTested = perceivedControlTest;
         }
         return true;
@@ -206,14 +200,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
         String fileData = "";
         try
         {
-                fileData += "PCT" + ", " + "input time" + ", " + "input duration" + ", " + "input pressure" + ", " +
-                        " time since previous input" + ", " + "Accelerometer, " + "accel_x, " + "accel_y, " + "accel_z" + "\n";
+                fileData += "PCT" + ", " + "Input Time" + ", " + "Input Duration" + ", " + "Input Pressure" + ", " +
+                        "Time Since Previous Input" + ", " + "Acceleration" + "\n";
             for(int i = 0; i < pctList.size(); i++)
             {
                 PerceivedControlInfo pctInstance = pctList.get(i);
                 fileData += pctInstance.getTested() + ", " + pctInstance.getInputTime() + ", " + pctInstance.getInputDuration() + ", " +
-                        pctInstance.getInputPressure() + ", " + pctInstance.getTimeBetweenInputs() + ", "+ pctInstance.getAccel() + ", " +
-                        pctInstance.getAccelX() + ", " + pctInstance.getAccelY() + ", " + pctInstance.getAccelZ() + "\n";
+                        pctInstance.getInputPressure() + ", " + pctInstance.getTimeBetweenInputs() + ", "+ pctInstance.getAccel() + "\n";
             }
         }
 
@@ -237,7 +230,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
         int birdHeight = getScreenHeight()/15;
 
         birdSprite = new PlayerSprite(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.birdimage), birdWidth, birdHeight, false), birdWidth, 25);
-        //birdSprite.maxJumpHeight = getScreenHeight();
         birdSprite.startFalling();
 
         for(int i = 0; i < maxEnemies; i++)
@@ -247,7 +239,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
 
     }
 
-    //alternative implementation for game logic - prototyping and experimentation phase
+    //implementation of main game logic, calls interact, boostScore, loseLife and terminate methods
     public void gameLogic()
     {
         if(enemies.size() < maxEnemies)
@@ -374,13 +366,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
     {
         float values[] = event.values;
 
-        accel_x = values[0];
-        accel_y = values[1];
-        accel_z = values[2];
+        float accel_x = values[0];
+        float accel_y = values[1];
+        float accel_z = values[2];
 
         acceleration = Math.sqrt((accel_x * accel_x) + (accel_y * accel_y) + (accel_z * accel_z));
-        //accelDelta = acceleration - previousAccel;
-        //previousAccel = acceleration;
     }
 
     @Override
